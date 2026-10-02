@@ -17,18 +17,21 @@ const ActionSection = () => {
           icon={Search}
           title="Find a Ride"
           description="Search available shared rides."
+          onClick={() => navigate("/find-ride")}
         />
 
         <ActionCard
           icon={CarFront}
           title="Offer a Ride"
           description="Share empty seats in your car."
+          onClick={() => navigate("/offer-ride")}
         />
 
         <ActionCard
           icon={UsersRound}
           title="Make a Group"
           description="Find people travelling to the same destination."
+          onClick={() => navigate("/groups")}
         />
       </div>
 
