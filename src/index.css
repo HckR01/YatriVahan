@@ -5,6 +5,10 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .font-serif {
   font-family: "Fraunces", serif;
 }

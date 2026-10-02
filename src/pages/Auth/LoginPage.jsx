@@ -40,16 +40,26 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen bg-[#FFF9F3]">
       <Navbar />
-      <main className="relative isolate flex min-h-[calc(100svh-73px)] items-center overflow-hidden bg-[#FFF9F3] px-4 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-8 sm:py-12 md:min-h-0 md:py-16">
-        <img
-          src={loginImage}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-[0.12]"
-        />
+      <main className="relative isolate flex min-h-[calc(100svh-73px)] items-center justify-center overflow-hidden bg-[#FFF9F3] px-4 py-8 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-8 sm:py-12 md:min-h-0 md:py-16">
+        <div className="relative mx-auto flex w-full max-w-5xl overflow-hidden rounded-2xl border border-[#EFDED9] bg-white shadow-[0_20px_60px_rgba(59,13,18,0.12)] sm:rounded-3xl">
+          
+          <div className="relative hidden w-1/2 bg-[#FFF9F3] lg:block">
+            <img
+              src={loginImage}
+              alt="Traditional Odisha Sketch"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[20s] hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#65151B]/80 via-black/20 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-12 text-white">
+              <h2 className="font-serif text-4xl font-bold">Journey into Heritage</h2>
+              <p className="mt-4 text-base leading-relaxed opacity-95">
+                Experience the rich art and tradition of Odisha as you travel. Connect with others and share the ride.
+              </p>
+            </div>
+          </div>
 
-        <div className="relative mx-auto w-full max-w-lg rounded-2xl border border-[#EFDED9] bg-white p-5 shadow-[0_18px_44px_rgba(59,13,18,0.18)] sm:rounded-3xl sm:p-8">
-          <header className="mb-6 text-center sm:mb-7">
+          <div className="w-full p-6 sm:p-10 lg:w-1/2 lg:px-14 lg:py-16">
+            <header className="mb-8 text-center sm:mb-10">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#E53935] sm:mb-3 sm:text-sm">
               YatriVahan
             </p>
@@ -119,7 +129,8 @@ const LoginPage = () => {
             </Link>
           </p>
         </div>
-      </main>
+      </div>
+    </main>
       <Footer />
     </div>
   );
