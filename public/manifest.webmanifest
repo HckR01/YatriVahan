@@ -1,0 +1,19 @@
+{
+  "name": "YatriVahan",
+  "short_name": "YatriVahan",
+  "description": "Shared local travel made simple.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF9F3",
+  "theme_color": "#FE2A2B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
