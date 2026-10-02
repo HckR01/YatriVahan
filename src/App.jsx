@@ -10,20 +10,25 @@ import LoginPage from "./pages/Auth/LoginPage";
 import UserProfilePage from "./pages/Profile/UserProfilePage";
 import { Route, Routes } from "react-router-dom";
 
+import InstallAppButton from "./components/common/InstallAppButton";
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/find-ride" element={<FindRidePage />} />
-      <Route path="/book-full-car" element={<BookFullCarPage />} />
-      <Route path="/offer-ride" element={<OfferRidePage />} />
-      <Route path="/groups" element={<GroupsPage />} />
-      <Route path="/groups/:groupId" element={<GroupDetailsPage />} />
-      <Route path="/hire-ride" element={<HireRidePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<AuthPage mode="register" />} />
-      <Route path="/userprofile" element={<UserProfilePage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/find-ride" element={<FindRidePage />} />
+        <Route path="/book-full-car" element={<BookFullCarPage />} />
+        <Route path="/offer-ride" element={<OfferRidePage />} />
+        <Route path="/groups" element={<GroupsPage />} />
+        <Route path="/groups/:groupId" element={<GroupDetailsPage />} />
+        <Route path="/hire-ride" element={<HireRidePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<AuthPage mode="register" />} />
+        <Route path="/userprofile" element={<UserProfilePage />} />
+      </Routes>
+      <InstallAppButton />
+    </>
   );
 }
 
