@@ -1,330 +1,82 @@
+import { ArrowRight, CarFront, Check, Clock3, IndianRupee, LoaderCircle, UsersRound, Zap } from "lucide-react";
 import { useState } from "react";
-import { CarFront, CheckCircle2, UsersRound } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
 import Navbar from "../../components/layout/Navbar";
-import { getCurrentUser, getLoginPath } from "../../utils/auth";
+import StatusBanner from "../../components/common/StatusBanner";
+import RoutePlanner from "../../components/map/RoutePlanner";
+import { useAuth } from "../../hooks/useAuth";
+import { ridesApi } from "../../lib/api";
+import { demoStore } from "../../lib/demoStore";
 
-const emptyRequest = {
-  from: "",
-  to: "",
-  date: "",
-  time: "",
-  passengers: 1,
-  pickupPoint: "",
-  returnNeeded: false,
-  returnTime: "",
-  budget: "",
-  notes: "",
-};
-
-const preferredTimeDefaults = {
-  Morning: "07:00",
-  "Early Morning": "06:00",
-  Afternoon: "13:00",
-  Evening: "18:00",
-  "Any Time": "",
-};
-
-const HireRidePage = () => {
+export default function HireRidePage() {
+  const [params] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const group = location.state?.group;
-  const [bookingType, setBookingType] = useState(
-    location.state?.bookingType || "driver",
-  );
-  const [request, setRequest] = useState({
-    ...emptyRequest,
-    ...(group
-      ? {
-          from: group.from || "",
-          to: group.destination || "",
-          date: group.travelDate || "",
-          time: preferredTimeDefaults[group.preferredTime] || "",
-          passengers: group.members || 1,
-          notes: `Group of ${group.members || 1} travelling together`,
-        }
-      : {}),
+  const initialType = params.get("type") === "private" || location.state?.bookingType === "full-cab" ? "private" : "on_demand";
+  const [type, setType] = useState(initialType);
+  const [route, setRoute] = useState({
+    origin: group?.origin || { name: group?.from || "", lat: null, lng: null },
+    destination: group?.destination && typeof group.destination === "object" ? group.destination : { name: group?.destination || "", lat: null, lng: null },
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [details, setDetails] = useState({
+    date: group?.departureDate || group?.travelDate || new Date().toISOString().slice(0, 10),
+    time: group?.preferredTime || "",
+    passengers: group?.memberCount || group?.members || 1,
+    estimatedFare: "",
+    notes: group ? `Ride for ${group.name}` : "",
+    allowLuggage: true,
+  });
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const update = (field, value) => { setDetails((current) => ({ ...current, [field]: value })); setError(""); };
 
-  const updateRequest = (field, value) => {
-    setRequest((currentRequest) => ({ ...currentRequest, [field]: value }));
-    setSubmitted(false);
-  };
-
-  const handleSubmit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    const requiredFields = [
-      "from",
-      "to",
-      "date",
-      "time",
-      "passengers",
-      "pickupPoint",
-    ];
-
-    if (
-      requiredFields.some(
-        (field) => request[field] === "" || request[field] === null,
-      )
-    ) {
+    if (!route.origin.lat || !route.destination.lat) {
+      setError("Pin both pickup and destination on the map before requesting a ride.");
       return;
     }
-    if (!getCurrentUser()) {
-      navigate(getLoginPath("/hire-ride"));
-      return;
-    }
-
-    const rideRequest = {
-      id: Date.now(),
-      bookingType,
-      ...request,
-      passengers: Number(request.passengers),
-      budget: request.budget === "" ? "" : Number(request.budget),
-      returnTime: request.returnNeeded ? request.returnTime : "",
-      status: "open",
+    setBusy(true);
+    const payload = {
+      rideType: type,
+      origin: route.origin,
+      destination: route.destination,
+      departureTime: new Date(`${details.date}T${details.time || "00:00"}`).toISOString(),
+      seatsTotal: Number(details.passengers),
+      estimatedFare: details.estimatedFare ? Number(details.estimatedFare) : undefined,
+      notes: details.notes,
+      allowLuggage: details.allowLuggage,
     };
-
-    console.log("Transport request posted:", rideRequest);
-    setSubmitted(true);
+    try {
+      let ride;
+      try { ride = await ridesApi.request(payload); }
+      catch { ride = demoStore.createRide(payload, user); }
+      navigate(`/rides/${ride.id}`, { state: { requested: true } });
+    } catch (reason) {
+      setError(reason.message || "Could not request this ride.");
+    } finally { setBusy(false); }
   };
-
-  const inputClass =
-    "min-h-12 w-full rounded-[13px] border border-[#EFDED9] bg-white px-4 text-[#171414] outline-none transition placeholder:text-[#9A8D89] focus:border-[#E53935] focus:ring-4 focus:ring-[#E53935]/10";
-  const labelClass = "mb-2 block text-sm font-bold text-[#171414]";
+  const input = "min-h-12 w-full rounded-xl border border-[#e6d9d3] bg-white px-4 text-sm font-semibold outline-none focus:border-[#e8462c] focus:ring-4 focus:ring-[#e8462c]/10";
+  const label = "mb-2 block text-sm font-extrabold text-[#2d2322]";
 
   return (
-    <div className="min-h-screen bg-[#FFF9F3]">
+    <div className="min-h-screen bg-[#fffaf6]">
       <Navbar />
-      <main className="mx-auto max-w-5xl px-5 py-12 sm:px-8 md:py-16">
-        <header className="mb-8 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#E53935]">
-            Your journey, your choice
-          </p>
-          <h1 className="font-serif text-4xl leading-tight text-[#65151B] sm:text-5xl">
-            Hire a Ride
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#665B59] sm:text-lg">
-            Tell drivers where you want to go and find the right vehicle for
-            your journey.
-          </p>
-        </header>
-
-        <div className="mb-7 grid gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => setBookingType("driver")}
-            className={`rounded-2xl border p-5 text-left transition ${
-              bookingType === "driver"
-                ? "border-[#E53935] bg-[#E53935] text-white shadow-md"
-                : "border-[#EFDED9] bg-[#FFF1E8] text-[#65151B]"
-            }`}
-          >
-            <UsersRound size={24} />
-            <strong className="mt-3 block text-lg">Hire Rider / Driver</strong>
-            <span
-              className={`mt-1 block text-sm ${
-                bookingType === "driver" ? "text-white/85" : "text-[#665B59]"
-              }`}
-            >
-              Ask available drivers to respond to your journey request.
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setBookingType("full-cab")}
-            className={`rounded-2xl border p-5 text-left transition ${
-              bookingType === "full-cab"
-                ? "border-[#E53935] bg-[#E53935] text-white shadow-md"
-                : "border-[#EFDED9] bg-[#FFF1E8] text-[#65151B]"
-            }`}
-          >
-            <CarFront size={24} />
-            <strong className="mt-3 block text-lg">Book Full Cab</strong>
-            <span
-              className={`mt-1 block text-sm ${
-                bookingType === "full-cab"
-                  ? "text-white/85"
-                  : "text-[#665B59]"
-              }`}
-            >
-              Request an entire cab for your group or personal journey.
-            </span>
-          </button>
-        </div>
-
-        {group && (
-          <div className="mb-7 rounded-2xl border border-[#F3C5B6] bg-[#FFF1E8] px-5 py-4 text-sm text-[#65151B]">
-            This request is prefilled from <strong>{group.name}</strong>.
-          </div>
-        )}
-
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-3xl border border-[#EFDED9] bg-white p-5 shadow-[0_18px_44px_rgba(59,13,18,0.08)] sm:p-8"
-        >
-          <div className="grid gap-5 md:grid-cols-2">
-            {[
-              ["from", "From", "Starting location"],
-              ["to", "To", "Destination"],
-              ["pickupPoint", "Pickup Point", "Where should the driver meet you?"],
-            ].map(([field, label, placeholder]) => (
-              <div key={field}>
-                <label htmlFor={field} className={labelClass}>
-                  {label}
-                </label>
-                <input
-                  id={field}
-                  value={request[field]}
-                  onChange={(event) => updateRequest(field, event.target.value)}
-                  className={inputClass}
-                  placeholder={placeholder}
-                  required
-                />
-              </div>
-            ))}
-
-            <div>
-              <label htmlFor="date" className={labelClass}>
-                Travel Date
-              </label>
-              <input
-                id="date"
-                type="date"
-                value={request.date}
-                onChange={(event) => updateRequest("date", event.target.value)}
-                className={inputClass}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="time" className={labelClass}>
-                Preferred Time
-              </label>
-              <input
-                id="time"
-                type="time"
-                value={request.time}
-                onChange={(event) => updateRequest("time", event.target.value)}
-                className={inputClass}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="passengers" className={labelClass}>
-                Number of Passengers
-              </label>
-              <input
-                id="passengers"
-                type="number"
-                min="1"
-                max="50"
-                value={request.passengers}
-                onChange={(event) =>
-                  updateRequest("passengers", event.target.value)
-                }
-                className={inputClass}
-                required
-              />
-            </div>
-            <fieldset>
-              <legend className={labelClass}>Return Needed?</legend>
-              <div className="flex min-h-12 items-center gap-6">
-                {[
-                  [true, "Yes"],
-                  [false, "No"],
-                ].map(([value, label]) => (
-                  <label
-                    key={label}
-                    className="flex items-center gap-2 text-sm text-[#665B59]"
-                  >
-                    <input
-                      type="radio"
-                      name="returnNeeded"
-                      checked={request.returnNeeded === value}
-                      onChange={() => {
-                        updateRequest("returnNeeded", value);
-                        if (!value) updateRequest("returnTime", "");
-                      }}
-                      className="h-4 w-4 accent-[#E53935]"
-                    />
-                    {label}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-            {request.returnNeeded && (
-              <div>
-                <label htmlFor="returnTime" className={labelClass}>
-                  Return Time
-                </label>
-                <input
-                  id="returnTime"
-                  type="time"
-                  value={request.returnTime}
-                  onChange={(event) =>
-                    updateRequest("returnTime", event.target.value)
-                  }
-                  className={inputClass}
-                />
-              </div>
-            )}
-            <div>
-              <label htmlFor="budget" className={labelClass}>
-                Budget
-              </label>
-              <div className="relative">
-                <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#665B59]">
-                  ₹
-                </span>
-                <input
-                  id="budget"
-                  type="number"
-                  min="0"
-                  value={request.budget}
-                  onChange={(event) => updateRequest("budget", event.target.value)}
-                  className={`${inputClass} pl-9`}
-                  placeholder="Optional budget"
-                />
-              </div>
-            </div>
-            <div className="md:col-span-2">
-              <label htmlFor="notes" className={labelClass}>
-                Notes / Special Requirements
-              </label>
-              <textarea
-                id="notes"
-                rows="4"
-                value={request.notes}
-                onChange={(event) => updateRequest("notes", event.target.value)}
-                className={`${inputClass} py-3`}
-                placeholder="Add luggage, accessibility or other details"
-              />
-            </div>
-          </div>
-
-          <div className="mt-7 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
-            <button
-              type="submit"
-              className="min-h-13 rounded-xl bg-[#E53935] px-7 text-base font-bold text-white shadow-md transition hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-[#E53935]/20"
-            >
-              {bookingType === "driver"
-                ? "Post Transport Request"
-                : "Request Full Cab"}
-            </button>
-            {submitted && (
-              <p role="status" className="flex items-center gap-2 font-semibold text-[#2E7D32]">
-                <CheckCircle2 size={18} />
-                Request posted successfully.
-              </p>
-            )}
-          </div>
+      <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8 lg:py-14">
+        <header className="text-center"><p className="text-xs font-extrabold uppercase tracking-[.17em] text-[#e8462c]">Door-to-door travel</p><h1 className="mt-3 font-serif text-4xl text-[#52151d] sm:text-5xl">Where can we take you?</h1><p className="mx-auto mt-3 max-w-2xl leading-7 text-[#756963]">Request a driver now or reserve the whole car for your plan.</p></header>
+        <form onSubmit={submit} className="mt-8 space-y-6">
+          <div className="grid gap-3 sm:grid-cols-2">{[["on_demand",Zap,"Ride now","Match with a nearby driver"],["private",CarFront,"Reserve full car","The whole vehicle for your group"]].map(([value,Icon,title,copy]) => <button key={value} type="button" onClick={() => setType(value)} className={`rounded-2xl border p-5 text-left transition ${type === value ? "border-[#7a1f2a] bg-[#7a1f2a] text-white shadow-lg" : "border-[#eaded8] bg-white text-[#52151d] hover:border-[#e6b4a5]"}`}><Icon size={23} /><strong className="mt-3 block text-lg">{title}</strong><span className={`mt-1 block text-sm ${type === value ? "text-white/70" : "text-[#756963]"}`}>{copy}</span></button>)}</div>
+          {group && <StatusBanner>Prefilled from your group <strong>{group.name}</strong>. Confirm the pins and trip details.</StatusBanner>}
+          <section className="rounded-[28px] border border-[#eaded8] bg-white p-5 shadow-[0_18px_55px_rgba(63,19,24,.07)] sm:p-7"><h2 className="mb-6 text-xl font-extrabold text-[#52151d]">Pickup & destination</h2><RoutePlanner value={route} onChange={setRoute} /></section>
+          <section className="rounded-[28px] border border-[#eaded8] bg-white p-5 shadow-[0_18px_55px_rgba(63,19,24,.07)] sm:p-7"><h2 className="text-xl font-extrabold text-[#52151d]">Trip preferences</h2><div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"><label><span className={label}>Date</span><input type="date" value={details.date} onChange={(event) => update("date", event.target.value)} className={input} required /></label><label><span className={label}>Pickup time</span><span className="relative block"><Clock3 className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8c7d78]" size={16} /><input type="time" value={details.time} onChange={(event) => update("time", event.target.value)} className={`${input} pl-10`} required /></span></label><label><span className={label}>Passengers</span><span className="relative block"><UsersRound className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8c7d78]" size={16} /><select value={details.passengers} onChange={(event) => update("passengers", event.target.value)} className={`${input} pl-10`}>{[1,2,3,4,5,6,7].map((count) => <option key={count}>{count}</option>)}</select></span></label><label><span className={label}>Your budget (optional)</span><span className="relative block"><IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8c7d78]" size={16} /><input type="number" min="0" value={details.estimatedFare} onChange={(event) => update("estimatedFare", event.target.value)} className={`${input} pl-10`} placeholder="Estimated fare" /></span></label><label className="sm:col-span-2 lg:col-span-3"><span className={label}>Notes for the driver</span><input value={details.notes} onChange={(event) => update("notes", event.target.value)} className={input} placeholder="Luggage, accessibility, pickup gate..." /></label><button type="button" onClick={() => update("allowLuggage",!details.allowLuggage)} className={`mt-auto flex min-h-12 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold ${details.allowLuggage ? "border-[#e8462c] bg-[#fff0e7] text-[#8a2c1d]" : "border-[#e6d9d3] text-[#746762]"}`}>Luggage {details.allowLuggage ? <Check size={16} /> : "?"}</button></div></section>
+          {error && <StatusBanner type="error">{error}</StatusBanner>}
+          <button disabled={busy} className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#e8462c] px-7 font-extrabold text-white shadow-lg shadow-[#e8462c]/20 hover:bg-[#d23b24] disabled:opacity-60">{busy ? <LoaderCircle className="animate-spin" size={19} /> : <>{type === "private" ? "Request full car" : "Find a driver"}<ArrowRight size={19} /></>}</button>
         </form>
       </main>
       <Footer />
     </div>
   );
-};
-
-export default HireRidePage;
+}

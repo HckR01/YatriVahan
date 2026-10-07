@@ -1,142 +1,46 @@
-import watermark from "../../assets/Mandala Wheel.png";
-import mainImage from "../../assets/Mainpg_img.png";
+import { ArrowRight, Leaf, MapPin, Search, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import mainImage from "../../assets/Mainpg_img.png";
 
-const Hero = () => {
-  const [dateType, setDateType] = useState("any");
+export default function Hero() {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState({ origin: "", destination: "", departureDate: "", seats: 1 });
+
+  const submit = (event) => {
+    event.preventDefault();
+    const params = new URLSearchParams();
+    Object.entries(search).forEach(([key, value]) => value && params.set(key, value));
+    navigate(`/find-ride?${params.toString()}`);
+  };
 
   return (
-    <section
-      id="home"
-      className="relative overflow-hidden bg-[linear-gradient(118deg,#3B0D12_0%,#65151B_68%,#792024_100%)]"
-    >
-      {/* Top accent line */}
-      <div className="absolute left-0 top-0 h-1 w-full bg-[linear-gradient(90deg,#E53935,#FF8A3D_38%,transparent_75%)]" />
-
-      {/* Decorative circle */}
-      <div className="pointer-events-none absolute -right-30 -top-44 h-[520px] w-[520px] rounded-full border border-[#FF8A3D]/20 shadow-[0_0_0_64px_rgba(255,138,61,0.035),0_0_0_130px_rgba(255,138,61,0.025)]" />
-      <img
-        src={watermark}
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[-140px] top-1/2 z-0 w-[650px] -translate-y-1/2 opacity-10 select-none"
-      />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-14 pt-12 sm:px-8 md:pt-20">
-        <div className="grid items-center gap-9 lg:grid-cols-[1.08fr_.92fr] lg:gap-14">
-          {/* Left content */}
-          <div>
-            <p className="inline-block rounded-full border border-[#FF8A3D]/45 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#FFD1AD]">
-              Local Journeys, Better Together
-            </p>
-
-            <h1 className="mt-6 max-w-2xl font-serif text-4xl leading-[1.1] tracking-tight text-[#FFF9F3] sm:text-5xl md:text-[58px]">
-              Travel Together. Pay Less.
-            </h1>
-
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-[#F9DDD5] sm:text-[19px]">
-              Find shared rides, offer empty seats, or travel together with
-              people going your way.
-            </p>
+    <section className="relative isolate overflow-hidden bg-[#fffaf6]">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[78%] bg-[radial-gradient(circle_at_85%_15%,rgba(255,153,92,.28),transparent_28%),linear-gradient(128deg,#421017_0%,#711d28_58%,#982d29_100%)]" />
+      <div className="absolute -right-36 top-12 -z-10 h-96 w-96 rounded-full border border-white/10 shadow-[0_0_0_65px_rgba(255,255,255,.025),0_0_0_130px_rgba(255,255,255,.018)]" />
+      <div className="mx-auto max-w-7xl px-5 pb-14 pt-12 sm:px-8 lg:pb-20 lg:pt-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
+          <div className="text-white">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#ffd2b6] backdrop-blur"><Sparkles size={14} /> One app. Every kind of ride.</span>
+            <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-[1.04] tracking-tight sm:text-6xl lg:text-[70px]">Go together.<br /><span className="text-[#ffb37e]">Go your way.</span></h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/75">Share a seat, book the whole car, or find a ride right now. YatriVahan brings local riders and trusted drivers onto one simple route.</p>
+            <div className="mt-7 flex flex-wrap gap-4 text-sm font-bold text-white/75"><span className="flex items-center gap-2"><ShieldCheck size={18} className="text-[#ffb37e]" /> Verified profiles</span><span className="flex items-center gap-2"><UsersRound size={18} className="text-[#ffb37e]" /> Community groups</span><span className="flex items-center gap-2"><Leaf size={18} className="text-[#ffb37e]" /> Lower-cost travel</span></div>
           </div>
-
-          {/* Right image */}
-          <div className="relative">
-            <div className="absolute -inset-x-3 -inset-y-3 translate-x-2 translate-y-2 rounded-[29px] border border-[#FF8A3D]/50" />
-
-            <div className="relative overflow-hidden rounded-3xl">
-              <img
-                src={mainImage}
-                alt="Odisha gaman by car"
-                className="h-[220px] w-full object-cover shadow-2xl md:h-[335px]"
-              />
-
-              <span className="absolute bottom-4 left-4 rounded-xl bg-[#FFF9F3]/95 px-4 py-3 text-[13px] font-medium text-[#65151B] shadow-lg">
-                On the road together
-              </span>
-            </div>
+          <div className="relative hidden lg:block">
+            <div className="absolute -inset-3 translate-x-4 translate-y-4 rounded-[34px] border border-[#ffb37e]/40" />
+            <div className="relative overflow-hidden rounded-[32px] border border-white/15 shadow-2xl"><img src={mainImage} alt="Travellers riding together in Odisha" className="h-[440px] w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#3b0d12]/70 via-transparent to-transparent" /><div className="absolute inset-x-5 bottom-5 flex items-center justify-between rounded-2xl bg-white/95 p-4 text-[#3b0d12] shadow-xl"><div><p className="text-xs font-bold uppercase tracking-[.12em] text-[#e8462c]">Live journeys</p><p className="mt-1 font-extrabold">Your next ride is nearby</p></div><span className="grid h-11 w-11 place-items-center rounded-xl bg-[#fff0e7] text-[#e8462c]"><MapPin size={20} /></span></div></div>
           </div>
         </div>
 
-        {/* Search card */}
-        <form
-          className="mt-10 rounded-2xl border border-[#EFDED9] bg-white p-5 shadow-[0_18px_44px_rgba(59,13,18,0.08)] md:p-7"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_.85fr_.85fr_auto]">
-            <div>
-              <label className="mb-2 block text-base font-bold text-[#171414]">
-                From
-              </label>
-              <input
-                type="text"
-                placeholder="Enter pickup location"
-                className="min-h-[52px] w-full rounded-[13px] border border-[#E9D8D2] bg-white px-4 text-[#171414] outline-none transition focus:border-[#E53935] focus:ring-4 focus:ring-[#E53935]/15"
-              />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-base font-bold text-[#171414]">
-                To
-              </label>
-              <input
-                type="text"
-                placeholder="Enter destination"
-                className="min-h-[52px] w-full rounded-[13px] border border-[#E9D8D2] bg-white px-4 text-[#171414] outline-none transition focus:border-[#E53935] focus:ring-4 focus:ring-[#E53935]/15"
-              />
-            </div>
-
-            <div>
-              <label className="mb-2 block text-base font-bold text-[#171414]">
-                Date
-              </label>
-              <select
-                value={dateType}
-                onChange={(e) => setDateType(e.target.value)}
-                className="min-h-[52px] w-full rounded-[13px] border border-[#E9D8D2] bg-white px-4 text-[#171414] outline-none focus:border-[#E53935]"
-              >
-                <option value="any">Any date</option>
-                <option value="today">Today</option>
-                <option value="tomorrow">Tomorrow</option>
-                <option value="custom">Choose date</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-2 block text-base font-bold text-[#171414]">
-                Time
-              </label>
-              <select className="min-h-[52px] w-full rounded-[13px] border border-[#E9D8D2] bg-white px-4 text-[#171414] outline-none focus:border-[#E53935]">
-                <option value="any">Any time</option>
-                <option value="morning">Morning</option>
-                <option value="afternoon">Afternoon</option>
-                <option value="evening">Evening</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              className="min-h-[52px] whitespace-nowrap rounded-xl bg-[#E53935] px-6 text-base font-bold text-white shadow-md transition hover:brightness-110"
-            >
-              Find a Ride
-            </button>
+        <form onSubmit={submit} className="relative z-10 mt-10 rounded-[26px] border border-[#eaded8] bg-white p-4 shadow-[0_24px_70px_rgba(50,16,20,.16)] sm:p-5 lg:-mb-16 lg:mt-14">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-[1fr_1fr_.72fr_.55fr_auto]">
+            {[['origin','Pickup','Astarang, station, landmark'],['destination','Destination','Bhubaneswar, airport...']].map(([field,label,placeholder]) => <label key={field} className="rounded-2xl bg-[#fffaf6] px-4 py-3"><span className="text-xs font-extrabold uppercase tracking-[.1em] text-[#887a75]">{label}</span><span className="mt-1 flex items-center gap-2"><MapPin size={17} className="shrink-0 text-[#e8462c]" /><input value={search[field]} onChange={(event) => setSearch((current) => ({...current,[field]:event.target.value}))} className="min-w-0 flex-1 bg-transparent font-bold text-[#2d2221] outline-none placeholder:font-medium placeholder:text-[#a99d98]" placeholder={placeholder} /></span></label>)}
+            <label className="rounded-2xl bg-[#fffaf6] px-4 py-3"><span className="text-xs font-extrabold uppercase tracking-[.1em] text-[#887a75]">Date</span><input type="date" value={search.departureDate} onChange={(event) => setSearch((current) => ({...current,departureDate:event.target.value}))} className="mt-1 block w-full bg-transparent font-bold text-[#2d2221] outline-none" /></label>
+            <label className="rounded-2xl bg-[#fffaf6] px-4 py-3"><span className="text-xs font-extrabold uppercase tracking-[.1em] text-[#887a75]">Seats</span><select value={search.seats} onChange={(event) => setSearch((current) => ({...current,seats:event.target.value}))} className="mt-1 block w-full bg-transparent font-bold text-[#2d2221] outline-none">{[1,2,3,4,5,6].map((seat) => <option key={seat}>{seat}</option>)}</select></label>
+            <button className="flex min-h-16 items-center justify-center gap-2 rounded-2xl bg-[#e8462c] px-6 font-extrabold text-white shadow-lg shadow-[#e8462c]/20 transition hover:bg-[#d33c24]"><Search size={19} /> Find rides <ArrowRight size={18} /></button>
           </div>
-
-          {dateType === "custom" && (
-            <div className="mt-4">
-              <label className="mb-2 block text-base font-bold text-[#171414]">
-                Select date
-              </label>
-              <input
-                type="date"
-                className="min-h-[52px] w-full max-w-xs rounded-[13px] border border-[#E9D8D2] bg-white px-4 outline-none focus:border-[#E53935]"
-              />
-            </div>
-          )}
         </form>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

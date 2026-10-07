@@ -1,146 +1,74 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Download, Menu, X } from "lucide-react";
+import { Bell, Download, Menu, UserRound, X } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { getCurrentUser } from "../../utils/auth";
+import { useAuth } from "../../hooks/useAuth";
 
-const Navbar = () => {
+const links = [
+  ["Find a ride", "/find-ride"],
+  ["Offer a ride", "/offer-ride"],
+  ["Full car", "/book-full-car"],
+  ["Groups", "/groups"],
+  ["Drive", "/driver"],
+];
+
+export default function Navbar() {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const currentUser = getCurrentUser();
   const [installPrompt, setInstallPrompt] = useState(null);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (event) => {
+    const capture = (event) => {
       event.preventDefault();
       setInstallPrompt(event);
     };
-    const handleAppInstalled = () => setInstallPrompt(null);
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    window.addEventListener("appinstalled", handleAppInstalled);
-
+    const installed = () => setInstallPrompt(null);
+    window.addEventListener("beforeinstallprompt", capture);
+    window.addEventListener("appinstalled", installed);
     return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt,
-      );
-      window.removeEventListener("appinstalled", handleAppInstalled);
+      window.removeEventListener("beforeinstallprompt", capture);
+      window.removeEventListener("appinstalled", installed);
     };
   }, []);
 
-  const installApp = async () => {
-    if (!installPrompt) {
-      return;
-    }
-
-    installPrompt.prompt();
-    await installPrompt.userChoice;
+  const install = async () => {
+    await installPrompt?.prompt();
     setInstallPrompt(null);
   };
 
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Find Ride", path: "/find-ride" },
-    { name: "Offer Ride", path: "/offer-ride" },
-    { name: "Book Full Car", path: "/book-full-car" },
-    { name: "Groups", path: "/groups" },
-  ];
+  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#65151B] bg-[#FE2A2B]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-2 sm:px-8">
-        {/* Logo */}
-        <Link to="/" className="flex shrink-0 items-center">
-          <img
-            src={logo}
-            alt="YatriVahan"
-            className="h-13 w-12 object-contain md:h-14 md:w-14"
-          />
-          <h2 className="text-[20px] font-bold text-[#FFF9F3]">YatriVahan</h2>
+    <header className="sticky top-0 z-[1000] border-b border-white/10 bg-[#681923]/95 text-white shadow-[0_8px_30px_rgba(60,10,16,0.12)] backdrop-blur-xl">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label="YatriVahan home">
+          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white shadow-sm"><img src={logo} alt="" className="h-9 w-9" /></span>
+          <span className="font-serif text-xl font-bold tracking-tight">YatriVahan</span>
         </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-7 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className="text-[16px] font-medium tracking-[0.02em] text-[#FFF9F3] transition hover:text-[#FFD1AD]"
-            >
-              {item.name}
-            </Link>
+        <nav className="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+          {links.map(([label, path]) => (
+            <NavLink key={path} to={path} className={({ isActive }) => `rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${isActive ? "bg-white text-[#681923]" : "text-white/85 hover:bg-white/10 hover:text-white"}`}>
+              {label}
+            </NavLink>
           ))}
         </nav>
-
-        {/* Desktop Login */}
-        <div className="flex items-center gap-2">
-          {installPrompt && (
-            <button
-              type="button"
-              onClick={installApp}
-              className="hidden items-center gap-2 rounded-lg border border-[#FFF9F3] px-4 py-2.5 text-sm font-bold text-[#FFF9F3] transition hover:bg-[#65151B] sm:inline-flex"
-            >
-              <Download size={16} />
-              Install App
-            </button>
-          )}
-          <Link
-            to={currentUser ? "/userprofile" : "/login"}
-            className="hidden rounded-lg bg-[#FFF9F3] px-5 py-2.5 text-[16px] font-bold text-[#65151B] shadow-sm transition hover:bg-[#FF8A3D] md:block"
-          >
-            {currentUser ? "My Profile" : "Login / Register"}
+        <div className="ml-auto flex items-center gap-2 lg:ml-2">
+          {installPrompt && <button type="button" onClick={install} className="hidden h-10 items-center gap-2 rounded-xl border border-white/25 px-3 text-xs font-bold hover:bg-white/10 sm:inline-flex"><Download size={15} /> Install</button>}
+          {user && <Link to="/profile" className="hidden h-10 w-10 place-items-center rounded-xl text-white/85 hover:bg-white/10 sm:grid" aria-label="Notifications"><Bell size={18} /></Link>}
+          <Link to={user ? "/profile" : "/login"} className="hidden h-10 items-center gap-2 rounded-xl bg-[#ffeadc] px-4 text-sm font-extrabold text-[#681923] hover:bg-white sm:inline-flex">
+            <UserRound size={17} /> {user ? displayName : "Sign in"}
           </Link>
+          <button type="button" onClick={() => setOpen((value) => !value)} className="grid h-10 w-10 place-items-center rounded-xl border border-white/20 lg:hidden" aria-label="Toggle navigation" aria-expanded={open}>{open ? <X size={20} /> : <Menu size={20} />}</button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="rounded-xl border border-[#FFF9F3]/60 p-3 text-[#FFF9F3] transition hover:bg-[#65151B] md:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </div>
-
-      {/* Mobile Menu */}
       {open && (
-        <nav className="border-t border-[#65151B] bg-[#65151B] px-5 py-5 md:hidden">
-          <div className="flex flex-col items-start gap-5">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                onClick={() => setOpen(false)}
-                className="text-[16px] text-[#FFF9F3]"
-              >
-                {item.name}
-              </Link>
-            ))}
-
-              {installPrompt && (
-                <button
-                  type="button"
-                  onClick={installApp}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[#FFF9F3] px-5 py-3 text-[16px] font-bold text-[#FFF9F3]"
-                >
-                  <Download size={17} />
-                  Install App
-                </button>
-              )}
-
-              <Link
-              to={currentUser ? "/userprofile" : "/login"}
-              onClick={() => setOpen(false)}
-              className="rounded-xl bg-[#FFF9F3] px-5 py-3 text-[16px] font-bold text-[#65151B]"
-            >
-              {currentUser ? "My Profile" : "Login / Register"}
-            </Link>
+        <nav className="border-t border-white/10 bg-[#55131b] px-4 py-4 lg:hidden" aria-label="Mobile navigation">
+          <div className="mx-auto grid max-w-7xl gap-1">
+            {links.map(([label, path]) => <NavLink key={path} to={path} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm font-bold text-white/90 hover:bg-white/10">{label}</NavLink>)}
+            <NavLink to={user ? "/profile" : "/login"} onClick={() => setOpen(false)} className="mt-2 rounded-xl bg-white px-4 py-3 text-center text-sm font-extrabold text-[#681923]">{user ? "My trips & profile" : "Sign in / Create account"}</NavLink>
           </div>
         </nav>
       )}
     </header>
   );
-};
-
-export default Navbar;
+}

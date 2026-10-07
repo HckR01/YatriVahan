@@ -1,320 +1,70 @@
-import { useState } from "react";
-import { CalendarDays, MapPin, Plus, Search, Users } from "lucide-react";
+import { ArrowRight, CalendarDays, LockKeyhole, MapPin, Plus, Search, UsersRound, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
 import Navbar from "../../components/layout/Navbar";
-import { formatGroupDate, mockGroups } from "./groupData";
-import { getCurrentUser, getLoginPath } from "../../utils/auth";
+import StatusBanner from "../../components/common/StatusBanner";
+import { useAuth } from "../../hooks/useAuth";
+import { groupsApi } from "../../lib/api";
+import { demoStore } from "../../lib/demoStore";
 
-const initialForm = {
-  name: "",
-  from: "",
-  destination: "",
-  travelDate: "",
-  preferredTime: "Morning",
-  maxMembers: 4,
-  description: "",
-};
+const asList = (data) => Array.isArray(data) ? data : data?.groups || data?.items || [];
+const formatDate = (value) => value ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T00:00:00`)) : "Date flexible";
 
-const GroupsPage = () => {
-  const [groups, setGroups] = useState(mockGroups);
-  const [form, setForm] = useState(initialForm);
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+export default function GroupsPage() {
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const [groups, setGroups] = useState(() => demoStore.getGroups());
+  const [query, setQuery] = useState("");
+  const [showCreate, setShowCreate] = useState(false);
+  const [offline, setOffline] = useState(false);
+  const [error, setError] = useState("");
+  const [form, setForm] = useState({ name: "", originName: "", destinationName: "", travelDate: "", preferredTime: "07:00", maxMembers: 8, description: "", isPrivate: false, joinCode: "" });
 
-  const updateForm = (field, value) => {
-    setForm((currentForm) => ({ ...currentForm, [field]: value }));
+  useEffect(() => {
+    let active = true;
+    groupsApi.list().then((data) => { if (active) { setGroups(asList(data)); setOffline(false); } }).catch(() => { if (active) setOffline(true); });
+    return () => { active = false; };
+  }, []);
+
+  const filtered = useMemo(() => {
+    const term = query.trim().toLowerCase();
+    if (!term) return groups;
+    return groups.filter((group) => [group.name, group.origin?.name, group.destination?.name].some((value) => String(value || "").toLowerCase().includes(term)));
+  }, [groups, query]);
+
+  const openCreate = () => {
+    if (!user) { navigate(`/login?returnTo=${encodeURIComponent("/groups")}`); return; }
+    setShowCreate(true);
   };
-
-  const handleCreateGroup = (event) => {
+  const create = async (event) => {
     event.preventDefault();
-    if (!getCurrentUser()) {
-      navigate(getLoginPath("/groups"));
-      return;
-    }
-    if (
-      !form.name.trim() ||
-      !form.from.trim() ||
-      !form.destination.trim() ||
-      !form.travelDate
-    ) {
-      return;
-    }
-
-    const newGroup = {
-      ...form,
-      id: Date.now(),
-      name: form.name.trim(),
-      from: form.from.trim(),
-      destination: form.destination.trim(),
-      maxMembers: Number(form.maxMembers),
-      members: 1,
-      joined: true,
-      description: form.description.trim(),
-      memberList: ["You"],
-      messages: [],
-    };
-
-    setGroups((currentGroups) => [newGroup, ...currentGroups]);
-    setForm(initialForm);
-    setShowCreateForm(false);
+    setError("");
+    const payload = { ...form, maxMembers: Number(form.maxMembers), joinCode: form.isPrivate && form.joinCode ? form.joinCode : undefined };
+    try {
+      let group;
+      try { group = await groupsApi.create(payload); }
+      catch { group = demoStore.createGroup({ ...payload, origin: { name: payload.originName }, destination: { name: payload.destinationName }, departureDate: payload.travelDate }); setOffline(true); }
+      setGroups((current) => [group, ...current]);
+      setShowCreate(false);
+      navigate(`/groups/${group.id}`);
+    } catch (reason) { setError(reason.message || "Could not create the group."); }
   };
-
-  const visibleGroups = groups.filter((group) => {
-    const query = searchTerm.trim().toLowerCase();
-    return (
-      !query ||
-      group.name.toLowerCase().includes(query) ||
-      group.from.toLowerCase().includes(query) ||
-      group.destination.toLowerCase().includes(query)
-    );
-  });
-
-  const joinGroup = (groupId) => {
-    if (!getCurrentUser()) {
-      navigate(getLoginPath(`/groups/${groupId}`));
-      return;
-    }
-    setGroups((currentGroups) =>
-      currentGroups.map((group) =>
-        group.id === groupId && group.members < group.maxMembers
-          ? {
-              ...group,
-              members: group.members + 1,
-              joined: true,
-              memberList: [...group.memberList, "You"],
-            }
-          : group,
-      ),
-    );
-  };
-
-  const inputClass =
-    "min-h-12 w-full rounded-[13px] border border-[#EFDED9] bg-white px-4 text-[#171414] outline-none transition placeholder:text-[#9A8D89] focus:border-[#E53935] focus:ring-4 focus:ring-[#E53935]/10";
-  const labelClass = "mb-2 block text-sm font-bold text-[#171414]";
+  const update = (field, value) => setForm((current) => ({ ...current, [field]: value }));
+  const input = "min-h-12 w-full rounded-xl border border-[#e6d9d3] bg-white px-4 text-sm font-semibold outline-none focus:border-[#e8462c] focus:ring-4 focus:ring-[#e8462c]/10";
+  const label = "mb-2 block text-sm font-extrabold text-[#2d2322]";
 
   return (
-    <div className="min-h-screen bg-[#FFF9F3]">
-      <Navbar />
-      <main className="mx-auto max-w-7xl px-5 py-12 sm:px-8 md:py-16">
-        <header className="mb-8 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#E53935]">
-            Plan together
-          </p>
-          <h1 className="font-serif text-4xl leading-tight text-[#65151B] sm:text-5xl">
-            Travel Groups
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#665B59] sm:text-lg">
-            Find people going to the same place and plan your journey together.
-          </p>
-        </header>
-
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <button
-            type="button"
-            onClick={() => document.getElementById("group-search")?.focus()}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#E53935] px-5 text-sm font-bold text-[#E53935] transition hover:bg-[#FFF1E8]"
-          >
-            <Search size={18} />
-            Search Groups
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowCreateForm((isOpen) => !isOpen)}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E53935] px-5 text-sm font-bold text-white shadow-md transition hover:brightness-110"
-          >
-            <Plus size={18} />
-            Create Group
-          </button>
-        </div>
-
-        {showCreateForm && (
-          <form
-            onSubmit={handleCreateGroup}
-            className="mb-9 rounded-3xl border border-[#EFDED9] bg-white p-5 shadow-[0_18px_44px_rgba(59,13,18,0.08)] sm:p-8"
-          >
-            <h2 className="mb-5 text-2xl font-bold text-[#65151B]">
-              Create a travel group
-            </h2>
-            <div className="grid gap-5 md:grid-cols-2">
-              {[
-                ["name", "Group Name", "e.g. Puri Group 02"],
-                ["from", "From", "Starting location"],
-                ["destination", "Destination", "Where are you going?"],
-              ].map(([field, label, placeholder]) => (
-                <div key={field}>
-                  <label htmlFor={`group-${field}`} className={labelClass}>
-                    {label}
-                  </label>
-                  <input
-                    id={`group-${field}`}
-                    value={form[field]}
-                    onChange={(event) => updateForm(field, event.target.value)}
-                    className={inputClass}
-                    placeholder={placeholder}
-                    required
-                  />
-                </div>
-              ))}
-              <div>
-                <label htmlFor="group-date" className={labelClass}>
-                  Expected Travel Date
-                </label>
-                <input
-                  id="group-date"
-                  type="date"
-                  value={form.travelDate}
-                  onChange={(event) => updateForm("travelDate", event.target.value)}
-                  className={inputClass}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="group-time" className={labelClass}>
-                  Preferred Time
-                </label>
-                <select
-                  id="group-time"
-                  value={form.preferredTime}
-                  onChange={(event) => updateForm("preferredTime", event.target.value)}
-                  className={inputClass}
-                >
-                  <option>Morning</option>
-                  <option>Afternoon</option>
-                  <option>Evening</option>
-                  <option>Any Time</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="group-members" className={labelClass}>
-                  Maximum Members
-                </label>
-                <input
-                  id="group-members"
-                  type="number"
-                  min="2"
-                  max="20"
-                  value={form.maxMembers}
-                  onChange={(event) => updateForm("maxMembers", event.target.value)}
-                  className={inputClass}
-                />
-              </div>
-              <div className="md:col-span-2">
-                <label htmlFor="group-description" className={labelClass}>
-                  Description
-                </label>
-                <textarea
-                  id="group-description"
-                  rows="3"
-                  value={form.description}
-                  onChange={(event) => updateForm("description", event.target.value)}
-                  className={`${inputClass} py-3`}
-                  placeholder="Tell travellers about your plan"
-                />
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="mt-6 min-h-12 rounded-xl bg-[#E53935] px-6 text-sm font-bold text-white transition hover:brightness-110"
-            >
-              Create Group
-            </button>
-          </form>
-        )}
-
-        <div className="mb-6 max-w-xl">
-          <label htmlFor="group-search" className="sr-only">
-            Search groups
-          </label>
-          <div className="relative">
-            <Search
-              size={19}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#665B59]"
-            />
-            <input
-              id="group-search"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              className={`${inputClass} pl-11`}
-              placeholder="Search by group name, starting point or destination"
-            />
-          </div>
-        </div>
-
-        <div className="grid gap-5 lg:grid-cols-2">
-          {visibleGroups.map((group) => (
-            <article
-              key={group.id}
-              className="rounded-2xl border border-[#EFDED9] bg-white p-5 shadow-[0_14px_34px_rgba(59,13,18,0.07)] sm:p-6"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <h2 className="text-xl font-bold text-[#65151B]">{group.name}</h2>
-                  <p className="mt-2 flex items-center gap-2 text-sm text-[#665B59]">
-                    <MapPin size={16} className="text-[#E53935]" />
-                    {group.from} <span className="text-[#E53935]">→</span>{" "}
-                    {group.destination}
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF1E8] px-3 py-1 text-xs font-bold text-[#A4491D]">
-                  <Users size={14} />
-                  {group.members}/{group.maxMembers} members
-                </span>
-              </div>
-              <div className="mt-5 grid gap-3 border-y border-[#EFDED9] py-4 text-sm text-[#665B59] sm:grid-cols-2">
-                <p className="flex items-center gap-2">
-                  <CalendarDays size={16} className="text-[#E53935]" />
-                  {formatGroupDate(group.travelDate)}
-                </p>
-                <p>
-                  <strong className="text-[#171414]">Preferred time:</strong>{" "}
-                  {group.preferredTime}
-                </p>
-              </div>
-              <p className="mt-4 min-h-12 text-sm leading-relaxed text-[#665B59]">
-                {group.description}
-              </p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                {group.joined ? (
-                  <Link
-                    to={`/groups/${group.id}`}
-                    className="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl bg-[#E53935] px-5 text-sm font-bold text-white transition hover:brightness-110"
-                  >
-                    Open Group
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => joinGroup(group.id)}
-                    disabled={group.members >= group.maxMembers}
-                    className="min-h-11 flex-1 rounded-xl bg-[#E53935] px-5 text-sm font-bold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-[#D9CECA]"
-                  >
-                    {group.members >= group.maxMembers ? "Group Full" : "Join Group"}
-                  </button>
-                )}
-                {!group.joined && (
-                  <Link
-                    to={`/groups/${group.id}`}
-                    className="inline-flex min-h-11 flex-1 items-center justify-center rounded-xl border border-[#E53935] px-5 text-sm font-bold text-[#E53935] transition hover:bg-[#FFF1E8]"
-                  >
-                    View Details
-                  </Link>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {visibleGroups.length === 0 && (
-          <p className="rounded-2xl border border-[#EFDED9] bg-white px-5 py-10 text-center text-[#665B59]">
-            No groups found for that search.
-          </p>
-        )}
+    <div className="min-h-screen bg-[#fffaf6]"><Navbar />
+      <section className="bg-[radial-gradient(circle_at_80%_10%,rgba(255,159,98,.25),transparent_28%),linear-gradient(130deg,#421017,#7b202a)] px-5 py-14 text-white sm:px-8"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p className="text-xs font-extrabold uppercase tracking-[.17em] text-[#ffc6a1]">Community carpooling</p><h1 className="mt-3 font-serif text-4xl sm:text-5xl">Find your travel people</h1><p className="mt-3 max-w-xl leading-7 text-white/70">Plan routes together, share a conversation and turn a group into a booking.</p></div><button onClick={openCreate} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#ff9a63] px-6 text-sm font-extrabold text-[#3b0d12]"><Plus size={18} /> Create a group</button></div></section>
+      <main className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:py-14">
+        {offline && <div className="mb-6"><StatusBanner>Showing local groups while the community service reconnects.</StatusBanner></div>}
+        <div className="relative max-w-xl"><Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7d78]" size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} className={`${input} pl-11`} placeholder="Search route or group name" aria-label="Search groups" /></div>
+        <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{filtered.map((group) => <article key={group.id} className="rounded-[24px] border border-[#eaded8] bg-white p-6 shadow-[0_16px_45px_rgba(63,19,24,.06)]"><div className="flex items-start justify-between gap-3"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#fff0e7] text-[#e8462c]"><UsersRound size={21} /></span>{group.isPrivate && <span className="flex items-center gap-1 rounded-full bg-[#f3eff8] px-3 py-1 text-xs font-bold text-[#664c86]"><LockKeyhole size={13} /> Private</span>}</div><h2 className="mt-5 text-xl font-extrabold text-[#52151d]">{group.name}</h2><p className="mt-3 flex items-start gap-2 text-sm text-[#695d59]"><MapPin className="mt-0.5 shrink-0 text-[#e8462c]" size={16} />{group.origin?.name || group.originName} <ArrowRight className="mt-0.5 shrink-0" size={15} /> {group.destination?.name || group.destinationName}</p><div className="mt-5 flex flex-wrap gap-3 border-y border-[#eee4df] py-4 text-xs font-bold text-[#7e706b]"><span className="flex items-center gap-1.5"><CalendarDays size={15} />{formatDate(group.departureDate || group.travelDate)}</span><span>{String(group.preferredTime || "Flexible").slice(0,5)}</span><span>{group.memberCount || 0}/{group.maxMembers} people</span></div><p className="mt-4 line-clamp-2 min-h-10 text-sm leading-6 text-[#756963]">{group.description || "A group for travellers taking this route together."}</p><Link to={`/groups/${group.id}`} className="mt-5 flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#7a1f2a] px-5 text-sm font-extrabold text-white">{group.isMember ? "Open group" : "View & join"}<ArrowRight size={16} /></Link></article>)}</div>
+        {filtered.length === 0 && <div className="mt-7 rounded-3xl border border-dashed border-[#dbbeb3] bg-white px-5 py-14 text-center text-[#756963]">No groups match that route yet. Create the first one.</div>}
       </main>
+      {showCreate && <div className="fixed inset-0 z-[1200] overflow-y-auto bg-[#321014]/70 p-4 backdrop-blur-sm"><div className="mx-auto my-6 max-w-2xl rounded-[28px] bg-[#fffaf6] p-5 shadow-2xl sm:p-7"><div className="flex items-center justify-between"><div><p className="text-xs font-extrabold uppercase tracking-[.14em] text-[#e8462c]">New community</p><h2 className="mt-2 font-serif text-3xl text-[#52151d]">Create a travel group</h2></div><button onClick={() => setShowCreate(false)} className="grid h-10 w-10 place-items-center rounded-xl bg-white text-[#756963]" aria-label="Close"><X size={19} /></button></div><form onSubmit={create} className="mt-6 grid gap-5 sm:grid-cols-2"><label className="sm:col-span-2"><span className={label}>Group name</span><input value={form.name} onChange={(event) => update("name",event.target.value)} className={input} placeholder="e.g. Puri Morning Commuters" minLength="3" required /></label><label><span className={label}>From</span><input value={form.originName} onChange={(event) => update("originName",event.target.value)} className={input} required /></label><label><span className={label}>Destination</span><input value={form.destinationName} onChange={(event) => update("destinationName",event.target.value)} className={input} required /></label><label><span className={label}>Travel date</span><input type="date" value={form.travelDate} onChange={(event) => update("travelDate",event.target.value)} className={input} required /></label><label><span className={label}>Preferred time</span><input type="time" value={form.preferredTime} onChange={(event) => update("preferredTime",event.target.value)} className={input} required /></label><label><span className={label}>Maximum members</span><input type="number" min="2" max="100" value={form.maxMembers} onChange={(event) => update("maxMembers",event.target.value)} className={input} required /></label><button type="button" onClick={() => update("isPrivate",!form.isPrivate)} className={`mt-auto min-h-12 rounded-xl border px-4 text-sm font-bold ${form.isPrivate ? "border-[#7a1f2a] bg-[#fff0e7] text-[#7a1f2a]" : "border-[#e6d9d3] text-[#756963]"}`}>{form.isPrivate ? "Private group" : "Public group"}</button>{form.isPrivate && <label className="sm:col-span-2"><span className={label}>Join code (optional)</span><input value={form.joinCode} minLength="4" onChange={(event) => update("joinCode",event.target.value)} className={input} placeholder="Leave blank to generate one" /></label>}<label className="sm:col-span-2"><span className={label}>Description</span><textarea rows="3" value={form.description} onChange={(event) => update("description",event.target.value)} className={`${input} py-3`} placeholder="Who is this group for?" /></label>{error && <div className="sm:col-span-2"><StatusBanner type="error">{error}</StatusBanner></div>}<button className="min-h-12 rounded-xl bg-[#e8462c] px-6 text-sm font-extrabold text-white sm:col-span-2">Create group</button></form></div></div>}
       <Footer />
     </div>
   );
-};
-
-export default GroupsPage;
+}
