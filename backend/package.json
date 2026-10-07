@@ -11,6 +11,7 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "test": "node --test",
+    "admin:password": "node scripts/admin-password.js",
     "check": "node --check src/server.js && node --check src/app.js && node --check src/socket/index.js"
   },
   "dependencies": {

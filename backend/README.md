@@ -190,7 +190,7 @@ Joining a room never grants access by itself: each join, location update, destin
 ## Deployment notes
 
 - Set `CLIENT_ORIGINS` to an explicit comma-separated allowlist in production.
-- Users cannot set `role` or `isVerified` through profile updates. Assign driver roles during the trusted signup/admin flow and complete KYC through a server/admin process. `REQUIRE_DRIVER_VERIFICATION` defaults off for local demos; it is always enforced in production.
+- Users cannot set `role` or `isVerified` through profile updates. Use `/admine` for manual driver/offerer approval after checking identity and documents. Approval is mandatory in every environment for new offers and cab acceptance.
 - Terminate TLS at the platform/load balancer and set `TRUST_PROXY=true` only when a trusted proxy is present.
 - The current Socket.IO adapter is in-memory. For more than one backend instance, configure the Redis/Postgres adapter before scaling horizontally.
 - Add a scheduled retention job for `ride_locations`; the MVP stores each accepted sample for trip history.

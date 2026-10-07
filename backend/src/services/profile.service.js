@@ -64,6 +64,7 @@ export async function searchDrivers({ location, limit = 20 }) {
     .from("profiles")
     .select(publicProfileFields)
     .in("role", ["driver", "both"])
+    .eq("is_verified", true)
     .order("avg_rating", { ascending: false })
     .limit(limit);
 

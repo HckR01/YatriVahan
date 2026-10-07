@@ -30,6 +30,26 @@ Configured sessions never save failed API mutations as demo records.
 - Authenticated Socket.IO rooms, destination/status updates, and group chat.
 - Profiles, vehicles, bookings, notifications, capacity enforcement, and database RLS.
 
+## Administrator panel
+
+Open `/admine` (`/admin` redirects there). Set `ADMIN_USERNAME` and
+`ADMIN_PASSWORD_HASH` only on the backend, never in `VITE_*`, source code, or GitHub.
+Generate a salted password hash with `npm --prefix backend run admin:password` and
+copy the printed hash into your backend environment. With either setting missing,
+admin login is disabled. Render's blueprint prompts for both values.
+Quote the `ADMIN_USERNAME` value in `.env` if it contains `#`.
+
+The panel lists registered users and vehicle registrations, allows approval/revocation,
+and promotes approved rider-only accounts to `both` so they can offer rides or drive cabs.
+No additional SQL migration is required: it uses the existing `profiles.is_verified` field.
+Check identity and documents offline before approval; this is not automated KYC.
+API routes are `/api/v1/admin/login`, `/session`, `/logout`, `/users?page=1`, and
+`PATCH /users/:userId/verification` with `{ "verified": true }` or `false`.
+Authentication is rate-limited and server-side. Admin tokens expire after one hour,
+are kept only in browser memory, and are revoked on logout or API restart.
+Use HTTPS and one backend instance; multiple instances need a shared session store.
+Changing the credentials requires restarting the backend to revoke existing sessions.
+
 ## Verify
 
 ```sh

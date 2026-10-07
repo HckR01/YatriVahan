@@ -18,6 +18,8 @@ const envSchema = z.object({
   SOCKET_LOCATION_MIN_INTERVAL_MS: z.coerce.number().int().min(250).max(60_000).default(1000),
   SOCKET_MAX_CONNECTIONS_PER_USER: z.coerce.number().int().min(1).max(20).default(5),
   REQUIRE_DRIVER_VERIFICATION: z.enum(["true", "false"]).optional(),
+  ADMIN_USERNAME: z.string().min(1).max(100).optional(),
+  ADMIN_PASSWORD_HASH: z.string().regex(/^[a-f0-9]{32}:[a-f0-9]{128}$/).optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);

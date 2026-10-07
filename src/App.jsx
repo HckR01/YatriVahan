@@ -15,6 +15,7 @@ import TripTrackingPage from "./pages/Rides/TripTrackingPage";
 import SafetyPage from "./pages/Safety/SafetyPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 import DriverDashboard from "./pages/Rides/DriverDashboard";
+import AdminPage from "./pages/Admin/AdminPage";
 
 function LegacyRideRedirect() {
   const { rideId } = useParams();
@@ -24,6 +25,8 @@ function LegacyRideRedirect() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/admine" element={<AdminPage />} />
+      <Route path="/admin" element={<Navigate to="/admine" replace />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/find-ride" element={<FindRidePage />} />
       <Route path="/book-full-car" element={<BookFullCarPage />} />

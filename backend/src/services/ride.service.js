@@ -1,5 +1,4 @@
 import { supabaseAdmin } from "../config/supabase.js";
-import { env } from "../config/env.js";
 import { badRequest, conflict, forbidden, notFound, unauthorized, assertDatabase } from "../lib/errors.js";
 import { getPagination, paginationMeta } from "../lib/http.js";
 import { camelizeKeys } from "../lib/case.js";
@@ -111,9 +110,9 @@ async function assertDriverProfile(userId) {
     .maybeSingle();
   const profile = assertDatabase(result, "Unable to verify driver profile");
   if (!profile || !["driver", "both"].includes(profile.role)) {
-    throw forbidden("A driver profile is required to browse open ride requests");
+    throw forbidden("An approved driver / ride-offerer profile is required");
   }
-  if (env.requireDriverVerification && !profile.is_verified) {
+  if (!profile.is_verified) {
     throw forbidden("Driver verification is required");
   }
 }
@@ -129,6 +128,7 @@ async function insertStopsOrRollback(ride, stops) {
 }
 
 export async function createRideOffer(userId, input) {
+  await assertDriverProfile(userId);
   ensureReasonableDeparture(input.departureTime);
   if (input.rideType === "on_demand") {
     throw badRequest("Use /rides/requests for an on-demand ride request");
@@ -285,7 +285,7 @@ export async function acceptRideRequest(rideId, driverId, input, io) {
   if (!profile || !["driver", "both"].includes(profile.role)) {
     throw forbidden("A driver profile is required to accept ride requests");
   }
-  if (env.requireDriverVerification && !profile.is_verified) {
+  if (!profile.is_verified) {
     throw forbidden("Driver verification is required to accept ride requests");
   }
   await assertVehicleOwner(input.vehicleId, driverId);

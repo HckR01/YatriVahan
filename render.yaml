@@ -20,6 +20,10 @@ services:
         sync: false
       - key: CLIENT_ORIGINS
         sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
       - key: REQUIRE_DRIVER_VERIFICATION
         value: true
       - key: TRUST_PROXY
