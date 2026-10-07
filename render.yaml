@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: yatrivahan-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/v1/ready
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        value: https://cwwhwarmlsnvzzetyjfe.supabase.co
+      - key: SUPABASE_ANON_KEY
+        value: sb_publishable_FdquxWI5FDdrkef_6tc1KA_FLWmSpme
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CLIENT_ORIGINS
+        sync: false
+      - key: REQUIRE_DRIVER_VERIFICATION
+        value: true
+      - key: TRUST_PROXY
+        value: true
