@@ -1,5 +1,6 @@
 import { ArrowRight, BadgeCheck, CalendarDays, CarFront, Check, Clock3, IndianRupee, Leaf, LoaderCircle, Luggage, MapPin, Route, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
 import Navbar from "../../components/layout/Navbar";
@@ -8,9 +9,8 @@ import RoutePlanner from "../../components/map/RoutePlanner";
 import { useAuth } from "../../hooks/useAuth";
 import { profileApi, ridesApi } from "../../lib/api";
 import { validPoint } from "../../lib/coordinates";
+import { clearOffer, updateOffer } from "../../store";
 import { demoStore } from "../../lib/demoStore";
-
-const initial = { route: { origin: { name: "", lat: null, lng: null }, destination: { name: "", lat: null, lng: null } }, date: "", time: "", seatsTotal: 3, pricePerSeat: "", vehicle: "", notes: "", womenOnly: false, allowLuggage: true };
 
 function SectionTitle({ icon: Icon, step, title, description }) {
   return <div className="mb-6 flex items-start gap-4"><span className="section-icon"><Icon size={21} /></span><div><p className="eyebrow">Step {step}</p><h2 className="mt-1 text-xl font-extrabold text-[#52151d]">{title}</h2><p className="mt-1 text-sm text-[#756963]">{description}</p></div></div>;
@@ -19,7 +19,8 @@ function SectionTitle({ icon: Icon, step, title, description }) {
 export default function OfferRidePage() {
   const { user, isDemoMode } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState(initial);
+  const form = useSelector(state => state.offer);
+  const dispatch = useDispatch();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [approval, setApproval] = useState(isDemoMode ? "approved" : "loading");
@@ -30,7 +31,7 @@ export default function OfferRidePage() {
       .catch(() => { if (active) setApproval("unavailable"); });
     return () => { active = false; };
   }, [isDemoMode]);
-  const update = (field, value) => { setForm(current => ({ ...current, [field]: value })); setError(""); };
+  const update = (field, value) => { dispatch(updateOffer({ [field]: value })); setError(""); };
   const routeReady = validPoint(form.route.origin) && validPoint(form.route.destination);
   const detailsReady = !!(form.date && form.time && form.pricePerSeat !== "");
   const submit = async event => {
@@ -43,6 +44,7 @@ export default function OfferRidePage() {
     try {
       const payload = { rideType: "carpool", origin: form.route.origin, destination: form.route.destination, departureTime: departure.toISOString(), seatsTotal: Number(form.seatsTotal), pricePerSeat: Number(form.pricePerSeat), notes: [form.vehicle ? `Vehicle: ${form.vehicle}.` : "", form.notes].filter(Boolean).join(" "), womenOnly: form.womenOnly, allowLuggage: form.allowLuggage };
       const ride = isDemoMode ? demoStore.createRide({ ...payload, vehicle: { model: form.vehicle || "Your vehicle" } }, user) : await ridesApi.create(payload);
+      dispatch(clearOffer());
       navigate(`/rides/${ride.id}`, { state: { justPosted: true } });
     } catch (reason) { setError(reason.message || "Could not post this ride."); }
     finally { setBusy(false); }
@@ -72,7 +74,7 @@ export default function OfferRidePage() {
         </div>
         <aside className="space-y-4 lg:sticky lg:top-24">
           <section className="surface-card !p-6"><div className="flex items-center justify-between"><h2 className="font-serif text-2xl text-[#52151d]">Your ride, at a glance</h2><CarFront size={22} className="text-[#e8462c]" /></div><p className="mt-2 text-xs text-[#897970]">Updates as you plan your journey</p><div className="summary-route mt-7"><div><span className="summary-dot" /><p className="eyebrow">Pickup</p><p className="mt-1 break-words text-sm font-bold">{form.route.origin.name || "Choose your starting point"}</p></div><div><span className="summary-dot summary-dot-end" /><p className="eyebrow">Destination</p><p className="mt-1 break-words text-sm font-bold">{form.route.destination.name || "Where will you go?"}</p></div></div><div className="my-5 space-y-3 border-y border-[#eee4df] py-5 text-sm"><p className="flex items-center gap-3"><CalendarDays size={16} className="text-[#9c796b]" />{form.date || "Pick a date"}{form.time && ` · ${form.time}`}</p><p className="flex items-center gap-3"><Users size={16} className="text-[#9c796b]" />{form.seatsTotal} seats available</p><p className="flex items-center gap-3"><IndianRupee size={16} className="text-[#9c796b]" />{form.pricePerSeat === "" ? "Set your seat price" : `${Number(form.pricePerSeat).toLocaleString("en-IN")} per seat`}</p></div><div className="flex items-end justify-between"><div><p className="text-xs font-bold text-[#897970]">Total if all seats fill</p><p className="mt-1 font-serif text-3xl text-[#52151d]">₹{total.toLocaleString("en-IN")}</p></div><Leaf size={22} className="text-[#51794e]" /></div><button disabled={busy || approval === "loading"} className="primary-action mt-6 w-full">{busy ? <LoaderCircle size={18} className="animate-spin" /> : <><span>Publish your ride</span><ArrowRight size={18} /></>}</button><p className="mt-3 text-center text-[11px] leading-5 text-[#897970]">Review your route and departure time before publishing.</p></section>
-          <div className="rounded-2xl border border-[#eaded8] bg-[#f5eee6] p-5"><BadgeCheck size={22} className="text-[#7a1f2a]" /><p className="mt-3 text-sm font-bold text-[#52151d]">{approval === "approved" ? "Ready for the road" : approval === "loading" ? "Checking your profile…" : "Driver approval required"}</p><p className="mt-2 text-xs leading-6 text-[#756963]">{approval === "approved" ? "Keep pickup details clear and confirm your passengers before you leave." : "Plan your ride now. An admin must approve your driver profile before you publish."}</p><Link to="/profile" className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-[#7a1f2a]">View your profile <ArrowRight size={13} /></Link></div>
+          <div className="rounded-2xl border border-[#eaded8] bg-[#f5eee6] p-5"><BadgeCheck size={22} className="text-[#7a1f2a]" /><p className="mt-3 text-sm font-bold text-[#52151d]">{approval === "approved" ? "Ready for the road" : approval === "loading" ? "Checking your profile…" : "Driver approval required"}</p><p className="mt-2 text-xs leading-6 text-[#756963]">{approval === "approved" ? "Keep pickup details clear and confirm your passengers before you leave." : "Plan your ride now. An admin must approve your driver profile before you publish."}</p><div className="mt-3 flex items-center gap-4"><Link to="/profile" className="inline-flex items-center gap-2 text-xs font-bold text-[#7a1f2a]">View your profile <ArrowRight size={13} /></Link><button type="button" onClick={() => { setApproval("loading"); profileApi.me().then(profile => setApproval(profile.isVerified && ["driver", "both"].includes(profile.role) ? "approved" : "pending")).catch(() => setApproval("unavailable")); }} className="text-xs font-bold text-[#7a1f2a] underline">Refresh approval</button></div></div>
         </aside>
       </form>
     </main><Footer />

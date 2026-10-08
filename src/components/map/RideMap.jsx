@@ -27,6 +27,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
   const elementRef = useRef(null);
   const mapRef = useRef(null);
   const layerRef = useRef(null);
+  const routeRef = useRef(0);
   const clickHandlerRef = useRef(onMapClick);
 
   useEffect(() => {
@@ -81,10 +82,14 @@ export default function RideMap({ origin, destination, currentLocation, classNam
       points.push(coords);
     }
     if (validPoint(origin) && validPoint(destination)) {
-      L.polyline(
-        [[Number(origin.lat), Number(origin.lng)], [Number(destination.lat), Number(destination.lng)]],
-        { color: "#ee4b2b", weight: 5, opacity: 0.82, dashArray: "10 10" },
-      ).addTo(layer);
+      const requestId = ++routeRef.current;
+      L.polyline([[Number(origin.lat), Number(origin.lng)], [Number(destination.lat), Number(destination.lng)]], { color: "#ee4b2b", weight: 3, opacity: 0.3, dashArray: "7 9" }).addTo(layer);
+      fetch(`https://router.project-osrm.org/route/v1/driving/${Number(origin.lng)},${Number(origin.lat)};${Number(destination.lng)},${Number(destination.lat)}?overview=full&geometries=geojson`)
+        .then(response => response.ok ? response.json() : null).then(data => {
+          const geometry = data?.routes?.[0]?.geometry?.coordinates;
+          if (requestId !== routeRef.current || !geometry?.length) return;
+          L.polyline(geometry.map(([lng, lat]) => [lat, lng]), { color: "#ee4b2b", weight: 5, opacity: 0.9 }).addTo(layer);
+        }).catch(() => { /* fallback line remains if routing is unavailable */ });
     }
     if (points.length > 1) map.fitBounds(points, { padding: [42, 42], maxZoom: 14 });
     else if (points.length === 1) map.setView(points[0], 13);
@@ -94,7 +99,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
     <div className={`relative overflow-hidden rounded-[24px] bg-[#eaded7] ${className}`}>
       <div ref={elementRef} className="h-full w-full" aria-label="Ride route map" />
       <span className="pointer-events-none absolute left-3 top-3 z-[500] rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#7a1f2a] shadow-sm">
-        {currentLocation ? "Live driver location" : "Route preview · straight line"}
+        {currentLocation ? "Live driver location" : "Road route preview"}
       </span>
     </div>
   );
