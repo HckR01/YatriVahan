@@ -66,7 +66,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
 
     if (validPoint(origin)) {
       const coords = [Number(origin.lat), Number(origin.lng)];
-      L.marker(coords, { icon: pin("#7a1f2a", "A") }).bindPopup(popupContent("Pickup", origin.name || "Origin")).addTo(layer);
+      L.marker(coords, { icon: pin("#7a1f2a", "🚗") }).bindPopup(popupContent("Pickup", origin.name || "Origin")).addTo(layer);
       points.push(coords);
     }
     if (validPoint(destination)) {
@@ -83,7 +83,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
     }
     if (validPoint(origin) && validPoint(destination)) {
       const requestId = ++routeRef.current;
-      L.polyline([[Number(origin.lat), Number(origin.lng)], [Number(destination.lat), Number(destination.lng)]], { color: "#ee4b2b", weight: 3, opacity: 0.3, dashArray: "7 9" }).addTo(layer);
+      L.polyline([[Number(origin.lat), Number(origin.lng)], [Number(destination.lat), Number(destination.lng)]], { color: "#ee4b2b", weight: 3, opacity: 0.3 }).addTo(layer);
       fetch(`https://router.project-osrm.org/route/v1/driving/${Number(origin.lng)},${Number(origin.lat)};${Number(destination.lng)},${Number(destination.lat)}?overview=full&geometries=geojson`)
         .then(response => response.ok ? response.json() : null).then(data => {
           const geometry = data?.routes?.[0]?.geometry?.coordinates;

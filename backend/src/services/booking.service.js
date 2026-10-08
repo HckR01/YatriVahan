@@ -133,6 +133,18 @@ export async function updateBookingStatus(bookingId, userId, nextStatus, io) {
   const updated = assertDatabase(result, "Unable to update booking");
   if (!updated) throw conflict("Booking status changed; refresh and try again");
 
+  if (nextStatus === "confirmed" && booking.status === "pending") {
+    const seatsResult = await supabaseAdmin.from("rides").select("seats_available").eq("id", booking.ride_id).single();
+    const seats = assertDatabase(seatsResult, "Unable to load ride seats");
+    if (seats.seats_available < booking.seats) throw conflict("Not enough seats are available");
+    assertDatabase(await supabaseAdmin.from("rides").update({ seats_available: seats.seats_available - booking.seats }).eq("id", booking.ride_id), "Unable to reserve ride seats");
+  }
+  if (nextStatus === "cancelled" && booking.status === "confirmed") {
+    const seatsResult = await supabaseAdmin.from("rides").select("seats_available, seats_total").eq("id", booking.ride_id).single();
+    const seats = assertDatabase(seatsResult, "Unable to load ride seats");
+    assertDatabase(await supabaseAdmin.from("rides").update({ seats_available: Math.min(seats.seats_total, seats.seats_available + booking.seats) }).eq("id", booking.ride_id), "Unable to release ride seats");
+  }
+
   io?.to(`ride:${booking.ride_id}`).emit("ride:booking_updated", {
     rideId: booking.ride_id,
     booking: camelizeKeys(updated),

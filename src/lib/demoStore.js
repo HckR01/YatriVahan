@@ -65,7 +65,7 @@ export const demoStore = {
       rideId,
       ride,
       seats,
-      status: "confirmed",
+      status: "pending",
       passengerName: user?.user_metadata?.full_name || user?.name || "You",
       createdAt: new Date().toISOString(),
     };
@@ -75,6 +75,11 @@ export const demoStore = {
   },
   getBookings() {
     return read(BOOKINGS_KEY, []);
+  },
+  updateBookingStatus(id, status) {
+    const bookings = this.getBookings().map((booking) => String(booking.id) === String(id) ? { ...booking, status } : booking);
+    write(BOOKINGS_KEY, bookings);
+    return bookings.find((booking) => String(booking.id) === String(id));
   },
   getGroups() {
     if (isSupabaseConfigured) return [];
