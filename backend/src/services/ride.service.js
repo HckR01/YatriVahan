@@ -112,9 +112,6 @@ async function assertDriverProfile(userId) {
   if (!profile || !["driver", "both"].includes(profile.role)) {
     throw forbidden("An approved driver / ride-offerer profile is required");
   }
-  if (!profile.is_verified) {
-    throw forbidden("Driver verification is required");
-  }
 }
 
 async function insertStopsOrRollback(ride, stops) {
@@ -128,7 +125,6 @@ async function insertStopsOrRollback(ride, stops) {
 }
 
 export async function createRideOffer(userId, input) {
-  await assertDriverProfile(userId);
   ensureReasonableDeparture(input.departureTime);
   if (input.rideType === "on_demand") {
     throw badRequest("Use /rides/requests for an on-demand ride request");
@@ -284,9 +280,6 @@ export async function acceptRideRequest(rideId, driverId, input, io) {
   const profile = assertDatabase(profileResult, "Unable to verify driver profile");
   if (!profile || !["driver", "both"].includes(profile.role)) {
     throw forbidden("A driver profile is required to accept ride requests");
-  }
-  if (!profile.is_verified) {
-    throw forbidden("Driver verification is required to accept ride requests");
   }
   await assertVehicleOwner(input.vehicleId, driverId);
 

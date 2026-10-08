@@ -34,9 +34,6 @@ async function createRideBooking(rideId, userId, input, status, io) {
   const ride = await getRideRecord(rideId);
   if (ride.status !== "scheduled") throw conflict("This ride is not open for bookings");
   if (ride.ride_type === "on_demand") throw conflict("On-demand requests are accepted by drivers");
-  const driver = assertDatabase(await supabaseAdmin.from("profiles").select("is_verified")
-    .eq("id", ride.driver_id).maybeSingle(), "Unable to verify ride offerer");
-  if (!driver?.is_verified) throw forbidden("This ride offerer is not verified");
   if ([ride.driver_id, ride.accepted_driver_id, ride.requester_id].includes(userId)) {
     throw forbidden("You cannot book your own ride");
   }

@@ -45,7 +45,16 @@ adminRouter.get("/users", validate({ query: z.object({ page: z.coerce.number().i
   const vehicles = ids.length ? assertDatabase(await supabaseAdmin.from("vehicles")
     .select("id, owner_id, make, model, color, registration_number, vehicle_type, active")
     .in("owner_id", ids), "Unable to load vehicles") : [];
-  sendData(res, { users: users.map(user => ({ ...user, vehicles: vehicles.filter(vehicle => vehicle.owner_id === user.id) })), total: result.count, page });
+  const rides = assertDatabase(await supabaseAdmin.from("rides").select("id, requester_id, driver_id, accepted_driver_id, origin_name, destination_name, status, departure_time, price_per_seat, seats_total, seats_available, created_at").order("created_at", { ascending: false }).limit(100), "Unable to load ride posts") ?? [];
+  const bookings = assertDatabase(await supabaseAdmin.from("bookings").select("id, ride_id, passenger_id, seats, amount, status, created_at").order("created_at", { ascending: false }).limit(200), "Unable to load bookings") ?? [];
+  sendData(res, { users: users.map(user => ({ ...user, vehicles: vehicles.filter(vehicle => vehicle.owner_id === user.id) })), rides, bookings, total: result.count, page });
+}));
+adminRouter.delete("/rides/:rideId", validate({ params: z.object({ rideId: z.uuid() }) }), asyncHandler(async (req, res) => {
+  const result = await supabaseAdmin.from("rides").delete().eq("id", req.validated.params.rideId).select("id").maybeSingle();
+  const deleted = assertDatabase(result, "Unable to delete ride post");
+  if (!deleted) throw notFound("Ride post");
+  logger.info({ admin: env.ADMIN_USERNAME, rideId: deleted.id }, "Admin deleted ride post");
+  sendData(res, { deleted: true, rideId: deleted.id });
 }));
 adminRouter.patch("/users/:userId/verification", validate({
   params: z.object({ userId: z.uuid() }),
