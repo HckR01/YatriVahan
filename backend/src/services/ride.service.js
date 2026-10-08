@@ -261,8 +261,21 @@ export async function getRide(rideId, userId) {
     .eq("ride_id", rideId)
     .order("stop_order", { ascending: true });
   const stops = assertDatabase(stopsResult, "Unable to load ride stops") ?? [];
+  const bookingsResult = await supabaseAdmin
+    .from("bookings")
+    .select("id, passenger_id, seats, amount, status, created_at")
+    .eq("ride_id", rideId)
+    .in("status", ["confirmed", "completed"])
+    .order("created_at", { ascending: true });
+  const bookings = assertDatabase(bookingsResult, "Unable to load ride bookings") ?? [];
+  const passengerIds = [...new Set(bookings.map((booking) => booking.passenger_id).filter(Boolean))];
+  const passengersResult = passengerIds.length
+    ? await supabaseAdmin.from("profiles").select("id, full_name, avatar_url").in("id", passengerIds)
+    : { data: [], error: null };
+  const passengers = assertDatabase(passengersResult, "Unable to load ride passengers") ?? [];
+  const passengerMap = new Map(passengers.map((passenger) => [passenger.id, passenger]));
   const [hydrated] = await hydrateRides([ride]);
-  return { ...hydrated, stops };
+  return { ...hydrated, stops, bookings: bookings.map((booking) => ({ ...booking, passenger: passengerMap.get(booking.passenger_id) ?? null })) };
 }
 
 export async function acceptRideRequest(rideId, driverId, input, io) {

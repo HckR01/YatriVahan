@@ -43,3 +43,15 @@ export const getCurrentLocation = () =>
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
     );
   });
+
+export const nameCurrentLocation = async ({ lat, lng }) => {
+  const url = new URL("https://nominatim.openstreetmap.org/reverse");
+  url.searchParams.set("lat", lat);
+  url.searchParams.set("lon", lng);
+  url.searchParams.set("format", "jsonv2");
+  url.searchParams.set("zoom", "18");
+  const response = await fetch(url, { headers: { Accept: "application/json" } });
+  if (!response.ok) return "Current location";
+  const result = await response.json();
+  return result.display_name || result.name || "Current location";
+};

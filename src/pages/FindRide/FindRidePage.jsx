@@ -1,4 +1,4 @@
-import { Filter, LoaderCircle, MapPinned, Search, SlidersHorizontal } from "lucide-react";
+import { Filter, LoaderCircle, LocateFixed, MapPinned, Search, SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
@@ -8,6 +8,7 @@ import RideCard from "../../components/ride/RideCard";
 import { ridesApi } from "../../lib/api";
 import { demoStore } from "../../lib/demoStore";
 import { isSupabaseConfigured } from "../../lib/supabase";
+import { getCurrentLocation, nameCurrentLocation } from "../../lib/locations";
 
 const rideTypes = [["", "All"], ["carpool", "Shared seats"], ["private", "Full car"], ["on_demand", "Ride now"]];
 const asList = (data) => Array.isArray(data) ? data : data?.rides || data?.items || [];
@@ -25,6 +26,21 @@ export default function FindRidePage() {
   const [loading, setLoading] = useState(true);
   const [offline, setOffline] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [locating, setLocating] = useState(false);
+
+  const useCurrentPickup = async () => {
+    setLocating(true);
+    try {
+      const point = await getCurrentLocation();
+      const name = await nameCurrentLocation(point);
+      update("origin", { ...point, name });
+    } catch (reason) {
+      setOffline(true);
+      window.alert(reason.message || "Allow location access to use your current pickup.");
+    } finally {
+      setLocating(false);
+    }
+  };
 
   useEffect(() => {
     let active = true;
@@ -89,7 +105,7 @@ export default function FindRidePage() {
         <form onSubmit={runSearch} className="-mt-16 rounded-[26px] border border-[#eaded8] bg-white p-5 shadow-[0_22px_65px_rgba(63,19,24,.14)] sm:p-6">
           <div className="flex items-center gap-2 text-sm font-extrabold text-[#65151b]"><SlidersHorizontal size={18} /> Search filters</div>
           <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_1fr_.72fr_.48fr_auto]">
-            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">From</span><input value={filters.origin} onChange={(event) => update("origin", event.target.value)} className={inputClass} placeholder="Pickup city or landmark" /></label>
+            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">From</span><div className="flex gap-2"><input value={filters.origin} onChange={(event) => update("origin", event.target.value)} className={inputClass} placeholder="Pickup city or landmark" /><button type="button" onClick={useCurrentPickup} disabled={locating} className="grid min-h-12 min-w-12 shrink-0 place-items-center rounded-xl border border-[#e6d9d3] bg-[#fff4ed] text-[#7a1f2a]" title="Use current location" aria-label="Use current location">{locating ? <LoaderCircle className="animate-spin" size={18} /> : <LocateFixed size={18} />}</button></div></label>
             <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">To</span><input value={filters.destination} onChange={(event) => update("destination", event.target.value)} className={inputClass} placeholder="Destination" /></label>
             <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">Date</span><input type="date" value={filters.departureDate} onChange={(event) => update("departureDate", event.target.value)} className={inputClass} /></label>
             <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">Seats</span><select value={filters.seats} onChange={(event) => update("seats", Number(event.target.value))} className={inputClass}>{[1,2,3,4,5,6].map((seat) => <option key={seat}>{seat}</option>)}</select></label>
