@@ -20,13 +20,13 @@ export default function Hero() {
       <div className="absolute -right-36 top-12 -z-10 h-96 w-96 rounded-full border border-white/10 shadow-[0_0_0_65px_rgba(255,255,255,.025),0_0_0_130px_rgba(255,255,255,.018)]" />
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-12 sm:px-8 lg:pb-20 lg:pt-16">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
-          <div className="text-white">
+          <div className="reveal-in text-white">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#ffd2b6] backdrop-blur"><Sparkles size={14} /> One app. Every kind of ride.</span>
             <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-[1.04] tracking-tight sm:text-6xl lg:text-[70px]">Go together.<br /><span className="text-[#ffb37e]">Go your way.</span></h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/75">Share a seat, book the whole car, or find a ride right now. YatriVahan brings local riders and trusted drivers onto one simple route.</p>
             <div className="mt-7 flex flex-wrap gap-4 text-sm font-bold text-white/75"><span className="flex items-center gap-2"><ShieldCheck size={18} className="text-[#ffb37e]" /> Verified profiles</span><span className="flex items-center gap-2"><UsersRound size={18} className="text-[#ffb37e]" /> Community groups</span><span className="flex items-center gap-2"><Leaf size={18} className="text-[#ffb37e]" /> Lower-cost travel</span></div>
           </div>
-          <div className="relative hidden lg:block">
+          <div className="reveal-in relative hidden lg:block">
             <div className="absolute -inset-3 translate-x-4 translate-y-4 rounded-[34px] border border-[#ffb37e]/40" />
             <div className="relative overflow-hidden rounded-[32px] border border-white/15 shadow-2xl"><img src={mainImage} alt="Travellers riding together in Odisha" className="h-[440px] w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#3b0d12]/70 via-transparent to-transparent" /><div className="absolute inset-x-5 bottom-5 flex items-center justify-between rounded-2xl bg-white/95 p-4 text-[#3b0d12] shadow-xl"><div><p className="text-xs font-bold uppercase tracking-[.12em] text-[#e8462c]">Live journeys</p><p className="mt-1 font-extrabold">Your next ride is nearby</p></div><span className="grid h-11 w-11 place-items-center rounded-xl bg-[#fff0e7] text-[#e8462c]"><MapPin size={20} /></span></div></div>
           </div>

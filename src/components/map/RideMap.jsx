@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { validPoint } from "../../lib/coordinates";
 
 const DEFAULT_CENTER = [20.2961, 85.8245];
 
@@ -11,8 +12,6 @@ const pin = (color, label) =>
     iconSize: [34, 34],
     iconAnchor: [17, 34],
   });
-
-const validPoint = (point) => Number.isFinite(Number(point?.lat)) && Number.isFinite(Number(point?.lng));
 
 const popupContent = (title, value) => {
   const wrapper = document.createElement("div");
@@ -44,10 +43,15 @@ export default function RideMap({ origin, destination, currentLocation, classNam
     }).addTo(map);
     map.on("click", (event) => clickHandlerRef.current?.({ lat: event.latlng.lat, lng: event.latlng.lng }));
     mapRef.current = map;
-    window.setTimeout(() => map.invalidateSize(), 50);
+    const resizeTimer = window.setTimeout(() => map.invalidateSize(), 50);
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize());
+    resizeObserver.observe(elementRef.current);
     return () => {
+      window.clearTimeout(resizeTimer);
+      resizeObserver.disconnect();
       map.remove();
       mapRef.current = null;
+      layerRef.current = null;
     };
   }, []);
 
@@ -78,7 +82,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
     }
     if (validPoint(origin) && validPoint(destination)) {
       L.polyline(
-        [[origin.lat, origin.lng], [destination.lat, destination.lng]],
+        [[Number(origin.lat), Number(origin.lng)], [Number(destination.lat), Number(destination.lng)]],
         { color: "#ee4b2b", weight: 5, opacity: 0.82, dashArray: "10 10" },
       ).addTo(layer);
     }
@@ -90,7 +94,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
     <div className={`relative overflow-hidden rounded-[24px] bg-[#eaded7] ${className}`}>
       <div ref={elementRef} className="h-full w-full" aria-label="Ride route map" />
       <span className="pointer-events-none absolute left-3 top-3 z-[500] rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#7a1f2a] shadow-sm">
-        OpenStreetMap · live route
+        {currentLocation ? "Live driver location" : "Route preview · straight line"}
       </span>
     </div>
   );

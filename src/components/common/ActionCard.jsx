@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 const ActionCard = ({ icon: Icon, title, description, onClick }) => {
   return (
     <button
@@ -10,9 +12,7 @@ const ActionCard = ({ icon: Icon, title, description, onClick }) => {
                  hover:border-[#F3B4A7]
                  hover:shadow-[0_22px_45px_rgba(101,21,27,0.13)]"
     >
-      <div className="mb-5 grid h-[47px] w-[47px] place-items-center rounded-[15px] bg-[#FFF1E8] text-[#E53935]">
-        <Icon size={22} />
-      </div>
+      <div className="mb-5 flex items-center justify-between"><div className="grid h-[50px] w-[50px] place-items-center rounded-[16px] bg-[#FFF1E8] text-[#b9472c] transition group-hover:rotate-[-6deg] group-hover:bg-[#7a1f2a] group-hover:text-white"><Icon size={23} strokeWidth={1.7} /></div><ArrowUpRight size={20} className="text-[#c3aaa0] transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#7a1f2a]" /></div>
 
       <h3 className="mb-2 text-[21px] font-bold text-[#171414]">{title}</h3>
 

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { Bell, Download, Menu, UserRound, X } from "lucide-react";
+import { Bell, CarFront, Download, Menu, PlusCircle, Search, Route, UserRound, UsersRound, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 
 const links = [
-  ["Find a ride", "/find-ride"],
-  ["Offer a ride", "/offer-ride"],
-  ["Full car", "/book-full-car"],
-  ["Groups", "/groups"],
-  ["Drive", "/driver"],
+  ["Find a ride", "/find-ride", Search],
+  ["Offer a ride", "/offer-ride", PlusCircle],
+  ["Full car", "/book-full-car", CarFront],
+  ["Groups", "/groups", UsersRound],
+  ["Drive", "/driver", Route],
 ];
 
 export default function Navbar() {
@@ -46,9 +46,9 @@ export default function Navbar() {
           <span className="font-serif text-xl font-bold tracking-tight">YatriVahan</span>
         </Link>
         <nav className="ml-auto hidden items-center gap-1 lg:flex" aria-label="Main navigation">
-          {links.map(([label, path]) => (
-            <NavLink key={path} to={path} className={({ isActive }) => `rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${isActive ? "bg-white text-[#681923]" : "text-white/85 hover:bg-white/10 hover:text-white"}`}>
-              {label}
+          {links.map(([label, path, Icon]) => (
+            <NavLink key={path} to={path} className={({ isActive }) => `inline-flex items-center gap-1.5 rounded-xl px-2.5 py-2.5 text-xs font-bold transition ${isActive ? "bg-[#ffeadc] text-[#681923] shadow-sm" : "text-white/85 hover:bg-white/10 hover:text-white"}`}>
+              <Icon size={15} />{label}
             </NavLink>
           ))}
         </nav>
@@ -64,7 +64,7 @@ export default function Navbar() {
       {open && (
         <nav className="border-t border-white/10 bg-[#55131b] px-4 py-4 lg:hidden" aria-label="Mobile navigation">
           <div className="mx-auto grid max-w-7xl gap-1">
-            {links.map(([label, path]) => <NavLink key={path} to={path} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm font-bold text-white/90 hover:bg-white/10">{label}</NavLink>)}
+            {links.map(([label, path, Icon]) => <NavLink key={path} to={path} onClick={() => setOpen(false)} className={({ isActive }) => `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold ${isActive ? "bg-white/15 text-[#ffcfb3]" : "text-white/90 hover:bg-white/10"}`}><Icon size={18} />{label}</NavLink>)}
             <NavLink to={user ? "/profile" : "/login"} onClick={() => setOpen(false)} className="mt-2 rounded-xl bg-white px-4 py-3 text-center text-sm font-extrabold text-[#681923]">{user ? "My trips & profile" : "Sign in / Create account"}</NavLink>
           </div>
         </nav>
