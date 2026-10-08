@@ -88,7 +88,7 @@ export default function RideMap({ origin, destination, currentLocation, classNam
         .then(response => response.ok ? response.json() : null).then(data => {
           const geometry = data?.routes?.[0]?.geometry?.coordinates;
           if (requestId !== routeRef.current || !geometry?.length) return;
-          L.polyline(geometry.map(([lng, lat]) => [lat, lng]), { color: "#ee4b2b", weight: 5, opacity: 0.9 }).addTo(layer);
+          L.polyline(geometry.map(([lng, lat]) => [lat, lng]), { className: "route-path", color: "#ee4b2b", weight: 5, opacity: 0.9 }).addTo(layer);
         }).catch(() => { /* fallback line remains if routing is unavailable */ });
     }
     if (points.length > 1) map.fitBounds(points, { padding: [42, 42], maxZoom: 14 });

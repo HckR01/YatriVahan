@@ -73,6 +73,34 @@ select:not(:disabled) {
 
 .leaflet-container {
   font-family: "DM Sans", sans-serif;
+  isolation: isolate;
+  background: #eaded7;
+}
+
+.leaflet-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 400;
+  pointer-events: none;
+  opacity: .18;
+  background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(to bottom, transparent, #000 28%, transparent 90%);
+}
+
+.route-path { stroke-dasharray: 12 10; animation: route-dash 1.25s linear infinite; }
+.loading-shimmer { position: relative; overflow: hidden; background: #f3e9e2; }
+.loading-shimmer::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, #fff9f5aa, transparent); animation: shimmer 1.35s ease-in-out infinite; }
+.soft-glow { box-shadow: 0 0 0 1px #fff2, 0 12px 45px #ef7b5330; }
+.float-slow { animation: gentle-float 6s ease-in-out infinite; }
+@keyframes route-dash { to { stroke-dashoffset: -44; } }
+@keyframes shimmer { to { transform: translateX(100%); } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 #ff9a6a55; } 50% { box-shadow: 0 0 0 10px #ff9a6a00; } }
+.primary-action:not(:disabled) { animation: pulse-glow 3.2s ease-in-out infinite; }
+.primary-action:hover:not(:disabled) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .route-path, .loading-shimmer::after, .float-slow, .primary-action:not(:disabled) { animation: none; }
 }
 
 /* Shared warm editorial theme, with restrained motion and clear focus states. */
