@@ -7,6 +7,7 @@ import StatusBanner from "../../components/common/StatusBanner";
 import RideCard from "../../components/ride/RideCard";
 import { ridesApi } from "../../lib/api";
 import { demoStore } from "../../lib/demoStore";
+import { isSupabaseConfigured } from "../../lib/supabase";
 
 const rideTypes = [["", "All"], ["carpool", "Shared seats"], ["private", "Full car"], ["on_demand", "Ride now"]];
 const asList = (data) => Array.isArray(data) ? data : data?.rides || data?.items || [];
@@ -28,6 +29,15 @@ export default function FindRidePage() {
   useEffect(() => {
     let active = true;
     const load = async () => {
+      if (!isSupabaseConfigured) {
+        if (active) {
+          setRides(demoStore.searchRides(filters));
+          setOffline(true);
+          setLoading(false);
+          setSearched(true);
+        }
+        return;
+      }
       try {
         const data = await ridesApi.search(filters);
         if (active) { setRides(asList(data)); setOffline(false); }
@@ -50,6 +60,12 @@ export default function FindRidePage() {
     setSearched(true);
     const query = Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== ""));
     setParams(query);
+    if (!isSupabaseConfigured) {
+      setRides(demoStore.searchRides(query));
+      setOffline(true);
+      setLoading(false);
+      return;
+    }
     try {
       setRides(asList(await ridesApi.search(query)));
       setOffline(false);
