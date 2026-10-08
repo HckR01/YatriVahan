@@ -48,6 +48,16 @@ export async function updateMyProfile(user, input) {
   return { ...profile, email: user.email ?? null };
 }
 
+export async function deleteMyAccount(userId) {
+  const result = await supabaseAdmin.auth.admin.deleteUser(userId);
+  if (result.error) {
+    const error = new Error("Unable to delete your account");
+    error.cause = result.error;
+    throw error;
+  }
+  return { deleted: true };
+}
+
 export async function getPublicProfile(profileId) {
   const result = await supabaseAdmin
     .from("profiles")

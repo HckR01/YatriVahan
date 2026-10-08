@@ -144,6 +144,7 @@ export const groupsApi = {
 export const profileApi = {
   me: () => apiRequest("/profiles/me"),
   update: (profile) => apiRequest("/profiles/me", { method: "PATCH", body: profile }),
+  remove: () => apiRequest("/profiles/me", { method: "DELETE" }),
 };
 
 export { API_BASE };

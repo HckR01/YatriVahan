@@ -19,6 +19,7 @@ profilesRouter.patch(
   validate({ body: updateProfileBody }),
   asyncHandler(controller.updateMe),
 );
+profilesRouter.delete("/me", authenticate, asyncHandler(controller.deleteMe));
 profilesRouter.get(
   "/:profileId",
   validate({ params: profileIdParams }),

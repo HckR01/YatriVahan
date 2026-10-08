@@ -1,6 +1,7 @@
 import { sendData } from "../lib/http.js";
 import {
   getMyProfile,
+  deleteMyAccount,
   getPublicProfile,
   searchDrivers,
   updateMyProfile,
@@ -12,6 +13,10 @@ export async function me(req, res) {
 
 export async function updateMe(req, res) {
   return sendData(res, await updateMyProfile(req.user, req.validated.body));
+}
+
+export async function deleteMe(req, res) {
+  return sendData(res, await deleteMyAccount(req.user.id));
 }
 
 export async function publicProfile(req, res) {
