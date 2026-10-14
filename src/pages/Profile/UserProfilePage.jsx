@@ -15,7 +15,7 @@ export default function UserProfilePage() {
   const { user, signOut } = useAuth(),
     navigate = useNavigate();
   const [profile, setProfile] = useState({
-      fullName: user.user_metadata?.full_name || "",
+      fullName: user?.user_metadata?.full_name || "Test Traveller",
       phone: "",
       bio: "",
     }),
@@ -129,7 +129,7 @@ export default function UserProfilePage() {
               />
             </Field>
             <Field label="Email">
-              <input disabled value={user.email || ""} />
+              <input disabled value={user?.email || ""} />
             </Field>
             <Field label="Phone">
               <input

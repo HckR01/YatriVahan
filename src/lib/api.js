@@ -93,13 +93,15 @@ export const normalizeGroup = (group) => {
   };
 };
 
+const asArray = (value) => (Array.isArray(value) ? value : value?.items || value?.rides || value?.bookings || value?.groups || []);
+
 export const ridesApi = {
   search: (query) =>
     apiRequest("/rides/search", { query }).then((rides) =>
-      rides.map(normalizeRide),
+      asArray(rides).map(normalizeRide),
     ),
   mine: () =>
-    apiRequest("/rides/mine").then((rides) => rides.map(normalizeRide)),
+    apiRequest("/rides/mine").then((rides) => asArray(rides).map(normalizeRide)),
   get: (rideId) => apiRequest(`/rides/${rideId}`).then(normalizeRide),
   create: (ride) =>
     apiRequest("/rides", { method: "POST", body: ride }).then(normalizeRide),
@@ -131,7 +133,7 @@ export const ridesApi = {
 export const bookingsApi = {
   list: (query) =>
     apiRequest("/bookings", { query }).then((bookings) =>
-      bookings.map((booking) => ({
+      asArray(bookings).map((booking) => ({
         ...booking,
         ride: normalizeRide(booking.ride),
       })),
@@ -152,7 +154,7 @@ export const bookingsApi = {
 export const groupsApi = {
   list: (query) =>
     apiRequest("/groups", { query }).then((groups) =>
-      groups.map(normalizeGroup),
+      asArray(groups).map(normalizeGroup),
     ),
   create: (group) =>
     apiRequest("/groups", { method: "POST", body: group }).then(normalizeGroup),

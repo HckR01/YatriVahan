@@ -4,6 +4,12 @@ import { isSupabaseConfigured, supabase } from "../lib/supabase";
 
 const DEMO_USER_KEY = "yatrivahan-demo-user";
 const DEMO_ACCOUNTS_KEY = "yatrivahan-demo-accounts";
+const DEMO_GUEST = {
+  id: "demo-guest",
+  email: "tester@yatrivahan.local",
+  user_metadata: { full_name: "Test Traveller", role: "both" },
+  app_metadata: { provider: "demo" },
+};
 
 const readJson = (key, fallback) => {
   try {
@@ -34,7 +40,7 @@ const hashPassword = async (password) => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(() =>
-    isSupabaseConfigured ? null : readJson(DEMO_USER_KEY, null),
+    isSupabaseConfigured ? null : readJson(DEMO_USER_KEY, DEMO_GUEST),
   );
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(isSupabaseConfigured);
