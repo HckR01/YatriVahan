@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Page, { Field, Notice } from "../../components/ui/Page";
 import LocationFields from "../../components/ride/LocationFields";
 import { ridesApi, vehiclesApi, profileApi } from "../../lib/api";
+import { validPoint } from "../../lib/coordinates";
 import { geocodeLocation } from "../../lib/locations";
 import { indiaDate, indiaDeparture, placeKey } from "../../lib/matching";
 export default function OfferRidePage() {
+  const [points, setPoints] = useState({});
   const [today] = useState(() => indiaDate(Date.now()));
   const navigate = useNavigate();
   const [form, setForm] = useState(() => ({
@@ -57,8 +59,12 @@ export default function OfferRidePage() {
     setBusy(true);
     try {
       const [origin, destination] = await Promise.all([
-        geocodeLocation(form.origin),
-        geocodeLocation(form.destination),
+        validPoint(points.origin)
+          ? points.origin
+          : geocodeLocation(form.origin),
+        validPoint(points.destination)
+          ? points.destination
+          : geocodeLocation(form.destination),
       ]);
       const ride = await ridesApi.create({
         rideType: form.rideType,
@@ -128,6 +134,8 @@ export default function OfferRidePage() {
               origin={form.origin}
               destination={form.destination}
               onChange={update}
+              points={points}
+              onPointsChange={setPoints}
             />
             <Field label="Departure date">
               <input

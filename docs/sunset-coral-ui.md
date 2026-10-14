@@ -17,11 +17,11 @@ This branch implements the selected coral/salmon/sand/navy visual direction with
 | Offer a Ride | `/offer-ride` | Existing vehicle and ride APIs; shared or whole-car offer |
 | Book Full Car | `/book-car` | Whole-car availability; verified driver directory |
 | Requests | `/requests` | Driver inbox, sent bookings, accept/decline/cancel |
-| Ride Details | `/rides/:rideId` | Text route/stops, participants, vehicle and booking state |
+| Ride Details | `/rides/:rideId` | Route map/stops, participants, vehicle and booking state |
 | Ride Chat | `/chat/ride/:rideId` | Explicit unavailable state; no invented chat transport |
 | Profile | `/profile` | Profile edits, vehicle create/edit, verification/rating display, two-stage deletion |
 
-Legacy URLs redirect to their new equivalents. `/find-ride` redirects to `/join-ride`. Groups and maps/GPS are not exposed in the new navigation or routes. The dashboard Payments section has been removed. Admin routing remains intact.
+Legacy URLs redirect to their new equivalents. `/find-ride` redirects to `/join-ride`. Groups are not exposed. Existing Leaflet maps are restored on Join a Ride, Offer a Ride and Ride Details at the user’s request. The dashboard Payments section has been removed. Admin routing remains intact.
 
 ## Matching behavior
 
@@ -42,7 +42,7 @@ The repository does not implement persistent matching offers, accept/decline of 
 
 Email templates currently determine whether Supabase sends a link or code (code length may differ from the six-box mockup). Configure the site URL and allow `/reset-password` in Supabase redirect URLs before testing recovery on a deployment. No Supabase settings were changed.
 
-The backend requires coordinates. Town text is resolved using the existing location helper; there is no map or browser GPS request. Unknown places require the existing geocoding service to be reachable.
+The backend requires coordinates. Town text is resolved using the existing location helper. Route preview and map pins use the existing Leaflet/OpenStreetMap/OSRM integration; selected coordinates are preserved in submissions. Town names remain required for matching. External map, routing and geocoding services must be reachable.
 
 ## Existing capacity issue — review before production merge
 

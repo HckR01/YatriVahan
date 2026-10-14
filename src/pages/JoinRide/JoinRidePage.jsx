@@ -5,6 +5,7 @@ import Page, { Empty, Field, Modal, Notice } from "../../components/ui/Page";
 import LocationFields from "../../components/ride/LocationFields";
 import { useAuth } from "../../hooks/useAuth";
 import { listAllBookings, ridesApi, searchAllRides } from "../../lib/api";
+import { validPoint } from "../../lib/coordinates";
 import { geocodeLocation } from "../../lib/locations";
 import {
   dayBounds,
@@ -16,6 +17,7 @@ import {
 import { formatDateTime, formatMoney } from "../../lib/format";
 
 export default function JoinRidePage() {
+  const [points, setPoints] = useState({});
   const [today] = useState(() => indiaDate(Date.now()));
   const { user } = useAuth();
   const [form, setForm] = useState(() => ({
@@ -126,8 +128,12 @@ export default function JoinRidePage() {
     setBusy(true);
     try {
       const [origin, destination] = await Promise.all([
-        geocodeLocation(form.origin),
-        geocodeLocation(form.destination),
+        validPoint(points.origin)
+          ? points.origin
+          : geocodeLocation(form.origin),
+        validPoint(points.destination)
+          ? points.destination
+          : geocodeLocation(form.destination),
       ]);
       const created = await ridesApi.request({
         rideType: "on_demand",
@@ -201,6 +207,8 @@ export default function JoinRidePage() {
               origin={form.origin}
               destination={form.destination}
               onChange={update}
+              points={points}
+              onPointsChange={setPoints}
             />
             <Field label="Date">
               <input

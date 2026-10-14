@@ -1440,3 +1440,7 @@ p {
 .auth-layout {
   animation: none;
 }
+
+.journey-map-picker { grid-column: 1 / -1; min-width: 0; }
+.journey-map-picker .actions { flex-wrap: wrap; }
+.journey-map-picker [aria-pressed="true"] { color: #FF2D55; text-decoration: underline; }

@@ -1,3 +1,4 @@
+import RideMap from "../../components/map/RideMap";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Page, { Empty, Field, Modal, Notice } from "../../components/ui/Page";
@@ -102,6 +103,11 @@ export default function RideDetailsPage() {
                   {ride.status.replaceAll("_", " ")}
                 </span>
               </div>
+              <RideMap
+                origin={ride.origin}
+                destination={ride.destination}
+                className="h-80"
+              />
               <ol className="route-list">
                 {[ride.origin, ...(ride.stops || []), ride.destination].map(
                   (n, i) => (
