@@ -1444,5 +1444,10 @@ p {
 .journey-map-picker { grid-column: 1 / -1; min-width: 0; }
 .journey-map-picker .actions { flex-wrap: wrap; }
 .journey-map-picker [aria-pressed="true"] { color: #FF2D55; text-decoration: underline; }
+.location-swap-row { display: flex; align-items: center; gap: 10px; margin: -4px 0; }
+.location-swap-line { height: 1px; flex: 1; background: #f0dce0; }
+.swap-button { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px; border: 1px solid #ffd0da; border-radius: 999px; background: #fff4f6; color: #d92752; font-size: 12px; font-weight: 800; }
+.swap-button:hover:not(:disabled) { border-color: #ff2d55; background: #ffe8ee; transform: translateY(-1px); }
+.swap-button:disabled { cursor: not-allowed; opacity: .45; }
 
 @media (min-width: 1101px) { .home-actions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

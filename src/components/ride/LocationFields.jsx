@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ArrowDownUp } from "lucide-react";
 import RideMap from "../map/RideMap";
 import { geocodeLocation } from "../../lib/locations";
 import { Field } from "../ui/Page";
@@ -41,6 +42,19 @@ export default function LocationFields({
       setBusy(false);
     }
   }
+  function swapLocations() {
+    const nextOrigin = destination;
+    const nextDestination = origin;
+    onChange("origin", nextOrigin);
+    onChange("destination", nextDestination);
+    if (onPointsChange) {
+      onPointsChange((current) => ({
+        ...current,
+        origin: current?.destination || null,
+        destination: current?.origin || null,
+      }));
+    }
+  }
   return (
     <>
       <Field label="From">
@@ -59,6 +73,21 @@ export default function LocationFields({
           autoComplete="off"
         />
       </Field>
+      <div className="location-swap-row">
+        <span className="location-swap-line" />
+        <button
+          type="button"
+          className="swap-button"
+          aria-label="Swap pickup and destination"
+          title="Swap pickup and destination"
+          disabled={busy || (!origin.trim() && !destination.trim())}
+          onClick={swapLocations}
+        >
+          <ArrowDownUp size={17} />
+          <span>Swap places</span>
+        </button>
+        <span className="location-swap-line" />
+      </div>
       <Field label="To">
         <input
           disabled={busy}
