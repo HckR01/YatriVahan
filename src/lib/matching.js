@@ -75,7 +75,7 @@ export function rankMatches(
         gap = Math.abs(time - requested) / 60000;
       if (
         ride.status !== "scheduled" ||
-        ride.rideType !== "carpool" ||
+        (request.rideType && ride.rideType !== request.rideType) ||
         route < 0 ||
         !Number.isFinite(time) ||
         time <= now ||

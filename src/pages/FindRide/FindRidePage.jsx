@@ -10,7 +10,7 @@ import {
   placeKey,
   rankMatches,
 } from "../../lib/matching";
-import { formatDateTime, formatMoney } from "../../lib/format";
+import { formatDateTime, formatMoney, rideTypeLabel, getRidePrice } from "../../lib/format";
 import { useAuth } from "../../hooks/useAuth";
 import { useSearchRefresh } from "../../hooks/useSearchRefresh";
 
@@ -30,6 +30,10 @@ export default function FindRidePage() {
     [loading, setLoading] = useState(false),
     [error, setError] = useState("");
   const generation = useRef(0);
+  useEffect(() => {
+    if (query || !params.get("origin") || !params.get("destination")) return;
+    setQuery({ ...form });
+  }, [form, params, query]);
   const refresh = useCallback(async () => {
     if (!query) return;
     const epoch = ++generation.current;
@@ -38,7 +42,6 @@ export default function FindRidePage() {
       const all = await searchAllRides({
         ...dayBounds(query.date),
         seats: query.seats,
-        rideType: "carpool",
       });
       const matched = rankMatches(
         all,
@@ -160,7 +163,7 @@ export default function FindRidePage() {
           {rides.map((ride) => (
             <article className="card" key={ride.id}>
               <span className="badge">
-                {ride.match.route === 0 ? "Exact ride" : "Along your route"}
+                {ride.match.route === 0 ? "Exact ride" : "Along your route"} · {rideTypeLabel(ride.rideType)}
               </span>
               <h2>
                 {query.origin} → {query.destination}
@@ -175,7 +178,8 @@ export default function FindRidePage() {
               </p>
               <p>
                 {formatDateTime(ride.departureTime)} · {ride.seatsAvailable}{" "}
-                seats · {formatMoney(ride.pricePerSeat)} / seat
+                seats · {formatMoney(getRidePrice(ride))}{" "}
+                {ride.rideType === "carpool" ? "/ seat" : "whole car"}
               </p>
               <Link
                 className="button"
