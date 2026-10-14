@@ -25,15 +25,23 @@ export default function FindRidePage() {
     time: params.get("time") || "",
     seats: Number(params.get("seats")) || 1,
   }));
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useState(() => {
+    const origin = params.get("origin");
+    const destination = params.get("destination");
+    return origin && destination
+      ? {
+          origin,
+          destination,
+          date: params.get("date") || indiaDate(Date.now()),
+          time: params.get("time") || "",
+          seats: Number(params.get("seats")) || 1,
+        }
+      : null;
+  });
   const [rides, setRides] = useState([]),
     [loading, setLoading] = useState(false),
     [error, setError] = useState("");
   const generation = useRef(0);
-  useEffect(() => {
-    if (query || !params.get("origin") || !params.get("destination")) return;
-    setQuery({ ...form });
-  }, [form, params, query]);
   const refresh = useCallback(async () => {
     if (!query) return;
     const epoch = ++generation.current;
