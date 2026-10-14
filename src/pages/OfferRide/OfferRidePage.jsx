@@ -22,6 +22,14 @@ function demoPoint(name, point, offset = 0) {
   if (known) return { ...known, name: name.trim() };
   return { name: name.trim(), lat: 20.2961 + offset * 0.08, lng: 85.8245 + offset * 0.08 };
 }
+
+const defaultDepartureTime = () =>
+  new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(new Date(Date.now() + 60 * 60 * 1000));
 export default function OfferRidePage() {
   const [routeId, setRouteId] = useState("");
   const [points, setPoints] = useState({});
@@ -31,7 +39,7 @@ export default function OfferRidePage() {
       origin: "",
       destination: "",
       date: indiaDate(Date.now()),
-      time: "",
+      time: defaultDepartureTime(),
       seats: 1,
       price: "",
       vehicleId: "",
@@ -222,7 +230,6 @@ export default function OfferRidePage() {
                 type="time"
                 value={form.time}
                 onChange={(e) => update("time", e.target.value)}
-                required
               />
             </Field>
             <Field label="Available seats">
