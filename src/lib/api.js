@@ -94,26 +94,48 @@ export const normalizeGroup = (group) => {
 };
 
 export const ridesApi = {
-  search: (query) => apiRequest("/rides/search", { query }).then((rides) => rides.map(normalizeRide)),
-  mine: () => apiRequest("/rides/mine").then((rides) => rides.map(normalizeRide)),
+  search: (query) =>
+    apiRequest("/rides/search", { query }).then((rides) =>
+      rides.map(normalizeRide),
+    ),
+  mine: () =>
+    apiRequest("/rides/mine").then((rides) => rides.map(normalizeRide)),
   get: (rideId) => apiRequest(`/rides/${rideId}`).then(normalizeRide),
-  create: (ride) => apiRequest("/rides", { method: "POST", body: ride }).then(normalizeRide),
-  request: (ride) => apiRequest("/rides/requests", { method: "POST", body: ride }).then(normalizeRide),
-  accept: (rideId) => apiRequest(`/rides/${rideId}/accept`, { method: "POST", body: {} }).then(normalizeRide),
-  cancel: (rideId) => apiRequest(`/rides/${rideId}/cancel`, { method: "POST", body: { reason: "Cancelled by user" } }),
+  create: (ride) =>
+    apiRequest("/rides", { method: "POST", body: ride }).then(normalizeRide),
+  request: (ride) =>
+    apiRequest("/rides/requests", { method: "POST", body: ride }).then(
+      normalizeRide,
+    ),
+  accept: (rideId) =>
+    apiRequest(`/rides/${rideId}/accept`, { method: "POST", body: {} }).then(
+      normalizeRide,
+    ),
+  cancel: (rideId) =>
+    apiRequest(`/rides/${rideId}/cancel`, {
+      method: "POST",
+      body: { reason: "Cancelled by user" },
+    }),
   book: (rideId, booking) =>
     apiRequest(`/rides/${rideId}/bookings`, { method: "POST", body: booking }),
   join: (rideId, booking) =>
     apiRequest(`/rides/${rideId}/join`, { method: "POST", body: booking }),
   location: (rideId) => apiRequest(`/rides/${rideId}/location`),
   updateStatus: (rideId, status) =>
-    apiRequest(`/rides/${rideId}/status`, { method: "PATCH", body: { status } }),
+    apiRequest(`/rides/${rideId}/status`, {
+      method: "PATCH",
+      body: { status },
+    }),
 };
 
 export const bookingsApi = {
-  list: (query) => apiRequest("/bookings", { query }).then((bookings) =>
-    bookings.map((booking) => ({ ...booking, ride: normalizeRide(booking.ride) })),
-  ),
+  list: (query) =>
+    apiRequest("/bookings", { query }).then((bookings) =>
+      bookings.map((booking) => ({
+        ...booking,
+        ride: normalizeRide(booking.ride),
+      })),
+    ),
   get: (bookingId) => apiRequest(`/bookings/${bookingId}`),
   updateStatus: (bookingId, status) =>
     apiRequest(`/bookings/${bookingId}/status`, {
@@ -128,11 +150,20 @@ export const bookingsApi = {
 };
 
 export const groupsApi = {
-  list: (query) => apiRequest("/groups", { query }).then((groups) => groups.map(normalizeGroup)),
-  create: (group) => apiRequest("/groups", { method: "POST", body: group }).then(normalizeGroup),
+  list: (query) =>
+    apiRequest("/groups", { query }).then((groups) =>
+      groups.map(normalizeGroup),
+    ),
+  create: (group) =>
+    apiRequest("/groups", { method: "POST", body: group }).then(normalizeGroup),
   get: (groupId) => apiRequest(`/groups/${groupId}`).then(normalizeGroup),
-  join: (groupId, joinCode) => apiRequest(`/groups/${groupId}/members/me`, { method: "POST", body: joinCode ? { joinCode } : {} }),
-  leave: (groupId) => apiRequest(`/groups/${groupId}/members/me`, { method: "DELETE" }),
+  join: (groupId, joinCode) =>
+    apiRequest(`/groups/${groupId}/members/me`, {
+      method: "POST",
+      body: joinCode ? { joinCode } : {},
+    }),
+  leave: (groupId) =>
+    apiRequest(`/groups/${groupId}/members/me`, { method: "DELETE" }),
   messages: (groupId) => apiRequest(`/groups/${groupId}/messages`),
   sendMessage: (groupId, message) =>
     apiRequest(`/groups/${groupId}/messages`, {
@@ -143,8 +174,33 @@ export const groupsApi = {
 
 export const profileApi = {
   me: () => apiRequest("/profiles/me"),
-  update: (profile) => apiRequest("/profiles/me", { method: "PATCH", body: profile }),
+  update: (profile) =>
+    apiRequest("/profiles/me", { method: "PATCH", body: profile }),
   remove: () => apiRequest("/profiles/me", { method: "DELETE" }),
 };
 
 export { API_BASE };
+
+export const vehiclesApi = {
+  mine: () => apiRequest("/vehicles/mine"),
+  create: (body) => apiRequest("/vehicles", { method: "POST", body }),
+  update: (id, body) =>
+    apiRequest(`/vehicles/${id}`, { method: "PATCH", body }),
+};
+// Search pagination must be exhausted before ranking; never silently match only page one.
+export async function searchAllRides(query) {
+  const all = [];
+  for (let page = 1; ; page++) {
+    const items = await ridesApi.search({ ...query, page, limit: 100 });
+    all.push(...items);
+    if (items.length < 100) return all;
+  }
+}
+export async function listAllBookings(query) {
+  const all = [];
+  for (let page = 1; ; page++) {
+    const items = await bookingsApi.list({ ...query, page, limit: 100 });
+    all.push(...items);
+    if (items.length < 100) return all;
+  }
+}

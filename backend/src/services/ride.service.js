@@ -1,3 +1,4 @@
+import { notifyRideSearch } from "./search-events.js";
 import { supabaseAdmin } from "../config/supabase.js";
 import { badRequest, conflict, forbidden, notFound, unauthorized, assertDatabase } from "../lib/errors.js";
 import { getPagination, paginationMeta } from "../lib/http.js";
@@ -68,6 +69,17 @@ async function assertVehicleOwner(vehicleId, userId) {
   return vehicle;
 }
 
+async function loadStops(rideIds) {
+  const all = [];
+  for (let offset = 0; ; offset += 1000) {
+    const result = await supabaseAdmin.from("ride_stops").select("*").in("ride_id", rideIds)
+      .order("ride_id", { ascending: true }).order("stop_order", { ascending: true }).range(offset, offset + 999);
+    const rows = assertDatabase(result, "Unable to load ride stops") ?? [];
+    all.push(...rows);
+    if (rows.length < 1000) return all;
+  }
+}
+
 async function hydrateRides(rides) {
   if (!rides?.length) return [];
   const profileIds = [...new Set(
@@ -75,7 +87,7 @@ async function hydrateRides(rides) {
   )];
   const vehicleIds = [...new Set(rides.map((ride) => ride.vehicle_id).filter(Boolean))];
 
-  const [profilesResult, vehiclesResult] = await Promise.all([
+  const [profilesResult, vehiclesResult, stopsResult] = await Promise.all([
     profileIds.length
       ? supabaseAdmin
           .from("profiles")
@@ -88,7 +100,14 @@ async function hydrateRides(rides) {
           .select("id, owner_id, make, model, color, seats, vehicle_type, photo_url, active")
           .in("id", vehicleIds)
       : Promise.resolve({ data: [], error: null }),
+    loadStops(rides.map((r) => r.id)),
   ]);
+  const stops = stopsResult;
+  const stopMap = new Map();
+  for (const stop of stops) {
+    if (!stopMap.has(stop.ride_id)) stopMap.set(stop.ride_id, []);
+    stopMap.get(stop.ride_id).push(stop);
+  }
   const profiles = assertDatabase(profilesResult, "Unable to load ride drivers") ?? [];
   const vehicles = assertDatabase(vehiclesResult, "Unable to load ride vehicles") ?? [];
   const profileMap = new Map(profiles.map((profile) => [profile.id, profile]));
@@ -96,6 +115,7 @@ async function hydrateRides(rides) {
 
   return rides.map((ride) => ({
     ...ride,
+    stops: stopMap.get(ride.id) ?? [],
     driver: profileMap.get(ride.accepted_driver_id ?? ride.driver_id) ?? null,
     vehicle: vehicleMap.get(ride.vehicle_id) ?? null,
   }));
@@ -319,6 +339,7 @@ export async function acceptRideRequest(rideId, driverId, input, io) {
     data: { rideId, driverId },
   }, io);
   io?.to(`ride:${rideId}`).emit("trip:status_updated", { rideId, status: "accepted" });
+  notifyRideSearch(io);
   return updated;
 }
 
@@ -359,6 +380,7 @@ export async function updateRideStatus(rideId, userId, nextStatus, io) {
       data: { rideId, status: nextStatus },
     }, io);
   }
+  notifyRideSearch(io);
   return updated;
 }
 
@@ -390,6 +412,7 @@ export async function cancelRide(rideId, userId, reason, io) {
     .eq("ride_id", rideId)
     .in("status", ["pending", "confirmed"]);
   io?.to(`ride:${rideId}`).emit("trip:status_updated", { rideId, status: "cancelled", reason });
+  notifyRideSearch(io);
   return updated;
 }
 
@@ -414,6 +437,7 @@ export async function updateDestination(rideId, userId, destination, io) {
   const updated = assertDatabase(result, "Unable to update destination");
   const event = { rideId, destination };
   io?.to(`ride:${rideId}`).emit("destination:updated", event);
+  notifyRideSearch(io);
   return updated;
 }
 

@@ -46,3 +46,9 @@ test("ride search pagination is bounded and typed", () => {
   assert.equal(searchRidesQuery.safeParse({ limit: 101 }).success, false);
 });
 
+
+test("long saved routes allow all 21 intermediate stops but remain bounded", () => {
+  const stops = Array.from({length:21}, (_,i) => ({ name:`Stop ${i+1}`, lat:20, lng:85, stopOrder:i+1 }));
+  assert.equal(createRideBody.safeParse({...validRide, stops}).success, true);
+  assert.equal(createRideBody.safeParse({...validRide, stops:Array.from({length:51}, (_,i) => ({...stops[0], stopOrder:i+1}))}).success, false);
+});

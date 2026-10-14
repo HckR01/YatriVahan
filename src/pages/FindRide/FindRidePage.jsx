@@ -1,126 +1,192 @@
-import { Filter, LoaderCircle, LocateFixed, MapPinned, Search, SlidersHorizontal } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Footer from "../../components/layout/Footer";
-import Navbar from "../../components/layout/Navbar";
-import StatusBanner from "../../components/common/StatusBanner";
-import RideCard from "../../components/ride/RideCard";
-import { ridesApi } from "../../lib/api";
-import { demoStore } from "../../lib/demoStore";
-import { isSupabaseConfigured } from "../../lib/supabase";
-import { getCurrentLocation, nameCurrentLocation } from "../../lib/locations";
-
-const rideTypes = [["", "All"], ["carpool", "Shared seats"], ["private", "Full car"], ["on_demand", "Ride now"]];
-const asList = (data) => Array.isArray(data) ? data : data?.rides || data?.items || [];
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import Page, { Field, Notice, Empty } from "../../components/ui/Page";
+import LocationFields from "../../components/ride/LocationFields";
+import { searchAllRides } from "../../lib/api";
+import {
+  dayBounds,
+  indiaDate,
+  indiaDeparture,
+  placeKey,
+  rankMatches,
+} from "../../lib/matching";
+import { formatDateTime, formatMoney } from "../../lib/format";
+import { useAuth } from "../../hooks/useAuth";
+import { useSearchRefresh } from "../../hooks/useSearchRefresh";
 
 export default function FindRidePage() {
   const [params, setParams] = useSearchParams();
-  const [filters, setFilters] = useState(() => ({
+  const { user } = useAuth();
+  const [today] = useState(() => indiaDate(Date.now()));
+  const [form, setForm] = useState(() => ({
     origin: params.get("origin") || "",
     destination: params.get("destination") || "",
-    departureDate: params.get("departureDate") || "",
-    seats: Number(params.get("seats") || 1),
-    rideType: params.get("rideType") || "",
+    date: params.get("date") || indiaDate(Date.now()),
+    time: params.get("time") || "",
+    seats: Number(params.get("seats")) || 1,
   }));
-  const [rides, setRides] = useState(() => demoStore.searchRides(filters));
-  const [loading, setLoading] = useState(true);
-  const [offline, setOffline] = useState(false);
-  const [searched, setSearched] = useState(false);
-  const [locating, setLocating] = useState(false);
-
-  const useCurrentPickup = async () => {
-    setLocating(true);
-    try {
-      const point = await getCurrentLocation();
-      const name = await nameCurrentLocation(point);
-      update("origin", { ...point, name });
-    } catch (reason) {
-      setOffline(true);
-      window.alert(reason.message || "Allow location access to use your current pickup.");
-    } finally {
-      setLocating(false);
-    }
-  };
-
-  useEffect(() => {
-    let active = true;
-    const load = async () => {
-      if (!isSupabaseConfigured) {
-        if (active) {
-          setRides(demoStore.searchRides(filters));
-          setOffline(true);
-          setLoading(false);
-          setSearched(true);
-        }
-        return;
-      }
-      try {
-        const data = await ridesApi.search(filters);
-        if (active) { setRides(asList(data)); setOffline(false); }
-      } catch {
-        if (active) { setRides(demoStore.searchRides(filters)); setOffline(true); }
-      } finally {
-        if (active) { setLoading(false); setSearched(true); }
-      }
-    };
-    load();
-    return () => { active = false; };
-    // Initial URL filters are loaded once; the form owns later searches.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const update = (field, value) => setFilters((current) => ({ ...current, [field]: value }));
-  const runSearch = async (event) => {
-    event?.preventDefault();
+  const [query, setQuery] = useState(null);
+  const [rides, setRides] = useState([]),
+    [loading, setLoading] = useState(false),
+    [error, setError] = useState("");
+  const generation = useRef(0);
+  const refresh = useCallback(async () => {
+    if (!query) return;
+    const epoch = ++generation.current;
     setLoading(true);
-    setSearched(true);
-    const query = Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== ""));
-    setParams(query);
-    if (!isSupabaseConfigured) {
-      setRides(demoStore.searchRides(query));
-      setOffline(true);
-      setLoading(false);
+    try {
+      const all = await searchAllRides({
+        ...dayBounds(query.date),
+        seats: query.seats,
+        rideType: "carpool",
+      });
+      const matched = rankMatches(
+        all,
+        {
+          origin: { name: query.origin },
+          destination: { name: query.destination },
+          departureTime: indiaDeparture(query.date, query.time || "12:00"),
+          seatsTotal: query.seats,
+        },
+        { userId: user?.id, windowMinutes: query.time ? 120 : Infinity },
+      );
+      if (!query.time)
+        matched.sort(
+          (a, b) =>
+            a.match.route - b.match.route ||
+            Date.parse(a.departureTime) - Date.parse(b.departureTime) ||
+            Number(a.pricePerSeat) - Number(b.pricePerSeat),
+        );
+      if (epoch === generation.current) {
+        setRides(matched);
+        setError("");
+      }
+    } catch (e) {
+      if (epoch === generation.current) {
+        setError(e.message);
+        setRides([]);
+      }
+    } finally {
+      if (epoch === generation.current) setLoading(false);
+    }
+  }, [query, user]);
+  const invalidate = useCallback(() => {
+    generation.current++;
+  }, []);
+  useEffect(() => {
+    Promise.resolve().then(refresh);
+    return invalidate;
+  }, [refresh, invalidate]);
+  const connected = useSearchRefresh(refresh, Boolean(query));
+  function search(e) {
+    e.preventDefault();
+    if (placeKey(form.origin) === placeKey(form.destination)) {
+      setError("Choose different pickup and destination stops.");
       return;
     }
-    try {
-      setRides(asList(await ridesApi.search(query)));
-      setOffline(false);
-    } catch {
-      setRides(demoStore.searchRides(query));
-      setOffline(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const inputClass = "min-h-12 w-full rounded-xl border border-[#e6d9d3] bg-white px-4 text-sm font-semibold text-[#2a2020] outline-none focus:border-[#e8462c] focus:ring-4 focus:ring-[#e8462c]/10";
-
+    setParams(
+      Object.fromEntries(Object.entries(form).filter(([, v]) => v !== "")),
+    );
+    setQuery({ ...form });
+  }
   return (
-    <div className="min-h-screen bg-[#fffaf6]">
-      <Navbar />
-      <section className="bg-[radial-gradient(circle_at_85%_20%,rgba(255,163,99,.25),transparent_30%),linear-gradient(130deg,#421017,#7b202a)] px-5 py-12 text-white sm:px-8 lg:py-16">
-        <div className="mx-auto max-w-7xl"><p className="text-xs font-extrabold uppercase tracking-[.17em] text-[#ffc6a1]">Shared, private or instant</p><h1 className="mt-3 font-serif text-4xl sm:text-5xl">Find the ride that fits</h1><p className="mt-3 max-w-xl leading-7 text-white/70">Compare available seats and full cars, then book in a few taps.</p></div>
-      </section>
-      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:py-12">
-        <form onSubmit={runSearch} className="-mt-16 rounded-[26px] border border-[#eaded8] bg-white p-5 shadow-[0_22px_65px_rgba(63,19,24,.14)] sm:p-6">
-          <div className="flex items-center gap-2 text-sm font-extrabold text-[#65151b]"><SlidersHorizontal size={18} /> Search filters</div>
-          <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_1fr_.72fr_.48fr_auto]">
-            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">From</span><div className="flex gap-2"><input value={filters.origin} onChange={(event) => update("origin", event.target.value)} className={inputClass} placeholder="Pickup city or landmark" /><button type="button" onClick={useCurrentPickup} disabled={locating} className="grid min-h-12 min-w-12 shrink-0 place-items-center rounded-xl border border-[#e6d9d3] bg-[#fff4ed] text-[#7a1f2a]" title="Use current location" aria-label="Use current location">{locating ? <LoaderCircle className="animate-spin" size={18} /> : <LocateFixed size={18} />}</button></div></label>
-            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">To</span><input value={filters.destination} onChange={(event) => update("destination", event.target.value)} className={inputClass} placeholder="Destination" /></label>
-            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">Date</span><input type="date" value={filters.departureDate} onChange={(event) => update("departureDate", event.target.value)} className={inputClass} /></label>
-            <label><span className="mb-2 block text-xs font-extrabold uppercase tracking-[.1em] text-[#80736e]">Seats</span><select value={filters.seats} onChange={(event) => update("seats", Number(event.target.value))} className={inputClass}>{[1,2,3,4,5,6].map((seat) => <option key={seat}>{seat}</option>)}</select></label>
-            <button disabled={loading} className="mt-auto flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#e8462c] px-6 text-sm font-extrabold text-white hover:bg-[#d23b24] disabled:opacity-60">{loading ? <LoaderCircle className="animate-spin" size={18} /> : <Search size={18} />} Search</button>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-2">{rideTypes.map(([value, label]) => <button key={label} type="button" onClick={() => update("rideType", value)} className={`rounded-full px-4 py-2 text-xs font-extrabold transition ${filters.rideType === value ? "bg-[#7a1f2a] text-white" : "bg-[#fff2ea] text-[#7a1f2a] hover:bg-[#ffe2d1]"}`}>{label}</button>)}</div>
-        </form>
-        <div className="mt-10">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3"><div><h2 className="font-serif text-3xl text-[#52151d]">{loading ? "Searching routes…" : `${rides.length} ride${rides.length === 1 ? "" : "s"} found`}</h2><p className="mt-1 text-sm text-[#776a65]">Sorted by route match and departure time</p></div><span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-bold text-[#776a65] shadow-sm"><Filter size={14} /> Live availability</span></div>
-          {offline && <div className="mb-6"><StatusBanner>Showing demo and locally posted rides while the API is offline.</StatusBanner></div>}
-          {!loading && searched && rides.length === 0 && <div className="rounded-[28px] border border-dashed border-[#dcbfb5] bg-white px-6 py-16 text-center"><MapPinned className="mx-auto text-[#e8462c]" size={34} /><h3 className="mt-4 text-xl font-extrabold text-[#52151d]">No exact ride yet</h3><p className="mx-auto mt-2 max-w-md text-[#776a65]">Try a nearby landmark, remove the date, or create a travel group to find people going your way.</p></div>}
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">{rides.map((ride) => <RideCard key={ride.id} ride={ride} />)}</div>
+    <Page
+      title="Find a Ride"
+      description="Search towns or route stops. Exact rides first, then rides passing through both stops."
+      scenic
+    >
+      <Notice error>{error}</Notice>
+      <form onSubmit={search} className="card form-card">
+        <div className="form-grid">
+          <LocationFields
+            origin={form.origin}
+            destination={form.destination}
+            onChange={(key, value) => setForm((f) => ({ ...f, [key]: value }))}
+          />
+          <Field label="Travel date">
+            <input
+              type="date"
+              required
+              min={today}
+              value={form.date}
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
+            />
+          </Field>
+          <Field label="Preferred time (IST, optional)">
+            <input
+              type="time"
+              value={form.time}
+              onChange={(e) => setForm({ ...form, time: e.target.value })}
+            />
+          </Field>
+          <Field label="Seats needed">
+            <select
+              value={form.seats}
+              onChange={(e) =>
+                setForm({ ...form, seats: Number(e.target.value) })
+              }
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <option key={n}>{n}</option>
+              ))}
+            </select>
+          </Field>
         </div>
-      </main>
-      <Footer />
-    </div>
+        <button className="button" disabled={loading}>
+          {loading ? "Searching…" : "Find rides"}
+        </button>
+      </form>
+      {query && (
+        <section className="stack section-gap">
+          <div className="row">
+            <h2>{rides.length} matching rides</h2>
+            <span className="muted small">
+              {connected
+                ? "Live updates connected"
+                : "Refreshes every 30 seconds"}
+            </span>
+          </div>
+          <p className="muted small">
+            Times are departure from the driver’s starting point. Confirm pickup
+            time with the driver. The listed seat fare applies; no distance
+            discount is calculated.
+          </p>
+          {!loading && !rides.length && !error && (
+            <Empty title="No matching rides yet">
+              <Link to="/join-ride">Post a travel request</Link> so you can
+              check for new offers.
+            </Empty>
+          )}
+          {rides.map((ride) => (
+            <article className="card" key={ride.id}>
+              <span className="badge">
+                {ride.match.route === 0 ? "Exact ride" : "Along your route"}
+              </span>
+              <h2>
+                {query.origin} → {query.destination}
+              </h2>
+              <p className="muted">
+                Driver route: {ride.origin.name} → {ride.destination.name}
+              </p>
+              <p className="muted small">
+                Via{" "}
+                {(ride.stops || []).map((n) => n.name).join(" → ") ||
+                  "No intermediate stops"}
+              </p>
+              <p>
+                {formatDateTime(ride.departureTime)} · {ride.seatsAvailable}{" "}
+                seats · {formatMoney(ride.pricePerSeat)} / seat
+              </p>
+              <Link
+                className="button"
+                to={`/rides/${ride.id}?${new URLSearchParams({ pickup: query.origin, dropoff: query.destination, seats: String(query.seats) })}`}
+              >
+                View ride & request seats
+              </Link>
+            </article>
+          ))}
+        </section>
+      )}
+    </Page>
   );
 }

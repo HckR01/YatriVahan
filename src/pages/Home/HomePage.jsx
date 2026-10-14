@@ -1,34 +1,70 @@
+import { ArrowRight, CarFront, UsersRound } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
-import Hero from "../../components/home/Hero";
-import ActionSection from "../../components/home/ActionSection";
-import AvailableRides from "../../components/home/AvailableRides";
-import watermark from "../../assets/Mandala Wheel.png";
-import HowItWorks from "../../components/home/HowItWorks";
 import Footer from "../../components/layout/Footer";
-
-const HomePage = () => {
+const actions = [
+  [
+    "Find a Ride",
+    "Find available rides through your pickup and destination stops.",
+    "/find-ride",
+    UsersRound,
+    "Find a ride",
+  ],
+  [
+    "Join a Ride",
+    "Post your travel request and connect with a matching ride.",
+    "/join-ride",
+    UsersRound,
+    "Post a travel request",
+  ],
+  [
+    "Offer a Ride",
+    "Share your available seats and your journey.",
+    "/offer-ride",
+    CarFront,
+    "Offer a ride",
+  ],
+  [
+    "Book Full Car",
+    "Keep the whole car for your journey together.",
+    "/book-car",
+    CarFront,
+    "Book full car",
+  ],
+];
+export default function HomePage() {
   return (
     <>
       <Navbar />
-      <Hero />
-      {/* Shared watermark area * avelable ride and action section */}
-      <main className="relative overflow-hidden bg-[#FFF9F3]">
-        <img
-          src={watermark}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-[900px] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] select-none"
-        />
-
-        <div className="relative z-10">
-          <ActionSection />
-          <AvailableRides />
-        </div>
+      <main className="home-page">
+        <section className="home-hero">
+          <div>
+            <p className="eyebrow">YOUR JOURNEY. GOOD COMPANY.</p>
+            <h1>
+              Travel Together.
+              <br />
+              <span>Go Further.</span>
+            </h1>
+            <p>Share your journey across Odisha.</p>
+          </div>
+        </section>
+        <section className="home-actions" aria-label="Plan your journey">
+          {actions.map(([title, copy, to, Icon, cta]) => (
+            <article className="card action-card" key={to}>
+              <span className="feature-icon">
+                <Icon size={30} />
+              </span>
+              <h2>{title}</h2>
+              <p>{copy}</p>
+              <Link className="button" to={to}>
+                {cta}
+                <ArrowRight size={18} />
+              </Link>
+            </article>
+          ))}
+        </section>
       </main>
-      <HowItWorks />
       <Footer />
     </>
   );
-};
-
-export default HomePage;
+}

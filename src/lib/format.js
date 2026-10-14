@@ -4,6 +4,7 @@ export const formatMoney = (value) =>
 export const formatDateTime = (value) => {
   if (!value) return "Flexible time";
   return new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
     day: "numeric",
     month: "short",
     hour: "numeric",

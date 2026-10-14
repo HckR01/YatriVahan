@@ -1,0 +1,2426 @@
+[
+  {
+    "id": "ostapur-cuttack",
+    "label": "Ostapur · Cuttack",
+    "sourceSheet": "Ostapur-Cuttack",
+    "reviewNote": "Verify which Ostapur location and its district.",
+    "nodes": [
+      {
+        "name": "Ostapur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 5.0
+      },
+      {
+        "name": "Kendupatana",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 10.0
+      },
+      {
+        "name": "Sapanpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 12.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 16.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 23.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 32.0
+      }
+    ],
+    "approximateTotalKm": 32.0
+  },
+  {
+    "id": "konark-bhubaneswar",
+    "label": "Konark · Bhubaneswar",
+    "sourceSheet": "Konark-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Gop",
+        "district": "Puri",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 13.0
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 22.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 54.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 64.0
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 68.0
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 70.0
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 73.0
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 79.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 83.0
+      }
+    ],
+    "approximateTotalKm": 83.0
+  },
+  {
+    "id": "ostapur-bhubaneswar",
+    "label": "Ostapur · Bhubaneswar",
+    "sourceSheet": "Ostapur-Bhubaneswar",
+    "reviewNote": "Verify which Ostapur location and its district.",
+    "nodes": [
+      {
+        "name": "Ostapur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 5.0
+      },
+      {
+        "name": "Kendupatana",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 10.0
+      },
+      {
+        "name": "Sapanpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 12.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 16.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 23.0
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 31.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 35.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 40.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 53.0
+      }
+    ],
+    "approximateTotalKm": 53.0
+  },
+  {
+    "id": "machhagaon-gorekhnath",
+    "label": "Machhagaon · Gorekhnath",
+    "sourceSheet": "Machhagaon-Gorekhnath",
+    "reviewNote": "Athanga stop needs verification; two supplied Machhagaon variants share same sequence.",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 5.0
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 13.0
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 18.0
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 28.0
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 32.0
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 35.0
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 38.0
+      },
+      {
+        "name": "Dalaegahi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 42.0
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 45.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 50.0
+      },
+      {
+        "name": "Athanga (near Kandarpur; verify stop)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 52.0
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 57.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 66.0
+      }
+    ],
+    "approximateTotalKm": 66.0
+  },
+  {
+    "id": "machhagaon-sh43",
+    "label": "Machhagaon · SH43",
+    "sourceSheet": "Machhagaon-SH43",
+    "reviewNote": "Athanga stop needs verification; two supplied Machhagaon variants share same sequence.",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 5.0
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 13.0
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 18.0
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 28.0
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 32.0
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 35.0
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 38.0
+      },
+      {
+        "name": "Dalaegahi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 42.0
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 45.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 50.0
+      },
+      {
+        "name": "Athanga (near Kandarpur; branch, verify)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 52.0
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 57.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 66.0
+      }
+    ],
+    "approximateTotalKm": 66.0
+  },
+  {
+    "id": "konark-cuttack-sh60",
+    "label": "Konark · Cuttack · SH60",
+    "sourceSheet": "Konark-Cuttack-SH60",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Gop",
+        "district": "Puri",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 13.0
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 34.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 33.0,
+        "distanceFromStartKm": 67.0
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 70.0
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 75.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 80.0
+      }
+    ],
+    "approximateTotalKm": 80.0
+  },
+  {
+    "id": "konark-cuttack-pipili",
+    "label": "Konark · Cuttack · Pipili",
+    "sourceSheet": "Konark-Cuttack-Pipili",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Gop",
+        "district": "Puri",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 13.0
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 22.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 15.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Bhubaneswar (NH-16 Junction)",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 66.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 74.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 79.0
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 82.0
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 87.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 92.0
+      }
+    ],
+    "approximateTotalKm": 92.0
+  },
+  {
+    "id": "pattamundai-cuttack",
+    "label": "Pattamundai · Cuttack",
+    "sourceSheet": "Pattamundai-Cuttack",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 9.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 23.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 26.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 36.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 48.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 55.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 60.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 66.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 73.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 82.0
+      }
+    ],
+    "approximateTotalKm": 82.0
+  },
+  {
+    "id": "aul-cuttack",
+    "label": "Aul · Cuttack",
+    "sourceSheet": "Aul-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Aul",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Patrapur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 8.0
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 19.0
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 28.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 40.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 42.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 45.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 55.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 67.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 74.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 79.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 85.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 92.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 101.0
+      }
+    ],
+    "approximateTotalKm": 101.0
+  },
+  {
+    "id": "rajkanika-cuttack",
+    "label": "Rajkanika · Cuttack",
+    "sourceSheet": "Rajkanika-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Rajkanika",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Singhpur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 19.0,
+        "distanceFromStartKm": 19.0
+      },
+      {
+        "name": "Aul",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 30.0
+      },
+      {
+        "name": "Patrapur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 38.0
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 70.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 72.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 75.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 85.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 97.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 104.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 109.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 115.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 122.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 131.0
+      }
+    ],
+    "approximateTotalKm": 131.0
+  },
+  {
+    "id": "rajnagar-cuttack",
+    "label": "Rajnagar · Cuttack",
+    "sourceSheet": "Rajnagar-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Rajnagar",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 14.0,
+        "distanceFromStartKm": 14.0
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 23.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 35.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 37.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 40.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 50.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 62.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 69.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 74.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 80.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 87.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 96.0
+      }
+    ],
+    "approximateTotalKm": 96.0
+  },
+  {
+    "id": "marshaghai-cuttack",
+    "label": "Marshaghai · Cuttack",
+    "sourceSheet": "Marshaghai-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Marshaghai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 10.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 12.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 25.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 37.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 44.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 55.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 62.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 71.0
+      }
+    ],
+    "approximateTotalKm": 71.0
+  },
+  {
+    "id": "mahakalapada-cuttack",
+    "label": "Mahakalapada · Cuttack",
+    "sourceSheet": "Mahakalapada-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Mahakalapada",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Marshaghai",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 14.0,
+        "distanceFromStartKm": 14.0
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 26.0
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 29.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 39.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 51.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 63.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 69.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 76.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 85.0
+      }
+    ],
+    "approximateTotalKm": 85.0
+  },
+  {
+    "id": "derabish-cuttack",
+    "label": "Derabish · Cuttack",
+    "sourceSheet": "Derabish-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Derabish",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 6.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 18.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 25.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 30.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 36.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 52.0
+      }
+    ],
+    "approximateTotalKm": 52.0
+  },
+  {
+    "id": "garadpur-cuttack",
+    "label": "Garadpur · Cuttack",
+    "sourceSheet": "Garadpur-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Garadpur",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Patkura",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 6.0
+      },
+      {
+        "name": "Haladiagada",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 14.0
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 33.0
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 40.0
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 45.0
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 51.0
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 67.0
+      }
+    ],
+    "approximateTotalKm": 67.0
+  },
+  {
+    "id": "puri-bhubaneswar",
+    "label": "Puri · Bhubaneswar",
+    "sourceSheet": "Puri-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Puri",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 9.0
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Pattanaikia",
+        "district": "Puri",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 32.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 39.0
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 45.0
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 50.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 54.0
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 59.0
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 63.0
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 67.0
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 69.0
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 72.0
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 78.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 82.0
+      }
+    ],
+    "approximateTotalKm": 82.0
+  },
+  {
+    "id": "satapada-bhubaneswar",
+    "label": "Satapada · Bhubaneswar",
+    "sourceSheet": "Satapada-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Satapada",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Brahmagiri",
+        "district": "Puri",
+        "distanceFromPreviousKm": 25.0,
+        "distanceFromStartKm": 25.0
+      },
+      {
+        "name": "Puri",
+        "district": "Puri",
+        "distanceFromPreviousKm": 25.0,
+        "distanceFromStartKm": 50.0
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 59.0
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 71.0
+      },
+      {
+        "name": "Pattanaikia",
+        "district": "Puri",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 82.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 89.0
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 95.0
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 100.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 104.0
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 109.0
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 113.0
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 117.0
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 119.0
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 122.0
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 128.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 132.0
+      }
+    ],
+    "approximateTotalKm": 132.0
+  },
+  {
+    "id": "puri-cuttack",
+    "label": "Puri · Cuttack",
+    "sourceSheet": "Puri-Cuttack",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Puri",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 9.0
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri",
+        "distanceFromPreviousKm": 12.0,
+        "distanceFromStartKm": 21.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 18.0,
+        "distanceFromStartKm": 39.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 15.0,
+        "distanceFromStartKm": 54.0
+      },
+      {
+        "name": "Bhubaneswar (NH-16 Junction)",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 62.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 70.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 75.0
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 78.0
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 83.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 88.0
+      }
+    ],
+    "approximateTotalKm": 88.0
+  },
+  {
+    "id": "paradeep-cuttack-tirtol",
+    "label": "Paradeep · Cuttack · Tirtol",
+    "sourceSheet": "Paradeep-Cuttack-Tirtol",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Paradeep (Paradip)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 11.0
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 34.0
+      },
+      {
+        "name": "Jaipur (Jagatsinghpur)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Raghunathpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 53.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 14.0,
+        "distanceFromStartKm": 67.0
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 72.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 81.0
+      }
+    ],
+    "approximateTotalKm": 81.0
+  },
+  {
+    "id": "paradeep-cuttack-jagatsp",
+    "label": "Paradeep · Cuttack · Jagatsp",
+    "sourceSheet": "Paradeep-Cuttack-Jagatsp",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Paradeep (Paradip)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 11.0
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 24.0
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 10.0,
+        "distanceFromStartKm": 34.0
+      },
+      {
+        "name": "Jaipur (Jagatsinghpur)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 14.0,
+        "distanceFromStartKm": 57.0
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 65.0
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 73.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 78.0
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 83.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 92.0
+      }
+    ],
+    "approximateTotalKm": 92.0
+  },
+  {
+    "id": "astaranga-to-bhubaneswar-via-charichhak-niali-1",
+    "label": "Astaranga to Bhubaneswar via Charichhak Niali 1",
+    "sourceSheet": "Astaranga_to_Bhubaneswar_via_Charichhak_Niali_1_With_KM.csv",
+    "reviewNote": "Assumed Banamalipur in Balipatna/Khordha, not another homonymous village Bhubaneswar destination interpreted as city center; colony location needs confirmation",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "Nua Hata",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Jogeswarpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 18.0
+      },
+      {
+        "name": "Charichhak",
+        "district": "Puri",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 22.0
+      },
+      {
+        "name": "Madhaba",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 25.0
+      },
+      {
+        "name": "Tampada",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 27.0
+      },
+      {
+        "name": "Pubakhanda",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 30.0
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 33.0
+      },
+      {
+        "name": "Banamalipur",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 18.0,
+        "distanceFromStartKm": 51.0
+      },
+      {
+        "name": "Balipatna",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 58.0
+      },
+      {
+        "name": "Prataprudrapur",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 61.0
+      },
+      {
+        "name": "Jitikarsuanlo",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 65.0
+      },
+      {
+        "name": "Bhingarpur",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 69.0
+      },
+      {
+        "name": "Benupur",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 72.0
+      },
+      {
+        "name": "Balianta",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 77.0
+      },
+      {
+        "name": "Satya Vihar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 84.0
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 87.0
+      },
+      {
+        "name": "Vani Vihar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 90.0
+      },
+      {
+        "name": "Acharya Vihar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 92.0
+      },
+      {
+        "name": "Jaydev Vihar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 94.0
+      },
+      {
+        "name": "Doordarshan Colony",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 97.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 103.0
+      }
+    ],
+    "approximateTotalKm": 103.0
+  },
+  {
+    "id": "astaranga-to-bhubaneswar-via-nimapada",
+    "label": "Astaranga to Bhubaneswar via nimapada",
+    "sourceSheet": "Astaranga_to_Bhubaneswar_via_nimapada_With_KM.csv",
+    "reviewNote": "May require cross-city detour; keep specified sequence Bhubaneswar destination interpreted as central Bhubaneswar / Master Canteen",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "Nayahat",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Jogeswarpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 18.0
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 22.0
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 31.0
+      },
+      {
+        "name": "Ratilo",
+        "district": "Puri",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 36.0
+      },
+      {
+        "name": "Khelar",
+        "district": "Puri",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 42.0
+      },
+      {
+        "name": "Haripur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 48.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 53.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 66.0
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 70.0
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 77.0
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 82.0
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 84.0
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 87.0
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 95.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 100.0
+      }
+    ],
+    "approximateTotalKm": 100.0
+  },
+  {
+    "id": "astaranga-to-cuttack-route-1-via-nimapada",
+    "label": "Astaranga to Cuttack Route 1 Via Nimapada",
+    "sourceSheet": "Astaranga_to_Cuttack_Route_1_Via_Nimapada_With_KM.csv",
+    "reviewNote": "Road via eastern Bhubaneswar may differ from shortest direct road",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "Nayahat",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 22.0
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 31.0
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri",
+        "distanceFromPreviousKm": 22.0,
+        "distanceFromStartKm": 53.0
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 13.0,
+        "distanceFromStartKm": 66.0
+      },
+      {
+        "name": "Pandra",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 74.0
+      },
+      {
+        "name": "Kesora",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 77.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 83.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 87.0
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 92.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 100.0
+      }
+    ],
+    "approximateTotalKm": 100.0
+  },
+  {
+    "id": "astaranga-to-cuttack-route-2-via-gop",
+    "label": "Astaranga to Cuttack Route 2 Via Gop",
+    "sourceSheet": "Astaranga_to_Cuttack_Route_2_Via_Gop_With_KM.csv",
+    "reviewNote": "Nearby Nua Hata–Astarang Road used as proxy: verify exact NuaHata stop Based on Niali–Charichak published route (different spelling) Gopalpur assumed to mean Cuttack-side Gopalpur",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "NuaHata",
+        "district": "Puri",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Gop",
+        "district": "Puri",
+        "distanceFromPreviousKm": 23.0,
+        "distanceFromStartKm": 38.0
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 60.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 33.0,
+        "distanceFromStartKm": 93.0
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 101.0
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 105.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 108.0
+      }
+    ],
+    "approximateTotalKm": 108.0
+  },
+  {
+    "id": "machhagaon-to-bhubaneswar-route-1-via-jagatsinghpur",
+    "label": "Machhagaon to Bhubaneswar Route 1 Via Jagatsinghpur",
+    "sourceSheet": "Machhagaon_to_Bhubaneswar_Route_1_Via_Jagatsinghpur_With_KM.csv",
+    "reviewNote": "Gopalpur assumed in Balikuda/Jagatsinghpur, not Cuttack Gopalpur assumed in Jagatsinghpur, not Cuttack 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 4.0
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 10.0
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 19.0
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 28.0
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 33.0
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 36.0
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 40.0
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 43.0
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 47.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 52.0
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 59.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 65.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 69.0
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 73.0
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 78.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 84.0
+      }
+    ],
+    "approximateTotalKm": 84.0
+  },
+  {
+    "id": "machhagaon-to-bhubaneswar-route-2-via-niali",
+    "label": "Machhagaon to Bhubaneswar Route 2 Via Niali",
+    "sourceSheet": "Machhagaon_to_Bhubaneswar_Route_2_Via_Niali_With_KM.csv",
+    "reviewNote": "Needs specific Naugaon junction/bridge confirmation; high uncertainty 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 4.0
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 3.0,
+        "distanceFromStartKm": 7.0
+      },
+      {
+        "name": "Borikina",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 8.0,
+        "distanceFromStartKm": 15.0
+      },
+      {
+        "name": "Naugaon",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 15.0,
+        "distanceFromStartKm": 30.0
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 26.0,
+        "distanceFromStartKm": 56.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 33.0,
+        "distanceFromStartKm": 89.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 93.0
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 97.0
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 102.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 108.0
+      }
+    ],
+    "approximateTotalKm": 108.0
+  },
+  {
+    "id": "paradeep-to-bhubaneswar-route-1-via-cuttack",
+    "label": "Paradeep to Bhubaneswar Route 1 Via Cuttack",
+    "sourceSheet": "Paradeep_to_Bhubaneswar_Route_1_Via_Cuttack_Exact_With_KM.csv",
+    "reviewNote": "Approximate road distance based on village directory Village directory estimate; Tarapur junction may differ from village center MoRTH Cuttack–Kandarpur–Tarapur highway project length approximately 23.3 km MoRTH highway Cuttack–Kandarpur corridor 14.1 km; endpoint differs by map pin 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Paradeep",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 11.0
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 16.0,
+        "distanceFromStartKm": 27.0
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 34.0
+      },
+      {
+        "name": "Tarapur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 15.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 23.0,
+        "distanceFromStartKm": 72.0
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 14.0,
+        "distanceFromStartKm": 86.0
+      },
+      {
+        "name": "Link Road",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 90.0
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 2.0,
+        "distanceFromStartKm": 92.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 9.0,
+        "distanceFromStartKm": 101.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 105.0
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 109.0
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 114.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 120.0
+      }
+    ],
+    "approximateTotalKm": 120.0
+  },
+  {
+    "id": "paradeep-to-bhubaneswar-route-2-via-jagatsinghpur",
+    "label": "Paradeep to Bhubaneswar Route 2 Via Jagatsinghpur",
+    "sourceSheet": "Paradeep_to_Bhubaneswar_Route_2_Via_Jagatsinghpur_Exact_With_KM.csv",
+    "reviewNote": "Approximate road distance based on village directory Village directory estimate; Tarapur junction may differ from village center Tarapur/Tarpur spelling and exact junction need verification Direct estimate; may differ from SH43 route through Nuapola/Hajipur 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Paradeep",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 0.0,
+        "distanceFromStartKm": 0.0
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 11.0,
+        "distanceFromStartKm": 11.0
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 16.0,
+        "distanceFromStartKm": 27.0
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 34.0
+      },
+      {
+        "name": "Tarapur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 15.0,
+        "distanceFromStartKm": 49.0
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 16.0,
+        "distanceFromStartKm": 65.0
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 17.0,
+        "distanceFromStartKm": 82.0
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 86.0
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 91.0
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 7.0,
+        "distanceFromStartKm": 98.0
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 104.0
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 108.0
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 4.0,
+        "distanceFromStartKm": 112.0
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 5.0,
+        "distanceFromStartKm": 117.0
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha",
+        "distanceFromPreviousKm": 6.0,
+        "distanceFromStartKm": 123.0
+      }
+    ],
+    "approximateTotalKm": 123.0
+  }
+]

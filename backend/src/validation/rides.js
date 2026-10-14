@@ -41,7 +41,7 @@ const rideFields = {
   womenOnly: z.boolean().default(false),
   allowLuggage: z.boolean().default(true),
   vehicleId: uuid.nullable().optional(),
-  stops: z.array(stopSchema).max(20).default([]),
+  stops: z.array(stopSchema).max(50).default([]),
 };
 
 export const createRideBody = z
