@@ -17,7 +17,12 @@ test("route variants remain separate and can be selected in reverse", () => {
   assert.ok(options.some((r) => r.nodes.some((n) => n.name === "Pipili")));
   assert.ok(options.some((r) => r.nodes.some((n) => n.name === "Niali")));
   const reverse = routeOptions("Cuttack", "Konark");
-  assert.deepEqual(reverse[0].nodes, options[0].nodes.slice().reverse());
+  assert.deepEqual(
+    reverse[0].nodes.map((n) => n.name),
+    options[0].nodes.map((n) => n.name).reverse(),
+  );
+  assert.equal(reverse[0].nodes[0].distanceFromStartKm, 0);
+  assert.equal(reverse[0].approximateTotalKm, options[0].approximateTotalKm);
 });
 test("Nimapara alias selects Nimapada route nodes", () => {
   assert.ok(routeOptions("Nimapara", "Bhubaneswar").length);
@@ -57,6 +62,6 @@ test("mid-route search only matches the selected road variant", () => {
 test("Astarang routes retain both road variants", () => {
   const routes = routeOptions("Astarang", "Bhubaneswar");
   assert.equal(routes.length, 2);
-  assert.ok(routes.some(r => r.nodes.some(n => n.name === "Pipili")));
-  assert.ok(routes.some(r => r.nodes.some(n => n.name === "Niali")));
+  assert.ok(routes.some((r) => r.nodes.some((n) => n.name === "Pipili")));
+  assert.ok(routes.some((r) => r.nodes.some((n) => n.name === "Niali")));
 });

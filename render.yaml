@@ -6,7 +6,7 @@ services:
     rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
-    healthCheckPath: /api/v1/ready
+    healthCheckPath: /api/v1/health
     envVars:
       - key: NODE_VERSION
         value: 22.16.0
@@ -19,7 +19,7 @@ services:
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
       - key: CLIENT_ORIGINS
-        value: https://yatri-vahan.vercel.app,http://localhost:5173
+        value: https://yatrivahan.in,https://www.yatrivahan.in,https://yatri-vahan.vercel.app,http://localhost:5173
       - key: ADMIN_USERNAME
         sync: false
       - key: ADMIN_PASSWORD_HASH

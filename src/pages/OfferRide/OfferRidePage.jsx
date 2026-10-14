@@ -187,7 +187,9 @@ export default function OfferRidePage() {
               {selectedRoute ? (
                 <>
                   <p className="muted small">
-                    {selectedRoute.nodes.map((n) => n.name).join(" → ")}
+                    {selectedRoute.nodes
+                      .map((n) => `${n.name} (${n.distanceFromStartKm} km)`)
+                      .join(" → ")}
                   </p>
                   <p className="muted small">
                     Check this route before publishing.{" "}

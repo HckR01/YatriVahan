@@ -50,7 +50,13 @@ export default function FindRidePage() {
         },
         { userId: user?.id, windowMinutes: query.time ? 120 : Infinity },
       );
-      if (!query.time) matched.sort((a,b) => a.match.route - b.match.route || Date.parse(a.departureTime) - Date.parse(b.departureTime) || Number(a.pricePerSeat) - Number(b.pricePerSeat));
+      if (!query.time)
+        matched.sort(
+          (a, b) =>
+            a.match.route - b.match.route ||
+            Date.parse(a.departureTime) - Date.parse(b.departureTime) ||
+            Number(a.pricePerSeat) - Number(b.pricePerSeat),
+        );
       if (epoch === generation.current) {
         setRides(matched);
         setError("");
