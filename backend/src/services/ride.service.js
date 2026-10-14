@@ -205,7 +205,7 @@ export async function createRideRequest(userId, input) {
   }
 }
 
-export async function searchRides(query, userId) {
+export async function searchRides(query, _userId) {
   if (query.status && !["scheduled", "searching"].includes(query.status)) {
     throw forbidden("Use the authenticated /rides/mine endpoint for private trip history");
   }
@@ -254,9 +254,7 @@ export async function listMyRides(userId) {
 
 export async function getRide(rideId, userId) {
   const ride = await getRideRecord(rideId);
-  if (ride.status === "searching") {
-    const isActor = [ride.requester_id, ride.driver_id, ride.accepted_driver_id].includes(userId);
-  } else if (ride.status !== "scheduled") {
+  if (ride.status !== "searching" && ride.status !== "scheduled") {
     if (!userId) throw unauthorized();
     await assertRideParticipant(rideId, userId);
   }
