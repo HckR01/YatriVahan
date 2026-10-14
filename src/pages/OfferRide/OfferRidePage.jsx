@@ -3,10 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import Page, { Field, Notice } from "../../components/ui/Page";
 import LocationFields from "../../components/ride/LocationFields";
 import { ridesApi, vehiclesApi, profileApi } from "../../lib/api";
+import { routeOptions } from "../../lib/routeCatalog";
+import { resolveRouteStops } from "../../lib/routeStops";
 import { validPoint } from "../../lib/coordinates";
 import { geocodeLocation } from "../../lib/locations";
-import { indiaDate, indiaDeparture, placeKey } from "../../lib/matching";
+import {
+  indiaDate,
+  indiaDeparture,
+  placeKey,
+  isFutureDeparture,
+} from "../../lib/matching";
 export default function OfferRidePage() {
+  const [routeId, setRouteId] = useState("");
+  const [routeConfirmed, setRouteConfirmed] = useState(false);
   const [points, setPoints] = useState({});
   const [today] = useState(() => indiaDate(Date.now()));
   const navigate = useNavigate();
@@ -46,7 +55,15 @@ export default function OfferRidePage() {
       live = false;
     };
   }, []);
-  const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const options = routeOptions(form.origin, form.destination);
+  const selectedRoute = options.find((r) => r.id === routeId);
+  const update = (k, v) => {
+    setForm((f) => ({ ...f, [k]: v }));
+    if (["origin", "destination"].includes(k)) {
+      setRouteId("");
+      setRouteConfirmed(false);
+    }
+  };
   async function submit(e) {
     e.preventDefault();
     if (busy) return;
@@ -54,8 +71,10 @@ export default function OfferRidePage() {
     if (placeKey(form.origin) === placeKey(form.destination))
       return setError("Choose different starting and destination towns.");
     const departureTime = indiaDeparture(form.date, form.time);
-    if (Date.parse(departureTime) <= Date.now())
+    if (!isFutureDeparture(departureTime))
       return setError("Choose a departure time in the future.");
+    if (selectedRoute && !routeConfirmed)
+      return setError("Confirm the route stops before publishing.");
     setBusy(true);
     try {
       const [origin, destination] = await Promise.all([
@@ -66,7 +85,11 @@ export default function OfferRidePage() {
           ? points.destination
           : geocodeLocation(form.destination),
       ]);
+      const stops = selectedRoute
+        ? await resolveRouteStops(selectedRoute.nodes)
+        : [];
       const ride = await ridesApi.create({
+        stops,
         rideType: form.rideType,
         origin: { ...origin, name: form.origin.trim() },
         destination: { ...destination, name: form.destination.trim() },
@@ -137,6 +160,58 @@ export default function OfferRidePage() {
               points={points}
               onPointsChange={setPoints}
             />
+            <div className="journey-map-picker">
+              <Field label="Route via towns">
+                <select
+                  value={selectedRoute?.id || ""}
+                  disabled={busy}
+                  onChange={(e) => {
+                    setRouteId(e.target.value);
+                    setRouteConfirmed(false);
+                  }}
+                >
+                  <option value="">
+                    Endpoints only — no intermediate boarding
+                  </option>
+                  {options.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.label} · via{" "}
+                      {r.nodes
+                        .slice(1, -1)
+                        .map((n) => n.name)
+                        .join(", ")}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              {selectedRoute ? (
+                <>
+                  <p className="muted small">
+                    {selectedRoute.nodes.map((n) => n.name).join(" → ")}
+                  </p>
+                  <p className="muted small">
+                    Check this route before publishing.{" "}
+                    {selectedRoute.reviewNote}
+                  </p>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={routeConfirmed}
+                      disabled={busy}
+                      onChange={(e) => setRouteConfirmed(e.target.checked)}
+                    />{" "}
+                    I will pass through these stops in this order.
+                  </label>
+                </>
+              ) : (
+                <p className="muted small">
+                  Choose a saved route to accept passengers between stops.{" "}
+                  {options.length
+                    ? ""
+                    : "No saved route matches these towns yet."}
+                </p>
+              )}
+            </div>
             <Field label="Departure date">
               <input
                 type="date"
@@ -203,7 +278,7 @@ export default function OfferRidePage() {
             disabled={busy || loading || !vehicles.length}
             className="button full"
           >
-            {busy ? "Publishing…" : "Publish ride"}
+            {busy ? "Resolving stops and publishing…" : "Publish ride"}
           </button>
           {!loading && !vehicles.length && (
             <p className="muted">

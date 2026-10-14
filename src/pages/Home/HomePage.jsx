@@ -4,6 +4,13 @@ import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
 const actions = [
   [
+    "Find a Ride",
+    "Find available rides through your pickup and destination stops.",
+    "/find-ride",
+    UsersRound,
+    "Find a ride",
+  ],
+  [
     "Join a Ride",
     "Post your travel request and connect with a matching ride.",
     "/join-ride",

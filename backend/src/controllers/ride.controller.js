@@ -1,3 +1,4 @@
+import { notifyRideSearch } from "../services/search-events.js";
 import { sendData } from "../lib/http.js";
 import {
   acceptRideRequest,
@@ -16,7 +17,9 @@ import {
 const ioFor = (req) => req.app.get("io");
 
 export async function create(req, res) {
-  return sendData(res, await createRideOffer(req.user.id, req.validated.body), { status: 201 });
+  const ride = await createRideOffer(req.user.id, req.validated.body);
+  notifyRideSearch(ioFor(req));
+  return sendData(res, ride, { status: 201 });
 }
 
 export async function createRequest(req, res) {

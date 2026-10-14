@@ -1,12 +1,25 @@
 // Matching is advisory. The server owns availability, authorization and booking writes.
 export const MATCH_WINDOW_MINUTES = 120;
-export const placeKey = (value) =>
-  String(value || "")
+const aliases = {
+  astaranga: "astarang",
+  "chari chhak": "charichhak",
+  "chari chakh": "charichhak",
+  "nua hata": "nuahata",
+  nimapara: "nimapada",
+  kendupatana: "kendupatna",
+  salipur: "salepur",
+  paradip: "paradeep (paradip)",
+  paradeep: "paradeep (paradip)",
+};
+export const placeKey = (value) => {
+  const key = String(value || "")
     .split(",")[0]
     .normalize("NFKC")
     .trim()
     .toLowerCase()
     .replace(/\s+/g, " ");
+  return aliases[key] || key;
+};
 export const indiaDate = (value) => {
   const d = new Date(value);
   return Number.isFinite(d.getTime())
@@ -28,7 +41,7 @@ export function dayBounds(date) {
     ).toISOString(),
   };
 }
-function routeScore(ride, request) {
+export function routeScore(ride, request) {
   const from = placeKey(request.origin?.name),
     to = placeKey(request.destination?.name);
   if (!from || !to || from === to) return -1;
@@ -69,9 +82,10 @@ export function rankMatches(
         indiaDate(time) !== indiaDate(requested) ||
         gap > windowMinutes ||
         Number(ride.seatsAvailable) < seats ||
-        [ride.driverId, ride.acceptedDriverId, ride.requesterId].includes(
-          userId,
-        ) ||
+        (userId &&
+          [ride.driverId, ride.acceptedDriverId, ride.requesterId].includes(
+            userId,
+          )) ||
         (ride.womenOnly && request.womenOnly !== true)
       )
         return [];
@@ -84,4 +98,8 @@ export function rankMatches(
         Number(a.pricePerSeat) - Number(b.pricePerSeat) ||
         String(a.id).localeCompare(String(b.id)),
     );
+}
+
+export function isFutureDeparture(value) {
+  return Date.parse(value) > Date.now();
 }

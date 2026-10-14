@@ -16,6 +16,7 @@ import { apiRequest } from "../../lib/api";
 
 const mainLinks = [
   ["Home", "/"],
+  ["Find a Ride", "/find-ride"],
   ["Join a Ride", "/join-ride"],
   ["Offer a Ride", "/offer-ride"],
   ["Book Full Car", "/book-car"],

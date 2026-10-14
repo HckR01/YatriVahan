@@ -117,6 +117,11 @@ export function configureSocket(httpServer) {
     userConnections.set(userId, (userConnections.get(userId) ?? 0) + 1);
     socket.join(`user:${userId}`);
 
+    onEvent(socket, "search:subscribe", async () => {
+      await socket.join("ride-search");
+      return { subscribed: true };
+    });
+
     onEvent(socket, "ride:join", async (payload) => {
       const { rideId } = parse(rideRoomSchema, payload);
       const ride = await assertRideParticipant(rideId, userId);

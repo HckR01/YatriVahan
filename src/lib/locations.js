@@ -8,7 +8,7 @@ const KNOWN_LOCATIONS = {
 
 export const lookupKnownLocation = (name) => {
   const normalized = String(name || "").trim().toLowerCase();
-  const key = Object.keys(KNOWN_LOCATIONS).find((item) => normalized.includes(item));
+  const key = Object.keys(KNOWN_LOCATIONS).find((item) => normalized.split(",")[0].trim() === item);
   return key ? KNOWN_LOCATIONS[key] : null;
 };
 

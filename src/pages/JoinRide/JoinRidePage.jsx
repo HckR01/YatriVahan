@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, RefreshCw, UsersRound } from "lucide-react";
 import Page, { Empty, Field, Modal, Notice } from "../../components/ui/Page";
 import LocationFields from "../../components/ride/LocationFields";
+import { useSearchRefresh } from "../../hooks/useSearchRefresh";
 import { useAuth } from "../../hooks/useAuth";
 import { listAllBookings, ridesApi, searchAllRides } from "../../lib/api";
 import { validPoint } from "../../lib/coordinates";
@@ -97,12 +98,9 @@ export default function JoinRidePage() {
   }, []);
   useEffect(() => {
     Promise.resolve().then(refreshMatches);
-    const timer = setInterval(refreshMatches, 30000);
-    return () => {
-      clearInterval(timer);
-      invalidateMatches();
-    };
+    return invalidateMatches;
   }, [refreshMatches, invalidateMatches]);
+  const liveSearch = useSearchRefresh(refreshMatches, Boolean(active));
   const update = (key, value) => setForm((f) => ({ ...f, [key]: value }));
   async function submit(e) {
     e.preventDefault();
@@ -313,8 +311,11 @@ export default function JoinRidePage() {
               <div>
                 <h2>Matching rides</h2>
                 <p className="muted small">
-                  Same route and day · within 2 hours · enough seats. Refreshes
-                  every 30 seconds.
+                  Exact rides first, then ordered route stops · same day ·
+                  within 2 hours of driver departure.{" "}
+                  {liveSearch
+                    ? "Live updates connected."
+                    : "Refreshes every 30 seconds."}
                 </p>
               </div>
               {matches.filter((r) => !hidden.includes(r.id)).length === 0 ? (

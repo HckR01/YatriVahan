@@ -1,0 +1,1674 @@
+[
+  {
+    "id": "ostapur-cuttack",
+    "label": "Ostapur · Cuttack",
+    "sourceSheet": "Ostapur-Cuttack",
+    "reviewNote": "Verify which Ostapur location and its district.",
+    "nodes": [
+      {
+        "name": "Ostapur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatana",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Sapanpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "konark-bhubaneswar",
+    "label": "Konark · Bhubaneswar",
+    "sourceSheet": "Konark-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri"
+      },
+      {
+        "name": "Gop",
+        "district": "Puri"
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri"
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "ostapur-bhubaneswar",
+    "label": "Ostapur · Bhubaneswar",
+    "sourceSheet": "Ostapur-Bhubaneswar",
+    "reviewNote": "Verify which Ostapur location and its district.",
+    "nodes": [
+      {
+        "name": "Ostapur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatana",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Sapanpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "machhagaon-gorekhnath",
+    "label": "Machhagaon · Gorekhnath",
+    "sourceSheet": "Machhagaon-Gorekhnath",
+    "reviewNote": "Athanga stop needs verification; two supplied Machhagaon variants share same sequence.",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Dalaegahi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Athanga (near Kandarpur; verify stop)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "machhagaon-sh43",
+    "label": "Machhagaon · SH43",
+    "sourceSheet": "Machhagaon-SH43",
+    "reviewNote": "Athanga stop needs verification; two supplied Machhagaon variants share same sequence.",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Dalaegahi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Athanga (near Kandarpur; branch, verify)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "konark-cuttack-sh60",
+    "label": "Konark · Cuttack · SH60",
+    "sourceSheet": "Konark-Cuttack-SH60",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri"
+      },
+      {
+        "name": "Gop",
+        "district": "Puri"
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri"
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "konark-cuttack-pipili",
+    "label": "Konark · Cuttack · Pipili",
+    "sourceSheet": "Konark-Cuttack-Pipili",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Konark",
+        "district": "Puri"
+      },
+      {
+        "name": "Gop",
+        "district": "Puri"
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar (NH-16 Junction)",
+        "district": "Khordha"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "pattamundai-cuttack",
+    "label": "Pattamundai · Cuttack",
+    "sourceSheet": "Pattamundai-Cuttack",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "aul-cuttack",
+    "label": "Aul · Cuttack",
+    "sourceSheet": "Aul-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Aul",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Patrapur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "rajkanika-cuttack",
+    "label": "Rajkanika · Cuttack",
+    "sourceSheet": "Rajkanika-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Rajkanika",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Singhpur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Aul",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Patrapur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "rajnagar-cuttack",
+    "label": "Rajnagar · Cuttack",
+    "sourceSheet": "Rajnagar-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Rajnagar",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Pattamundai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Bharigada Chhak",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "marshaghai-cuttack",
+    "label": "Marshaghai · Cuttack",
+    "sourceSheet": "Marshaghai-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Marshaghai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "mahakalapada-cuttack",
+    "label": "Mahakalapada · Cuttack",
+    "sourceSheet": "Mahakalapada-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Mahakalapada",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Marshaghai",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Kendrapara",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Tinimuhani",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Duhuria",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "derabish-cuttack",
+    "label": "Derabish · Cuttack",
+    "sourceSheet": "Derabish-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Derabish",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "garadpur-cuttack",
+    "label": "Garadpur · Cuttack",
+    "sourceSheet": "Garadpur-Cuttack",
+    "reviewNote": "Unverified intermediate village legs.",
+    "nodes": [
+      {
+        "name": "Garadpur",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Patkura",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Haladiagada",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Chandol",
+        "district": "Kendrapara"
+      },
+      {
+        "name": "Salepur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Nischintakoili",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Kendupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Bahugram",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Jagatpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "puri-bhubaneswar",
+    "label": "Puri · Bhubaneswar",
+    "sourceSheet": "Puri-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Puri",
+        "district": "Puri"
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri"
+      },
+      {
+        "name": "Pattanaikia",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri"
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "satapada-bhubaneswar",
+    "label": "Satapada · Bhubaneswar",
+    "sourceSheet": "Satapada-Bhubaneswar",
+    "reviewNote": "Urban stop order may include backtracking.",
+    "nodes": [
+      {
+        "name": "Satapada",
+        "district": "Puri"
+      },
+      {
+        "name": "Brahmagiri",
+        "district": "Puri"
+      },
+      {
+        "name": "Puri",
+        "district": "Puri"
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri"
+      },
+      {
+        "name": "Pattanaikia",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Gudia Pokhari",
+        "district": "Puri"
+      },
+      {
+        "name": "Kausalyaganga",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "puri-cuttack",
+    "label": "Puri · Cuttack",
+    "sourceSheet": "Puri-Cuttack",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Puri",
+        "district": "Puri"
+      },
+      {
+        "name": "Chandanpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Sakhigopal",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar (NH-16 Junction)",
+        "district": "Khordha"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "paradeep-cuttack-tirtol",
+    "label": "Paradeep · Cuttack · Tirtol",
+    "sourceSheet": "Paradeep-Cuttack-Tirtol",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Paradeep (Paradip)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jaipur (Jagatsinghpur)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Raghunathpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "paradeep-cuttack-jagatsp",
+    "label": "Paradeep · Cuttack · Jagatsp",
+    "sourceSheet": "Paradeep-Cuttack-Jagatsp",
+    "reviewNote": "Planning estimates; check exact road routing.",
+    "nodes": [
+      {
+        "name": "Paradeep (Paradip)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jaipur (Jagatsinghpur)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Biribati",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "astaranga-to-bhubaneswar-via-charichhak-niali-1",
+    "label": "Astaranga to Bhubaneswar via Charichhak Niali 1",
+    "sourceSheet": "Astaranga_to_Bhubaneswar_via_Charichhak_Niali_1_With_KM.csv",
+    "reviewNote": "Assumed Banamalipur in Balipatna/Khordha, not another homonymous village Bhubaneswar destination interpreted as city center; colony location needs confirmation",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri"
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Nua Hata",
+        "district": "Puri"
+      },
+      {
+        "name": "Jogeswarpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Charichhak",
+        "district": "Puri"
+      },
+      {
+        "name": "Madhaba",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Tampada",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pubakhanda",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Banamalipur",
+        "district": "Khordha"
+      },
+      {
+        "name": "Balipatna",
+        "district": "Khordha"
+      },
+      {
+        "name": "Prataprudrapur",
+        "district": "Khordha"
+      },
+      {
+        "name": "Jitikarsuanlo",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhingarpur",
+        "district": "Khordha"
+      },
+      {
+        "name": "Benupur",
+        "district": "Khordha"
+      },
+      {
+        "name": "Balianta",
+        "district": "Khordha"
+      },
+      {
+        "name": "Satya Vihar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Vani Vihar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Acharya Vihar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Jaydev Vihar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Doordarshan Colony",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "astaranga-to-bhubaneswar-via-nimapada",
+    "label": "Astaranga to Bhubaneswar via nimapada",
+    "sourceSheet": "Astaranga_to_Bhubaneswar_via_nimapada_With_KM.csv",
+    "reviewNote": "May require cross-city detour; keep specified sequence Bhubaneswar destination interpreted as central Bhubaneswar / Master Canteen",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri"
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Nayahat",
+        "district": "Puri"
+      },
+      {
+        "name": "Jogeswarpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri"
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri"
+      },
+      {
+        "name": "Ratilo",
+        "district": "Puri"
+      },
+      {
+        "name": "Khelar",
+        "district": "Puri"
+      },
+      {
+        "name": "Haripur",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Dhauli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Sisupalgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Kalpana Square",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bapuji Nagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Laxmisagar",
+        "district": "Khordha"
+      },
+      {
+        "name": "Nayapalli",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "astaranga-to-cuttack-route-1-via-nimapada",
+    "label": "Astaranga to Cuttack Route 1 Via Nimapada",
+    "sourceSheet": "Astaranga_to_Cuttack_Route_1_Via_Nimapada_With_KM.csv",
+    "reviewNote": "Road via eastern Bhubaneswar may differ from shortest direct road",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri"
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri"
+      },
+      {
+        "name": "Nayahat",
+        "district": "Puri"
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri"
+      },
+      {
+        "name": "Nimapada",
+        "district": "Puri"
+      },
+      {
+        "name": "Pipili",
+        "district": "Puri"
+      },
+      {
+        "name": "Uttara",
+        "district": "Khordha"
+      },
+      {
+        "name": "Pandra",
+        "district": "Khordha"
+      },
+      {
+        "name": "Kesora",
+        "district": "Khordha"
+      },
+      {
+        "name": "Pahala",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "astaranga-to-cuttack-route-2-via-gop",
+    "label": "Astaranga to Cuttack Route 2 Via Gop",
+    "sourceSheet": "Astaranga_to_Cuttack_Route_2_Via_Gop_With_KM.csv",
+    "reviewNote": "Nearby Nua Hata–Astarang Road used as proxy: verify exact NuaHata stop Based on Niali–Charichak published route (different spelling) Gopalpur assumed to mean Cuttack-side Gopalpur",
+    "nodes": [
+      {
+        "name": "Astaranga",
+        "district": "Puri"
+      },
+      {
+        "name": "Kakatpur",
+        "district": "Puri"
+      },
+      {
+        "name": "NuaHata",
+        "district": "Puri"
+      },
+      {
+        "name": "Gop",
+        "district": "Puri"
+      },
+      {
+        "name": "Chari Chhak",
+        "district": "Puri"
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Gopalpur (Cuttack)",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      }
+    ]
+  },
+  {
+    "id": "machhagaon-to-bhubaneswar-route-1-via-jagatsinghpur",
+    "label": "Machhagaon to Bhubaneswar Route 1 Via Jagatsinghpur",
+    "sourceSheet": "Machhagaon_to_Bhubaneswar_Route_1_Via_Jagatsinghpur_With_KM.csv",
+    "reviewNote": "Gopalpur assumed in Balikuda/Jagatsinghpur, not Cuttack Gopalpur assumed in Jagatsinghpur, not Cuttack 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Gopalpur (Jagatsinghpur)",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Dihasahi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Nuapola",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balia",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Hajipur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha"
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "machhagaon-to-bhubaneswar-route-2-via-niali",
+    "label": "Machhagaon to Bhubaneswar Route 2 Via Niali",
+    "sourceSheet": "Machhagaon_to_Bhubaneswar_Route_2_Via_Niali_With_KM.csv",
+    "reviewNote": "Needs specific Naugaon junction/bridge confirmation; high uncertainty 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Machhagaon",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kania",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Balikuda",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Borikina",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Naugaon",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Niali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha"
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "paradeep-to-bhubaneswar-route-1-via-cuttack",
+    "label": "Paradeep to Bhubaneswar Route 1 Via Cuttack",
+    "sourceSheet": "Paradeep_to_Bhubaneswar_Route_1_Via_Cuttack_Exact_With_KM.csv",
+    "reviewNote": "Approximate road distance based on village directory Village directory estimate; Tarapur junction may differ from village center MoRTH Cuttack–Kandarpur–Tarapur highway project length approximately 23.3 km MoRTH highway Cuttack–Kandarpur corridor 14.1 km; endpoint differs by map pin 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Paradeep",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tarapur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Cuttack",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Link Road",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Madhupatna",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha"
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  },
+  {
+    "id": "paradeep-to-bhubaneswar-route-2-via-jagatsinghpur",
+    "label": "Paradeep to Bhubaneswar Route 2 Via Jagatsinghpur",
+    "sourceSheet": "Paradeep_to_Bhubaneswar_Route_2_Via_Jagatsinghpur_Exact_With_KM.csv",
+    "reviewNote": "Approximate road distance based on village directory Village directory estimate; Tarapur junction may differ from village center Tarapur/Tarpur spelling and exact junction need verification Direct estimate; may differ from SH43 route through Nuapola/Hajipur 6 km published for Rasulgarh–Bhubaneswar Railway Station; city center used as proxy",
+    "nodes": [
+      {
+        "name": "Paradeep",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kujang",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Rahama",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tirtol",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Tarapur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Jagatsinghpur",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Biridi",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kaijanga",
+        "district": "Jagatsinghpur"
+      },
+      {
+        "name": "Kandarpur",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Urali",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Phulnakhara",
+        "district": "Cuttack"
+      },
+      {
+        "name": "Pahala",
+        "district": "Khordha"
+      },
+      {
+        "name": "Hanspal",
+        "district": "Khordha"
+      },
+      {
+        "name": "Rasulgarh",
+        "district": "Khordha"
+      },
+      {
+        "name": "Bhubaneswar",
+        "district": "Khordha"
+      }
+    ]
+  }
+]

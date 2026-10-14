@@ -26,6 +26,7 @@ const popupContent = (title, value) => {
 export default function RideMap({
   origin,
   destination,
+  stops,
   currentLocation,
   className = "h-80",
   onMapClick,
@@ -85,6 +86,16 @@ export default function RideMap({
         .addTo(layer);
       points.push(coords);
     }
+    for (const stop of (stops || [])
+      .slice()
+      .sort((a, b) => a.stopOrder - b.stopOrder)) {
+      if (!validPoint(stop)) continue;
+      const coords = [Number(stop.lat), Number(stop.lng)];
+      L.circleMarker(coords, { radius: 6, color: "#FF2D55", fillOpacity: 1 })
+        .bindPopup(popupContent("Route stop", stop.name))
+        .addTo(layer);
+      points.push(coords);
+    }
     if (validPoint(destination)) {
       const coords = [Number(destination.lat), Number(destination.lng)];
       L.marker(coords, { icon: pin("#FF2D55", "B") })
@@ -108,15 +119,17 @@ export default function RideMap({
       points.push(coords);
     }
     if (validPoint(origin) && validPoint(destination)) {
+      const routePoints = [
+        origin,
+        ...(stops || []).slice().sort((a, b) => a.stopOrder - b.stopOrder),
+        destination,
+      ].filter(validPoint);
       L.polyline(
-        [
-          [Number(origin.lat), Number(origin.lng)],
-          [Number(destination.lat), Number(destination.lng)],
-        ],
+        routePoints.map((point) => [Number(point.lat), Number(point.lng)]),
         { color: "#FF2D55", weight: 3, opacity: 0.3 },
       ).addTo(layer);
       fetch(
-        `https://router.project-osrm.org/route/v1/driving/${Number(origin.lng)},${Number(origin.lat)};${Number(destination.lng)},${Number(destination.lat)}?overview=full&geometries=geojson`,
+        `https://router.project-osrm.org/route/v1/driving/${routePoints.map((point) => `${Number(point.lng)},${Number(point.lat)}`).join(";")}?overview=full&geometries=geojson`,
       )
         .then((response) => (response.ok ? response.json() : null))
         .then((data) => {
@@ -142,7 +155,7 @@ export default function RideMap({
     return () => {
       active = false;
     };
-  }, [currentLocation, destination, origin]);
+  }, [currentLocation, destination, origin, stops]);
 
   return (
     <div

@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AuthPage from "./pages/Auth/AuthPage";
 import HomePage from "./pages/Home/HomePage";
+import FindRidePage from "./pages/FindRide/FindRidePage";
 import JoinRidePage from "./pages/JoinRide/JoinRidePage";
 import OfferRidePage from "./pages/OfferRide/OfferRidePage";
 import BookFullCarPage from "./pages/BookFullCar/BookFullCarPage";
@@ -37,7 +38,7 @@ export default function App() {
         element={protectedPage(<RideChatPage />)}
       />
       <Route path="/profile" element={protectedPage(<UserProfilePage />)} />
-      <Route path="/find-ride" element={<Navigate to="/join-ride" replace />} />
+      <Route path="/find-ride" element={<FindRidePage />} />
       <Route path="/register" element={<Navigate to="/signup" replace />} />
       <Route
         path="/book-full-car"

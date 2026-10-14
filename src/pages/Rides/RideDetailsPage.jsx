@@ -1,17 +1,26 @@
 import RideMap from "../../components/map/RideMap";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import Page, { Empty, Field, Modal, Notice } from "../../components/ui/Page";
+import { routeScore, placeKey } from "../../lib/matching";
 import { ridesApi, listAllBookings, bookingsApi } from "../../lib/api";
 import { useAuth } from "../../hooks/useAuth";
 import { formatDateTime, formatMoney } from "../../lib/format";
 export default function RideDetailsPage() {
+  const [params] = useSearchParams();
   const { rideId } = useParams(),
     { user } = useAuth(),
     navigate = useNavigate();
   const [ride, setRide] = useState(null),
     [booking, setBooking] = useState(null),
-    [seats, setSeats] = useState(1),
+    [seats, setSeats] = useState(() =>
+      Math.min(8, Math.max(1, Number(params.get("seats")) || 1)),
+    ),
     [error, setError] = useState(""),
     [notice, setNotice] = useState(""),
     [loading, setLoading] = useState(true),
@@ -40,7 +49,7 @@ export default function RideDetailsPage() {
   async function book() {
     if (!user)
       return navigate(
-        `/login?returnTo=${encodeURIComponent(`/rides/${rideId}`)}`,
+        `/login?returnTo=${encodeURIComponent(`/rides/${rideId}?${params.toString()}`)}`,
       );
     setBusy(true);
     setError("");
@@ -58,10 +67,33 @@ export default function RideDetailsPage() {
         )
       )
         throw new Error("You already have a booking request for this ride.");
+      const nodes = [
+        fresh.origin,
+        ...(fresh.stops || [])
+          .slice()
+          .sort((a, b) => a.stopOrder - b.stopOrder),
+        fresh.destination,
+      ];
+      const pickup = params.get("pickup")
+        ? nodes.find((n) => placeKey(n.name) === placeKey(params.get("pickup")))
+        : fresh.origin;
+      const dropoff = params.get("dropoff")
+        ? nodes.findLast(
+            (n) => placeKey(n.name) === placeKey(params.get("dropoff")),
+          )
+        : fresh.destination;
+      if (
+        !pickup ||
+        !dropoff ||
+        routeScore(fresh, { origin: pickup, destination: dropoff }) < 0
+      )
+        throw new Error(
+          "These stops are no longer on this ride in the selected order. Search again.",
+        );
       const result = await ridesApi.book(rideId, {
         seats: count,
-        pickup: fresh.origin,
-        dropoff: fresh.destination,
+        pickup,
+        dropoff,
       });
       setBooking(result);
       setNotice("Request sent. Waiting for driver approval.");
@@ -106,6 +138,7 @@ export default function RideDetailsPage() {
               <RideMap
                 origin={ride.origin}
                 destination={ride.destination}
+                stops={ride.stops}
                 className="h-80"
               />
               <ol className="route-list">
@@ -184,6 +217,12 @@ export default function RideDetailsPage() {
                     ? "Your booking"
                     : "Request this ride"}
             </h2>
+            {params.get("pickup") && (
+              <p className="muted">
+                Your journey: {params.get("pickup")} → {params.get("dropoff")}.
+                The listed seat fare applies.
+              </p>
+            )}
             {booking ? (
               <>
                 <span className="badge">

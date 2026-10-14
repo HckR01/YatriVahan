@@ -2,16 +2,20 @@ import { useState } from "react";
 import RideMap from "../map/RideMap";
 import { geocodeLocation } from "../../lib/locations";
 import { Field } from "../ui/Page";
+import { routePlaces } from "../../lib/routeCatalog";
 const places = [
-  "Astarang",
-  "Bhubaneswar",
-  "Cuttack",
-  "Puri",
-  "Konark",
-  "Kakatpur",
-  "Nimapara",
-  "Pipili",
-];
+  ...new Set([
+    ...routePlaces,
+    "Astarang",
+    "Bhubaneswar",
+    "Cuttack",
+    "Puri",
+    "Konark",
+    "Kakatpur",
+    "Nimapara",
+    "Pipili",
+  ]),
+].sort();
 export default function LocationFields({
   origin,
   destination,

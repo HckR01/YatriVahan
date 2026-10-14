@@ -1444,3 +1444,5 @@ p {
 .journey-map-picker { grid-column: 1 / -1; min-width: 0; }
 .journey-map-picker .actions { flex-wrap: wrap; }
 .journey-map-picker [aria-pressed="true"] { color: #FF2D55; text-decoration: underline; }
+
+@media (min-width: 1101px) { .home-actions { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

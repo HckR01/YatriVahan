@@ -1,3 +1,4 @@
+import { notifyRideSearch } from "./search-events.js";
 import { supabaseAdmin } from "../config/supabase.js";
 import { assertDatabase, conflict, forbidden, notFound } from "../lib/errors.js";
 import { getPagination, paginationMeta } from "../lib/http.js";
@@ -46,6 +47,7 @@ async function createRideBooking(rideId, userId, input, status, io) {
     .single();
   const booking = assertDatabase(result, "Unable to create booking");
   const event = { rideId, booking: camelizeKeys(booking) };
+  notifyRideSearch(io);
   io?.to(`ride:${rideId}`).emit("ride:booking_updated", event);
 
   if (ride.driver_id) {
@@ -145,6 +147,7 @@ export async function updateBookingStatus(bookingId, userId, nextStatus, io) {
     assertDatabase(await supabaseAdmin.from("rides").update({ seats_available: Math.min(seats.seats_total, seats.seats_available + booking.seats) }).eq("id", booking.ride_id), "Unable to release ride seats");
   }
 
+  notifyRideSearch(io);
   io?.to(`ride:${booking.ride_id}`).emit("ride:booking_updated", {
     rideId: booking.ride_id,
     booking: camelizeKeys(updated),
@@ -177,6 +180,7 @@ export async function cancelBooking(bookingId, userId, reason, io) {
   const updated = assertDatabase(result, "Unable to cancel booking");
   if (!updated) throw conflict("Booking status changed; refresh and try again");
 
+  notifyRideSearch(io);
   io?.to(`ride:${booking.ride_id}`).emit("ride:booking_updated", {
     rideId: booking.ride_id,
     booking: camelizeKeys(updated),

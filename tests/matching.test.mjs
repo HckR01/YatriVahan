@@ -127,3 +127,33 @@ test("IST date boundaries include local midnight and end of day", () => {
   assert.equal(bounds.departureBefore, "2026-11-01T18:29:59.999Z");
   assert.equal(indiaDate(bounds.departureAfter), "2026-11-01");
 });
+
+test("exact endpoints outrank a closer and cheaper intermediate-stop ride", () => {
+  const via = {
+    ...ride,
+    id: "via",
+    origin: { name: "Puri" },
+    destination: { name: "Cuttack" },
+    stops: [
+      { name: "Astarang", stopOrder: 1 },
+      { name: "Bhubaneswar", stopOrder: 2 },
+    ],
+    pricePerSeat: 1,
+  };
+  const exact = {
+    ...ride,
+    id: "exact",
+    departureTime: indiaDeparture("2026-11-01", "09:59"),
+  };
+  assert.deepEqual(
+    rank([via, exact]).map((r) => r.id),
+    ["exact", "via"],
+  );
+});
+test("anonymous search does not exclude rides with optional owner fields missing", () => {
+  assert.equal(rankMatches([ride], request, { now: options.now }).length, 1);
+});
+test("a route is never inferred from its endpoints alone", () => {
+  const query = { ...request, origin: { name: "Pipili" } };
+  assert.equal(rank([{ ...ride, origin: { name: "Puri" } }], query).length, 0);
+});
