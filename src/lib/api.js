@@ -1,4 +1,6 @@
 import { getAccessToken } from "./supabase";
+import { isSupabaseConfigured } from "./supabase";
+import { demoStore } from "./demoStore";
 
 const API_BASE = (import.meta.env.VITE_API_URL || "/api/v1").replace(/\/$/, "");
 
@@ -97,14 +99,21 @@ const asArray = (value) => (Array.isArray(value) ? value : value?.items || value
 
 export const ridesApi = {
   search: (query) =>
-    apiRequest("/rides/search", { query }).then((rides) =>
-      asArray(rides).map(normalizeRide),
-    ),
+    isSupabaseConfigured
+      ? apiRequest("/rides/search", { query }).then((rides) => asArray(rides).map(normalizeRide))
+      : Promise.resolve(demoStore.searchRides(query).map(normalizeRide)),
   mine: () =>
-    apiRequest("/rides/mine").then((rides) => asArray(rides).map(normalizeRide)),
-  get: (rideId) => apiRequest(`/rides/${rideId}`).then(normalizeRide),
+    isSupabaseConfigured
+      ? apiRequest("/rides/mine").then((rides) => asArray(rides).map(normalizeRide))
+      : Promise.resolve(demoStore.getRides().map(normalizeRide)),
+  get: (rideId) =>
+    isSupabaseConfigured
+      ? apiRequest(`/rides/${rideId}`).then(normalizeRide)
+      : Promise.resolve(normalizeRide(demoStore.getRide(rideId))),
   create: (ride) =>
-    apiRequest("/rides", { method: "POST", body: ride }).then(normalizeRide),
+    isSupabaseConfigured
+      ? apiRequest("/rides", { method: "POST", body: ride }).then(normalizeRide)
+      : Promise.resolve(normalizeRide(demoStore.createRide(ride))),
   request: (ride) =>
     apiRequest("/rides/requests", { method: "POST", body: ride }).then(
       normalizeRide,
@@ -175,19 +184,26 @@ export const groupsApi = {
 };
 
 export const profileApi = {
-  me: () => apiRequest("/profiles/me"),
+  me: () => (isSupabaseConfigured ? apiRequest("/profiles/me") : Promise.resolve(demoStore.getProfile())),
   update: (profile) =>
-    apiRequest("/profiles/me", { method: "PATCH", body: profile }),
+    isSupabaseConfigured
+      ? apiRequest("/profiles/me", { method: "PATCH", body: profile })
+      : Promise.resolve(demoStore.updateProfile(profile)),
   remove: () => apiRequest("/profiles/me", { method: "DELETE" }),
 };
 
 export { API_BASE };
 
 export const vehiclesApi = {
-  mine: () => apiRequest("/vehicles/mine"),
-  create: (body) => apiRequest("/vehicles", { method: "POST", body }),
+  mine: () => (isSupabaseConfigured ? apiRequest("/vehicles/mine") : Promise.resolve(demoStore.getVehicles())),
+  create: (body) =>
+    isSupabaseConfigured
+      ? apiRequest("/vehicles", { method: "POST", body })
+      : Promise.resolve(demoStore.createVehicle(body)),
   update: (id, body) =>
-    apiRequest(`/vehicles/${id}`, { method: "PATCH", body }),
+    isSupabaseConfigured
+      ? apiRequest(`/vehicles/${id}`, { method: "PATCH", body })
+      : Promise.resolve(demoStore.updateVehicle(id, body)),
 };
 // Search pagination must be exhausted before ranking; never silently match only page one.
 export async function searchAllRides(query) {

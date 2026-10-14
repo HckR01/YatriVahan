@@ -121,19 +121,6 @@ async function hydrateRides(rides) {
   }));
 }
 
-async function assertDriverProfile(userId) {
-  if (!userId) throw unauthorized();
-  const result = await supabaseAdmin
-    .from("profiles")
-    .select("role, is_verified")
-    .eq("id", userId)
-    .maybeSingle();
-  const profile = assertDatabase(result, "Unable to verify driver profile");
-  if (!profile || !["driver", "both"].includes(profile.role)) {
-    throw forbidden("An approved driver / ride-offerer profile is required");
-  }
-}
-
 async function insertStopsOrRollback(ride, stops) {
   if (!stops.length) return [];
   const result = await supabaseAdmin.from("ride_stops").insert(toStopRows(ride.id, stops)).select("*");
@@ -219,7 +206,6 @@ export async function createRideRequest(userId, input) {
 }
 
 export async function searchRides(query, userId) {
-  if (query.status === "searching") await assertDriverProfile(userId);
   if (query.status && !["scheduled", "searching"].includes(query.status)) {
     throw forbidden("Use the authenticated /rides/mine endpoint for private trip history");
   }
@@ -270,7 +256,6 @@ export async function getRide(rideId, userId) {
   const ride = await getRideRecord(rideId);
   if (ride.status === "searching") {
     const isActor = [ride.requester_id, ride.driver_id, ride.accepted_driver_id].includes(userId);
-    if (!isActor) await assertDriverProfile(userId);
   } else if (ride.status !== "scheduled") {
     if (!userId) throw unauthorized();
     await assertRideParticipant(rideId, userId);
@@ -305,15 +290,6 @@ export async function acceptRideRequest(rideId, driverId, input, io) {
   }
   if (ride.requester_id === driverId) throw forbidden("You cannot accept your own ride request");
 
-  const profileResult = await supabaseAdmin
-    .from("profiles")
-    .select("role, is_verified")
-    .eq("id", driverId)
-    .maybeSingle();
-  const profile = assertDatabase(profileResult, "Unable to verify driver profile");
-  if (!profile || !["driver", "both"].includes(profile.role)) {
-    throw forbidden("A driver profile is required to accept ride requests");
-  }
   await assertVehicleOwner(input.vehicleId, driverId);
 
   const result = await supabaseAdmin

@@ -11,7 +11,6 @@ import RequestsPage from "./pages/Requests/RequestsPage";
 import RideDetailsPage from "./pages/Rides/RideDetailsPage";
 import RideChatPage from "./pages/Chat/RideChatPage";
 import UserProfilePage from "./pages/Profile/UserProfilePage";
-import AdminPage from "./pages/Admin/AdminPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 function LegacyRideRedirect() {
   const { rideId } = useParams();
@@ -53,8 +52,6 @@ export default function App() {
       <Route path="/userprofile" element={<Navigate to="/profile" replace />} />
       <Route path="/ride/:rideId" element={<LegacyRideRedirect />} />
       <Route path="/trips/:rideId" element={<LegacyRideRedirect />} />
-      <Route path="/admine" element={<AdminPage />} />
-      <Route path="/admin" element={<Navigate to="/admine" replace />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

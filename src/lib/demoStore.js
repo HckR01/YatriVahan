@@ -4,6 +4,8 @@ import { isSupabaseConfigured } from "./supabase";
 const RIDES_KEY = "yatrivahan-demo-rides-v2";
 const GROUPS_KEY = "yatrivahan-demo-groups-v2";
 const BOOKINGS_KEY = "yatrivahan-demo-bookings-v2";
+const VEHICLES_KEY = "yatrivahan-demo-vehicles-v1";
+const PROFILE_KEY = "yatrivahan-demo-profile-v1";
 
 const read = (key, fallback) => {
   try {
@@ -21,6 +23,39 @@ const write = (key, value) => {
 };
 
 export const demoStore = {
+  getProfile() {
+    return read(PROFILE_KEY, [{
+      id: "demo-guest",
+      fullName: "Test Traveller",
+      phone: "",
+      bio: "",
+      role: "both",
+      isVerified: false,
+    }])[0];
+  },
+  updateProfile(profile) {
+    const next = { ...this.getProfile(), ...profile, id: "demo-guest" };
+    write(PROFILE_KEY, [next]);
+    return next;
+  },
+  getVehicles() {
+    return read(VEHICLES_KEY, []);
+  },
+  createVehicle(vehicle) {
+    const next = { ...vehicle, id: `local-vehicle-${Date.now()}`, ownerId: "demo-guest", active: true };
+    write(VEHICLES_KEY, [next, ...this.getVehicles()]);
+    return next;
+  },
+  updateVehicle(id, vehicle) {
+    let updated;
+    const vehicles = this.getVehicles().map((item) => {
+      if (String(item.id) !== String(id)) return item;
+      updated = { ...item, ...vehicle };
+      return updated;
+    });
+    write(VEHICLES_KEY, vehicles);
+    return updated;
+  },
   getRides() {
     if (isSupabaseConfigured) return [];
     return read(RIDES_KEY, SAMPLE_RIDES);
