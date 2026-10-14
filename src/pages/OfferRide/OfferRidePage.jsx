@@ -7,12 +7,21 @@ import { routeOptions } from "../../lib/routeCatalog";
 import { resolveRouteStops } from "../../lib/routeStops";
 import { validPoint } from "../../lib/coordinates";
 import { geocodeLocation } from "../../lib/locations";
+import { lookupKnownLocation } from "../../lib/locations";
+import { isSupabaseConfigured } from "../../lib/supabase";
 import {
   indiaDate,
   indiaDeparture,
   placeKey,
   isFutureDeparture,
 } from "../../lib/matching";
+
+function demoPoint(name, point, offset = 0) {
+  if (validPoint(point)) return { ...point, name: name.trim() };
+  const known = lookupKnownLocation(name);
+  if (known) return { ...known, name: name.trim() };
+  return { name: name.trim(), lat: 20.2961 + offset * 0.08, lng: 85.8245 + offset * 0.08 };
+}
 export default function OfferRidePage() {
   const [routeId, setRouteId] = useState("");
   const [points, setPoints] = useState({});
@@ -73,16 +82,24 @@ export default function OfferRidePage() {
       return setError("Choose a departure time in the future.");
     setBusy(true);
     try {
-      const [origin, destination] = await Promise.all([
-        validPoint(points.origin)
-          ? points.origin
-          : geocodeLocation(form.origin),
-        validPoint(points.destination)
-          ? points.destination
-          : geocodeLocation(form.destination),
-      ]);
+      const [origin, destination] = isSupabaseConfigured
+        ? await Promise.all([
+            validPoint(points.origin) ? points.origin : geocodeLocation(form.origin),
+            validPoint(points.destination) ? points.destination : geocodeLocation(form.destination),
+          ])
+        : [
+            demoPoint(form.origin, points.origin, 0),
+            demoPoint(form.destination, points.destination, 1),
+          ];
       const stops = selectedRoute
-        ? await resolveRouteStops(selectedRoute.nodes)
+        ? isSupabaseConfigured
+          ? await resolveRouteStops(selectedRoute.nodes)
+          : selectedRoute.nodes.slice(1, -1).map((node, index) => ({
+              name: node.name,
+              lat: origin.lat + (index + 1) * ((destination.lat - origin.lat) / selectedRoute.nodes.length),
+              lng: origin.lng + (index + 1) * ((destination.lng - origin.lng) / selectedRoute.nodes.length),
+              stopOrder: index + 1,
+            }))
         : [];
       const ride = await ridesApi.create({
         stops,
