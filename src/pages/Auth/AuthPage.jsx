@@ -12,7 +12,7 @@ const titles = {
   reset: "Set a new password",
 };
 export default function AuthPage({ mode = "login" }) {
-  const { user, signIn, signUp, isDemoMode } = useAuth(),
+  const { user, signIn, signUp, resetPassword, isDemoMode } = useAuth(),
     navigate = useNavigate(),
     [params] = useSearchParams();
   const [form, setForm] = useState({
@@ -62,10 +62,13 @@ export default function AuthPage({ mode = "login" }) {
             : `/verify-email?email=${encodeURIComponent(form.email)}`,
         );
       } else {
+        if (!supabase && mode === "forgot") {
+          setNotice("Testing mode: enter a new password below.");
+          navigate(`/reset-password?email=${encodeURIComponent(form.email)}`);
+          return;
+        }
         if (!supabase)
-          throw new Error(
-            "Email verification and password recovery are unavailable in demo mode.",
-          );
+          throw new Error("Email verification is unavailable in demo mode.");
         let result;
         if (mode === "forgot") {
           result = await supabase.auth.resetPasswordForEmail(form.email, {
@@ -86,7 +89,9 @@ export default function AuthPage({ mode = "login" }) {
           navigate("/dashboard");
         }
         if (mode === "reset") {
-          if (!user) {
+          if (isDemoMode) {
+            await resetPassword(form.email, form.password);
+          } else if (!user) {
             result = await supabase.auth.verifyOtp({
               email: form.email,
               token: form.token,
@@ -167,7 +172,7 @@ export default function AuthPage({ mode = "login" }) {
                 />
               </Field>
             )}
-            {(mode === "verify" || (mode === "reset" && !user)) && (
+            {(mode === "verify" || (mode === "reset" && !user && !isDemoMode)) && (
               <Field label="Email verification code">
                 <input
                   className="otp-input"

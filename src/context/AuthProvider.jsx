@@ -107,6 +107,16 @@ export default function AuthProvider({ children }) {
         setUser(nextUser);
         return nextUser;
       },
+      async resetPassword(email, password) {
+        if (supabase) throw new Error("Use Supabase email recovery for production accounts.");
+        const accounts = readJson(DEMO_ACCOUNTS_KEY, []);
+        const normalizedEmail = email.trim().toLowerCase();
+        const index = accounts.findIndex((item) => item.email === normalizedEmail);
+        if (index < 0) throw new Error("No local test account exists for this email.");
+        const nextAccounts = [...accounts];
+        nextAccounts[index] = { ...nextAccounts[index], passwordHash: await hashPassword(password) };
+        localStorage.setItem(DEMO_ACCOUNTS_KEY, JSON.stringify(nextAccounts));
+      },
       async signOut() {
         if (supabase) await supabase.auth.signOut();
         localStorage.removeItem(DEMO_USER_KEY);
