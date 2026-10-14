@@ -67,7 +67,7 @@ export default function AuthPage({ mode = "login" }) {
           navigate(`/reset-password?email=${encodeURIComponent(form.email)}`);
           return;
         }
-        if (!supabase)
+        if (!supabase && mode === "verify")
           throw new Error("Email verification is unavailable in demo mode.");
         let result;
         if (mode === "forgot") {
