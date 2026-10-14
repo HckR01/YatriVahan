@@ -15,7 +15,6 @@ import {
 } from "../../lib/matching";
 export default function OfferRidePage() {
   const [routeId, setRouteId] = useState("");
-  const [routeConfirmed, setRouteConfirmed] = useState(false);
   const [points, setPoints] = useState({});
   const [today] = useState(() => indiaDate(Date.now()));
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ export default function OfferRidePage() {
     setForm((f) => ({ ...f, [k]: v }));
     if (["origin", "destination"].includes(k)) {
       setRouteId("");
-      setRouteConfirmed(false);
     }
   };
   async function submit(e) {
@@ -73,8 +71,6 @@ export default function OfferRidePage() {
     const departureTime = indiaDeparture(form.date, form.time);
     if (!isFutureDeparture(departureTime))
       return setError("Choose a departure time in the future.");
-    if (selectedRoute && !routeConfirmed)
-      return setError("Confirm the route stops before publishing.");
     setBusy(true);
     try {
       const [origin, destination] = await Promise.all([
@@ -167,7 +163,6 @@ export default function OfferRidePage() {
                   disabled={busy}
                   onChange={(e) => {
                     setRouteId(e.target.value);
-                    setRouteConfirmed(false);
                   }}
                 >
                   <option value="">
@@ -185,26 +180,9 @@ export default function OfferRidePage() {
                 </select>
               </Field>
               {selectedRoute ? (
-                <>
-                  <p className="muted small">
-                    {selectedRoute.nodes
-                      .map((n) => `${n.name} (${n.distanceFromStartKm} km)`)
-                      .join(" → ")}
-                  </p>
-                  <p className="muted small">
-                    Check this route before publishing.{" "}
-                    {selectedRoute.reviewNote}
-                  </p>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={routeConfirmed}
-                      disabled={busy}
-                      onChange={(e) => setRouteConfirmed(e.target.checked)}
-                    />{" "}
-                    I will pass through these stops in this order.
-                  </label>
-                </>
+                <p className="muted small">
+                  Via: {selectedRoute.nodes.slice(1, -1).map((n) => n.name).join(" · ") || "direct route"}
+                </p>
               ) : (
                 <p className="muted small">
                   Choose a saved route to accept passengers between stops.{" "}
@@ -258,9 +236,8 @@ export default function OfferRidePage() {
                 onChange={(e) => update("price", e.target.value)}
               />
             </Field>
-            <Field label="Pickup point">
+            <Field label="Pickup point (optional)">
               <input
-                required
                 maxLength={200}
                 value={form.pickup}
                 onChange={(e) => update("pickup", e.target.value)}
@@ -296,6 +273,19 @@ export default function OfferRidePage() {
             {form.origin || "Starting town"} →{" "}
             {form.destination || "Destination town"}
           </p>
+          <div className="route-flow" aria-label="Journey route flow">
+            <p className="route-flow-title">Route flow</p>
+            {(selectedRoute?.nodes || [
+              { name: form.origin || "Starting town" },
+              { name: form.destination || "Destination town" },
+            ]).map((node, index, nodes) => (
+              <div className="route-flow-point" key={`${node.name}-${index}`}>
+                <span className={`route-flow-dot ${index === 0 ? "start" : index === nodes.length - 1 ? "end" : "via"}`} />
+                <span>{node.name}</span>
+                {index < nodes.length - 1 && <span className="route-flow-connector" />}
+              </div>
+            ))}
+          </div>
           <p className="muted">
             {form.date} · {form.time || "Choose time"} IST
           </p>
