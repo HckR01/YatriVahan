@@ -98,7 +98,7 @@ export default function OfferRidePage() {
         ...(form.rideType === "private"
           ? { estimatedFare: Number(form.price) }
           : {}),
-        vehicleId: form.vehicleId,
+        ...(form.vehicleId ? { vehicleId: form.vehicleId } : {}),
         notes: [form.pickup && `Pickup: ${form.pickup}`, form.notes]
           .filter(Boolean)
           .join("\n"),
@@ -128,7 +128,6 @@ export default function OfferRidePage() {
           <div className="form-grid">
             <Field label="Your vehicle">
               <select
-                required
                 value={form.vehicleId}
                 onChange={(e) => update("vehicleId", e.target.value)}
               >
@@ -254,15 +253,15 @@ export default function OfferRidePage() {
             />
           </Field>
           <button
-            disabled={busy || loading || !vehicles.length}
+            disabled={busy || loading}
             className="button full"
           >
             {busy ? "Resolving stops and publishing…" : "Publish ride"}
           </button>
           {!loading && !vehicles.length && (
             <p className="muted">
-              Add your vehicle in <Link to="/profile">Profile</Link> before
-              publishing.
+              Vehicle details are optional for testing. Add one in{" "}
+              <Link to="/profile">Profile</Link> when you are ready.
             </p>
           )}
         </section>
