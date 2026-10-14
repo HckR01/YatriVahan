@@ -141,12 +141,14 @@ export const ridesApi = {
 
 export const bookingsApi = {
   list: (query) =>
-    apiRequest("/bookings", { query }).then((bookings) =>
-      asArray(bookings).map((booking) => ({
-        ...booking,
-        ride: normalizeRide(booking.ride),
-      })),
-    ),
+    isSupabaseConfigured
+      ? apiRequest("/bookings", { query }).then((bookings) =>
+          asArray(bookings).map((booking) => ({
+            ...booking,
+            ride: normalizeRide(booking.ride),
+          })),
+        )
+      : Promise.resolve(demoStore.getBookings()),
   get: (bookingId) => apiRequest(`/bookings/${bookingId}`),
   updateStatus: (bookingId, status) =>
     apiRequest(`/bookings/${bookingId}/status`, {
