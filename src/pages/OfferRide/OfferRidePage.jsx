@@ -1,5 +1,5 @@
 import { ArrowRight, BadgeCheck, CalendarDays, CarFront, Check, Clock3, IndianRupee, Leaf, LoaderCircle, Luggage, MapPin, Route, ShieldCheck, Sparkles, Users } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/layout/Footer";
@@ -7,7 +7,7 @@ import Navbar from "../../components/layout/Navbar";
 import StatusBanner from "../../components/common/StatusBanner";
 import RoutePlanner from "../../components/map/RoutePlanner";
 import { useAuth } from "../../hooks/useAuth";
-import { profileApi, ridesApi } from "../../lib/api";
+import { ridesApi } from "../../lib/api";
 import { validPoint } from "../../lib/coordinates";
 import { clearOffer, updateOffer } from "../../store";
 import { demoStore } from "../../lib/demoStore";
@@ -23,20 +23,13 @@ export default function OfferRidePage() {
   const dispatch = useDispatch();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [approval, setApproval] = useState(isDemoMode ? "approved" : "loading");
-  useEffect(() => {
-    if (isDemoMode) return;
-    let active = true;
-    profileApi.me().then(profile => { if (active) setApproval(profile.isVerified && ["driver", "both"].includes(profile.role) ? "approved" : "pending"); })
-      .catch(() => { if (active) setApproval("unavailable"); });
-    return () => { active = false; };
-  }, [isDemoMode]);
   const update = (field, value) => { dispatch(updateOffer({ [field]: value })); setError(""); };
   const routeReady = validPoint(form.route.origin) && validPoint(form.route.destination);
-  const detailsReady = !!(form.date && form.time && form.pricePerSeat !== "");
+  const detailsReady = !!(form.date && form.time && form.pricePerSeat !== "" && form.vehicle.trim());
   const submit = async event => {
     event.preventDefault();
     if (!routeReady) return setError("Find both locations on the map or drop a pin before posting your ride.");
+    if (!form.vehicle.trim()) return setError("Add your vehicle make and model before posting the ride.");
     const departure = new Date(`${form.date}T${form.time}`);
     if (!Number.isFinite(departure.getTime()) || departure <= new Date()) return setError("Choose a departure date and time in the future.");
     setBusy(true); setError("");
@@ -54,7 +47,7 @@ export default function OfferRidePage() {
     <Navbar />
     <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:py-12">
       <header className="offer-hero reveal-in">
-        <div className="relative z-10 max-w-2xl"><span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-bold text-[#ffd7bd]"><Sparkles size={14} /> A little company. A better journey.</span><h1 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">Your route.<br /><span className="text-[#ffb889]">Someone’s next adventure.</span></h1><p className="mt-4 max-w-lg text-sm leading-7 text-white/75 sm:text-base">Going somewhere? Share your empty seats, split the travel cost, and make the miles feel shorter.</p><div className="mt-6 flex flex-wrap gap-5 text-xs font-bold text-white/85"><span className="flex items-center gap-2"><ShieldCheck size={17} /> Approved drivers</span><span className="flex items-center gap-2"><Leaf size={17} /> More shared journeys</span></div></div>
+        <div className="relative z-10 max-w-2xl"><span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-bold text-[#ffd7bd]"><Sparkles size={14} /> A little company. A better journey.</span><h1 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">Your route.<br /><span className="text-[#ffb889]">Someone’s next adventure.</span></h1><p className="mt-4 max-w-lg text-sm leading-7 text-white/75 sm:text-base">Going somewhere? Share your empty seats, split the travel cost, and make the miles feel shorter.</p><div className="mt-6 flex flex-wrap gap-5 text-xs font-bold text-white/85"><span className="flex items-center gap-2"><CarFront size={17} /> Vehicle details included</span><span className="flex items-center gap-2"><Leaf size={17} /> More shared journeys</span></div></div>
         <div className="offer-hero-art" aria-hidden="true"><div className="orbit-ring" /><div className="orbit-ring orbit-ring-small" /><span className="hero-pin hero-pin-a"><MapPin size={25} /></span><span className="hero-car"><CarFront size={68} strokeWidth={1.4} /></span><span className="hero-pin hero-pin-b"><Users size={24} /></span><span className="hero-art-label">GOOD COMPANY, GREAT JOURNEYS</span></div>
       </header>
       <div className="my-7 flex flex-wrap gap-3" aria-label="Ride setup progress">{[["Route",routeReady],["Ride details",detailsReady],["Publish",false]].map(([label,done],index) => <span key={label} className={`step-pill ${done ? "step-complete" : ""}`}><span>{done ? <Check size={13} /> : `0${index + 1}`}</span>{label}{index < 2 && <ArrowRight size={13} className="ml-2 opacity-40" />}</span>)}</div>
@@ -72,8 +65,8 @@ export default function OfferRidePage() {
           {error && <StatusBanner type="error">{error}</StatusBanner>}
         </div>
         <aside className="space-y-4 lg:sticky lg:top-24">
-          <section className="surface-card !p-6"><div className="flex items-center justify-between"><h2 className="font-serif text-2xl text-[#52151d]">Your ride, at a glance</h2><CarFront size={22} className="text-[#e8462c]" /></div><p className="mt-2 text-xs text-[#897970]">Updates as you plan your journey</p><div className="summary-route mt-7"><div><span className="summary-dot" /><p className="eyebrow">Pickup</p><p className="mt-1 break-words text-sm font-bold">{form.route.origin.name || "Choose your starting point"}</p></div><div><span className="summary-dot summary-dot-end" /><p className="eyebrow">Destination</p><p className="mt-1 break-words text-sm font-bold">{form.route.destination.name || "Where will you go?"}</p></div></div><div className="my-5 space-y-3 border-y border-[#eee4df] py-5 text-sm"><p className="flex items-center gap-3"><CalendarDays size={16} className="text-[#9c796b]" />{form.date || "Pick a date"}{form.time && ` · ${form.time}`}</p><p className="flex items-center gap-3"><Users size={16} className="text-[#9c796b]" />{form.seatsTotal} seats available</p><p className="flex items-center gap-3"><IndianRupee size={16} className="text-[#9c796b]" />{form.pricePerSeat === "" ? "Set your seat price" : `${Number(form.pricePerSeat).toLocaleString("en-IN")} per seat`}</p></div><div className="flex items-end justify-between"><div><p className="text-xs font-bold text-[#897970]">Total if all seats fill</p><p className="mt-1 font-serif text-3xl text-[#52151d]">₹{total.toLocaleString("en-IN")}</p></div><Leaf size={22} className="text-[#51794e]" /></div><button disabled={busy || approval === "loading"} className="primary-action mt-6 w-full">{busy ? <LoaderCircle size={18} className="animate-spin" /> : <><span>Publish your ride</span><ArrowRight size={18} /></>}</button><p className="mt-3 text-center text-[11px] leading-5 text-[#897970]">Review your route and departure time before publishing.</p></section>
-          <div className="rounded-2xl border border-[#eaded8] bg-[#f5eee6] p-5"><BadgeCheck size={22} className="text-[#7a1f2a]" /><p className="mt-3 text-sm font-bold text-[#52151d]">Ready for the road</p><p className="mt-2 text-xs leading-6 text-[#756963]">All signed-in users can publish a ride. Verification remains an optional trust label shown in the admin panel.</p><div className="mt-3 flex items-center gap-4"><Link to="/profile" className="inline-flex items-center gap-2 text-xs font-bold text-[#7a1f2a]">View your profile <ArrowRight size={13} /></Link><button type="button" onClick={() => { setApproval("loading"); profileApi.me().then(profile => setApproval(profile.isVerified ? "approved" : "pending")).catch(() => setApproval("unavailable")); }} className="text-xs font-bold text-[#7a1f2a] underline">Refresh profile</button></div></div>
+          <section className="surface-card !p-6"><div className="flex items-center justify-between"><h2 className="font-serif text-2xl text-[#52151d]">Your ride, at a glance</h2><CarFront size={22} className="text-[#e8462c]" /></div><p className="mt-2 text-xs text-[#897970]">Updates as you plan your journey</p><div className="summary-route mt-7"><div><span className="summary-dot" /><p className="eyebrow">Pickup</p><p className="mt-1 break-words text-sm font-bold">{form.route.origin.name || "Choose your starting point"}</p></div><div><span className="summary-dot summary-dot-end" /><p className="eyebrow">Destination</p><p className="mt-1 break-words text-sm font-bold">{form.route.destination.name || "Where will you go?"}</p></div></div><div className="my-5 space-y-3 border-y border-[#eee4df] py-5 text-sm"><p className="flex items-center gap-3"><CalendarDays size={16} className="text-[#9c796b]" />{form.date || "Pick a date"}{form.time && ` · ${form.time}`}</p><p className="flex items-center gap-3"><Users size={16} className="text-[#9c796b]" />{form.seatsTotal} seats available</p><p className="flex items-center gap-3"><CarFront size={16} className="text-[#9c796b]" />{form.vehicle || "Add vehicle details"}</p><p className="flex items-center gap-3"><IndianRupee size={16} className="text-[#9c796b]" />{form.pricePerSeat === "" ? "Set your seat price" : `${Number(form.pricePerSeat).toLocaleString("en-IN")} per seat`}</p></div><div className="flex items-end justify-between"><div><p className="text-xs font-bold text-[#897970]">Total if all seats fill</p><p className="mt-1 font-serif text-3xl text-[#52151d]">₹{total.toLocaleString("en-IN")}</p></div><Leaf size={22} className="text-[#51794e]" /></div><button disabled={busy} className="primary-action mt-6 w-full">{busy ? <LoaderCircle size={18} className="animate-spin" /> : <><span>Publish your ride</span><ArrowRight size={18} /></>}</button><p className="mt-3 text-center text-[11px] leading-5 text-[#897970]">Review your route and vehicle details before publishing.</p></section>
+          <div className="rounded-2xl border border-[#eaded8] bg-[#f5eee6] p-5"><BadgeCheck size={22} className="text-[#7a1f2a]" /><p className="mt-3 text-sm font-bold text-[#52151d]">Ready for the road</p><p className="mt-2 text-xs leading-6 text-[#756963]">Every signed-in user can publish. Add clear vehicle details so passengers can recognize the car at pickup.</p><Link to="/profile" className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-[#7a1f2a]">View your profile <ArrowRight size={13} /></Link></div>
         </aside>
       </form>
     </main><Footer />
